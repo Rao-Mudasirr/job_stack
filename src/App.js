@@ -6,12 +6,14 @@ import {
   Link
 } from "react-router-dom";
 import Signup from './components/Pages/AuthPages/Signup';
+import { Employers } from './components/employers/Employers';
 
 function App() {
   return (
     <Routes>
       <Route exact path={"/login"} element={<Login />} />
       <Route exact path='/signup' element={<Signup />} />
+      <Route exact path={"/jobs/employers"} element={<Employers />} />
     </Routes>
   );
 }
