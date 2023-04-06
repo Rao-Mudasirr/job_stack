@@ -7,7 +7,9 @@ const JobCategories=()=>{
     
     return (
         <>
-        <JobHome/>
+        <JobHome
+        heading="Job Categories" breadcrumb="Job Categories" title="Jobstack"
+        />
         <JobCard/>
         {/* <JobSearchBanner/> */}
        
