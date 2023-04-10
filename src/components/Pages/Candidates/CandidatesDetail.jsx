@@ -1,12 +1,12 @@
 import React from 'react';
-
+import {Candidates} from './Related_Candidates'
 const CandidatesDetail = () => {
  return (
-    <div className="dark:bg-slate-900">
+    <div className="dark:bg-slate-900" dir='ltr'>
         <section className="relative lg:mt-24 mt-[74px]">
             <div className="lg:container container-fluid">
                 <div className="relative shrink-0">
-                    <img src="assets/images/hero/bg5.jpg" className="h-64 w-full object-cover lg:rounded-xl shadow dark:shadow-gray-700" alt="" />
+                    <img src="assets/images/hero/bg5.jpg" className="h-64 w-full object-cover lg:rounded-xl shadow dark:shadow-gray-700" alt="Body Image" />
                 </div>
 
                 <div className="md:flex ltr:ml-4 rtl:mr-4 -mt-12">
@@ -21,11 +21,8 @@ const CandidatesDetail = () => {
                     </div>
                 </div>
             </div>
-            {/* <!--end --> */}
         </section>
-        {/* <!-- End Hero --> */}
-        
-        {/* <!-- Start --> */}
+
         <section className="relative mt-12 md:pb-24 pb-16">
             <div className="container">
                 <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
@@ -124,43 +121,42 @@ const CandidatesDetail = () => {
                         </div>
 
                     </div>
-                    {/* <!--end col--> */}
 
                     <div className="lg:col-span-4 md:col-span-5">
                         <div className="bg-slate-50 dark:bg-slate-800 rounded-md shadow dark:shadow-gray-700 p-6 sticky top-20">
                             <h5 className="text-lg font-semibold">Personal Detail:</h5>
                             <ul className="list-none mt-4">
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="mail" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Email  :</span></span>
+                                    <span><i className="uil uil-envelope-alt h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Email  :</span></span>
                                     <span>thomas@mail.com</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="gift" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">D.O.B. :</span></span>
+                                    <span><i className="uil uil-gift h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">D.O.B. :</span></span>
                                     
                                     <span>31st Dec, 1996</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="home" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Address :</span></span>
+                                    <span><i className="uil uil-estate h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Address :</span></span>
                                     
                                     <span>15 Razy street</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="map-pin" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">City :</span></span>
+                                    <span><i className="uil uil-location-point h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">City :</span></span>
                                     
                                     <span>London</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="globe" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Country :</span></span>
+                                    <span><i className="uil uil-globe h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Country :</span></span>
                                     
                                     <span>UK</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="server" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Postal Code :</span></span>
+                                    <span><i className="uil uil-server h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Postal Code :</span></span>
                                     
                                     <span>521452</span>
                                 </li>
                                 <li className="flex justify-between mt-3 items-center font-medium">
-                                    <span><i data-feather="phone" className="h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Mobile :</span></span>
+                                    <span><i className="uil uil-phone h-4 w-4 text-slate-400 ltr:mr-3 rtl:ml-3 inline"></i><span className="text-slate-400 ltr:mr-3 rtl:ml-3">Mobile :</span></span>
                                     
                                     <span>(+125) 1542-8452</span>
                                 </li>
@@ -177,7 +173,6 @@ const CandidatesDetail = () => {
                                         <li className="inline"><a href="https://twitter.com/shreethemes" target="_blank" className="btn btn-icon btn-sm border-2 border-gray-200 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:text-white dark:text-white text-slate-400"><i className="uil uil-twitter align-middle" title="twitter"></i></a></li>
                                         <li className="inline"><a href="mailto:support@shreethemes.in" className="btn btn-icon btn-sm border-2 border-gray-200 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 hover:text-white dark:text-white text-slate-400"><i className="uil uil-envelope align-middle" title="email"></i></a></li>
                                     </ul>
-                                    {/* <!--end icon--> */}
                                 </li>
                             
                                 <li className="mt-3 w-full bg-white p-3 rounded-md shadow dark:shadow-gray-700">
@@ -191,170 +186,63 @@ const CandidatesDetail = () => {
                             </ul>
                         </div>
                     </div>
-                    {/* <!--end col--> */}
                 </div>
-                {/* <!--end grid--> */}
             </div>
-            {/* <!--end container--> */}
 
             <div className="container lg:mt-24 mt-16">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Related Candidates</h3>
-
                     <p className="text-slate-400 dark:text-slate-300 max-w-xl mx-auto">Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 30000+ companies worldwide.</p>
                 </div>
-                {/* <!--end grid--> */}
 
                 <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-[30px] mt-8">
-                    <div className="group bg-white dark:bg-slate-900 relative overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6">
-                        <img src="assets/images/team/01.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt="" />
-                        
-                        <div className="mt-2">
-                            <a href="candidate-detail.html" className="hover:text-emerald-600 font-semibold text-lg">Steven Townsend</a>
-                            <p className="text-sm text-slate-400">Web Designer</p>
-                        </div>
+                    {
+                        Candidates?.map((val, index) => (
+                            <div key={val?.id} className="group bg-white dark:bg-slate-900 relative overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6">
+                                <img src={`assets/images/team/${val?.image}`} className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt="" />
+                                
+                                <div className="mt-2">
+                                    <a href="candidate-detail.html" className="hover:text-emerald-600 font-semibold text-lg">Steven Townsend</a>
+                                    <p className="text-sm text-slate-400">{val?.designantion}</p>
+                                </div>
 
-                        <ul className="mt-2 list-none">
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Design</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">UI</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Digital</span></li>
-                        </ul>
+                                <ul className="mt-2 list-none">
+                                    {
+                                        val?.tasks?.map((data, i)=> (
+                                            <li key={i} className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">{data}</span></li>
+                                        ))
+                                    }
+                                </ul>
 
-                        <div className="flex justify-between mt-2">
-                            <div className="block">
-                                <span className="text-slate-400">Salary:</span>
-                                <span className="block text-sm font-semibold">$4k - $4.5k</span>
+                                <div className="flex justify-between mt-2">
+                                    <div className="block">
+                                        <span className="text-slate-400">Salary:</span>
+                                        <span className="block text-sm font-semibold">{val?.salary}</span>
+                                    </div>
+                                    <div className="block">
+                                        <span className="text-slate-400">Experience:</span>
+                                        <span className="block text-sm font-semibold">{val?.experience}</span>
+                                    </div>
+                                </div>
+
+                                <div className="mt-3">
+                                    <a href="candidate-detail.html" className="btn btn-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Profile</a>
+                                    <a href="#" className="btn btn-sm btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full ltr:ml-1 rtl:mr-1"><i className="uil uil-hipchat text-[20px]"></i></a>
+                                </div>
+                               {
+                                index == 0 && (
+                                    <span className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:-rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>
+                                )
+                               } 
+
+                                <span className="absolute top-[10px] ltr:right-4 rtl:left-4">
+                                    <a href="javascript:void(0)" className="text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600 text-2xl"><i className="mdi mdi-heart"></i></a>
+                                </span>
                             </div>
-                            <div className="block">
-                                <span className="text-slate-400">Experience:</span>
-                                <span className="block text-sm font-semibold">2 Years</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-3">
-                            <a href="candidate-detail.html" className="btn btn-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Profile</a>
-                            <a href="#" className="btn btn-sm btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full ltr:ml-1 rtl:mr-1"><i className="uil uil-hipchat text-[20px]"></i></a>
-                        </div>
-
-                        <span className="w-24 bg-yellow-400 text-white text-center absolute ltr:rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>
-
-                        <span className="absolute top-[10px] ltr:right-4 rtl:left-4">
-                            <a href="javascript:void(0)" className="text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600 text-2xl"><i className="mdi mdi-heart"></i></a>
-                        </span>
-                    </div>
-                    {/* <!--end content--> */}
-                    
-                    <div className="group bg-white dark:bg-slate-900 relative overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6">
-                        <img src="assets/images/team/02.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt="" />
-                        
-                        <div className="mt-2">
-                            <a href="candidate-detail.html" className="hover:text-emerald-600 font-semibold text-lg">Tiffany Betancourt</a>
-                            <p className="text-sm text-slate-400">Web Designer</p>
-                        </div>
-
-                        <ul className="mt-2 list-none">
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Design</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">UI</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Digital</span></li>
-                        </ul>
-
-                        <div className="flex justify-between mt-2">
-                            <div className="block">
-                                <span className="text-slate-400">Salary:</span>
-                                <span className="block text-sm font-semibold">$4k - $4.5k</span>
-                            </div>
-                            <div className="block">
-                                <span className="text-slate-400">Experience:</span>
-                                <span className="block text-sm font-semibold">2 Years</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-3">
-                            <a href="candidate-detail.html" className="btn btn-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Profile</a>
-                            <a href="#" className="btn btn-sm btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full ltr:ml-1 rtl:mr-1"><i className="uil uil-hipchat text-[20px]"></i></a>
-                        </div>
-                        
-                        <span className="absolute top-[10px] ltr:right-4 rtl:left-4">
-                            <a href="javascript:void(0)" className="text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600 text-2xl"><i className="mdi mdi-heart"></i></a>
-                        </span>
-                    </div>
-                    {/* <!--end content--> */}
-                    
-                    <div className="group bg-white dark:bg-slate-900 relative overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6">
-                        <img src="assets/images/team/03.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt="" />
-                        
-                        <div className="mt-2">
-                            <a href="candidate-detail.html" className="hover:text-emerald-600 font-semibold text-lg">Jacqueline Burns</a>
-                            <p className="text-sm text-slate-400">Web Designer</p>
-                        </div>
-
-                        <ul className="mt-2 list-none">
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Design</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">UI</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Digital</span></li>
-                        </ul>
-
-                        <div className="flex justify-between mt-2">
-                            <div className="block">
-                                <span className="text-slate-400">Salary:</span>
-                                <span className="block text-sm font-semibold">$4k - $4.5k</span>
-                            </div>
-                            <div className="block">
-                                <span className="text-slate-400">Experience:</span>
-                                <span className="block text-sm font-semibold">2 Years</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-3">
-                            <a href="candidate-detail.html" className="btn btn-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Profile</a>
-                            <a href="#" className="btn btn-sm btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full ltr:ml-1 rtl:mr-1"><i className="uil uil-hipchat text-[20px]"></i></a>
-                        </div>
-                        
-                        <span className="absolute top-[10px] ltr:right-4 rtl:left-4">
-                            <a href="javascript:void(0)" className="text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600 text-2xl"><i className="mdi mdi-heart"></i></a>
-                        </span>
-                    </div>
-                    {/* <!--end content--> */}
-                    
-                    <div className="group bg-white dark:bg-slate-900 relative overflow-hidden rounded-md shadow dark:shadow-gray-700 text-center p-6">
-                        <img src="assets/images/team/04.jpg" className="h-20 w-20 rounded-full shadow dark:shadow-gray-700 mx-auto" alt="" />
-                        
-                        <div className="mt-2">
-                            <a href="candidate-detail.html" className="hover:text-emerald-600 font-semibold text-lg">Mari Harrington</a>
-                            <p className="text-sm text-slate-400">Web Designer</p>
-                        </div>
-
-                        <ul className="mt-2 list-none">
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Design</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">UI</span></li>
-                            <li className="inline"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">Digital</span></li>
-                        </ul>
-
-                        <div className="flex justify-between mt-2">
-                            <div className="block">
-                                <span className="text-slate-400">Salary:</span>
-                                <span className="block text-sm font-semibold">$4k - $4.5k</span>
-                            </div>
-                            <div className="block">
-                                <span className="text-slate-400">Experience:</span>
-                                <span className="block text-sm font-semibold">2 Years</span>
-                            </div>
-                        </div>
-
-                        <div className="mt-3">
-                            <a href="candidate-detail.html" className="btn btn-sm bg-emerald-600 hover:bg-emerald-700 border-emerald-600 dark:border-emerald-600 text-white rounded-md">Profile</a>
-                            <a href="#" className="btn btn-sm btn-icon bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full ltr:ml-1 rtl:mr-1"><i className="uil uil-hipchat text-[20px]"></i></a>
-                        </div>
-                        
-                        <span className="absolute top-[10px] ltr:right-4 rtl:left-4">
-                            <a href="javascript:void(0)" className="text-slate-100 dark:text-slate-700 focus:text-red-600 dark:focus:text-red-600 hover:text-red-600 dark:hover:text-red-600 text-2xl"><i className="mdi mdi-heart"></i></a>
-                        </span>
-                    </div>
-                    {/* <!--end content--> */}
+                        ))
+                    }    
                 </div>
-                {/* <!--end grid--> */}
             </div>
-            {/* <!--end container--> */}
 
             <div className="container-fluid md:mt-24 mt-16">
                 <div className="container">
@@ -385,13 +273,9 @@ const CandidatesDetail = () => {
                             </div>
                         </div>
                     </div>
-                    {/* <!--end grid--> */}
                 </div>
-                {/* <!--end container--> */}
             </div>
-            {/* <!--end container--> */}
-        </section>
-        {/* <!--end section--> */}       
+        </section>   
     </div>
  );   
 }
