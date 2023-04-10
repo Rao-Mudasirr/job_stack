@@ -3,9 +3,9 @@ import Login from './components/Pages/AuthPages/Login';
 import {
   Routes,
   Route,
-  Link
 } from "react-router-dom";
 import Signup from './components/Pages/AuthPages/Signup';
+import Home from './components/Pages/HomePages/Home';
 
 function App() {
   return (

@@ -51,7 +51,7 @@ const BestCompanies = () => {
                                     </div>
                                 </div>
 
-                                <div className="absolute -top-5 ltr:-left-5 rtl:-right-5">
+                                <div className="absolute -top-5 -left-5 rtl:-right-5">
                                     <div className="uil uil-envelope lg:text-[150px] text-7xl text-black/5 dark:text-white/5 -rotate-45 rtl:rotate-45"></div>
                                 </div>
 
