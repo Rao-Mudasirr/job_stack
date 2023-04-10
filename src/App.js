@@ -1,11 +1,11 @@
 import "./App.css";
-import Login from "./components/Pages/AuthPages/Login";
+import Login from "./components/Pages/AuthPages/Login/Login";
 import { Routes, Route, Link } from "react-router-dom";
-import Signup from "./components/Pages/AuthPages/Signup";
 import Blogs from "./components/Pages/Blog/Blogs";
 import BlogDetail from "./components/Pages/Blog/BlogDetail";
 import LockScreen from "./components/Pages/AuthPages/LockScreen";
 import ResetPassword from "./components/Pages/AuthPages/ResetPassword";
+import Signup from "./components/Pages/AuthPages/Signup/Signup";
 
 function App() {
   return (
@@ -16,7 +16,6 @@ function App() {
       <Route exact path="/blog-detail" element={<BlogDetail />} />
       <Route exact path="/lock-screen" element={<LockScreen />} />
       <Route exact path="/reset-password" element={<ResetPassword />} />
-      
     </Routes>
   );
 }

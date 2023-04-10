@@ -1,8 +1,27 @@
 import react from "react";
 import { Link } from "react-router-dom";
+import { signInSchema } from "./schemas/signInSchema";
+import { useFormik } from "formik";
+import "../Signup.css";
+
+const initialValues = {
+  email: "",
+  password: "",
+};
 
 const Login = () => {
   let date = new Date().getFullYear();
+
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: signInSchema,
+      onSubmit: (values, action) => {
+        console.log(values);
+        action.resetForm();
+      },
+    });
+
   return (
     <div className="dark:bg-slate-900">
       {/* <!-- Loader Start --> */}
@@ -34,30 +53,46 @@ const Login = () => {
                   />
                 </Link>
                 <h5 className="my-6 text-xl font-semibold">Login</h5>
-                <form className="text-left">
+                <form onSubmit={handleSubmit} className="text-left">
                   <div className="grid grid-cols-1">
                     <div className="mb-4 ltr:text-left rtl:text-right">
-                      <label className="font-semibold" for="LoginEmail">
+                      <label className="font-semibold" htmlFor="email">
                         Email Address:
                       </label>
                       <input
-                        id="LoginEmail"
-                        type="email"
                         className="form-input mt-3 rounded-md"
-                        placeholder="name@example.com"
+                        type="email"
+                        autoComplete="off"
+                        name="email"
+                        id="email"
+                        placeholder="Email"
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                       />
+                      {errors.email && touched.email ? (
+                        <p className="form-error">{errors.email}</p>
+                      ) : null}
                     </div>
 
                     <div className="mb-4 ltr:text-left rtl:text-right">
-                      <label className="font-semibold" for="LoginPassword">
+                      <label className="font-semibold" htmlFor="password">
                         Password:
                       </label>
                       <input
-                        id="LoginPassword"
-                        type="password"
                         className="form-input mt-3 rounded-md"
-                        placeholder="Password:"
+                        type="password"
+                        autoComplete="off"
+                        name="password"
+                        id="password"
+                        placeholder="Password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
                       />
+                      {errors.password && touched.password ? (
+                        <p className="form-error">{errors.password}</p>
+                      ) : null}
                     </div>
 
                     <div className="flex justify-between mb-4">
@@ -122,6 +157,7 @@ const Login = () => {
           </div>
         </div>
       </section>
+
       {/* <!--end section --> */}
 
       {/* <div className="fixed bottom-3 right-3">
