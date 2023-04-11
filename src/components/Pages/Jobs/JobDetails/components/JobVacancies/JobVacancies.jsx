@@ -90,9 +90,9 @@ const JobVacancies = () => {
               ></div>
             </div>
           </div>
-          <div class="mt-2">
-                <span class="text-slate-400 text-sm">
-                  <span class="text-slate-900 dark:text-white font-semibold inline-block">
+          <div className="mt-2">
+                <span className="text-slate-400 text-sm">
+                  <span className="text-slate-900 dark:text-white font-semibold inline-block">
                     {job.applied} applied
                   </span>{" "}
                   of {job.vacancy} vacancy
