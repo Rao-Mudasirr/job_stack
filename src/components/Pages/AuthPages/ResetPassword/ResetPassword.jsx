@@ -1,7 +1,25 @@
+import { useFormik } from "formik";
 import React from "react";
 import { Link } from "react-router-dom";
+import "../Signup.css";
+import { resetPasswordSchemas } from "./schemas/resetPasswordSchemas";
+
+const initialValues = {
+  email: "",
+};
 
 const ResetPassword = () => {
+  let date = new Date().getFullYear();
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    useFormik({
+      initialValues,
+      validationSchema: resetPasswordSchemas,
+      onSubmit: (values, action) => {
+        console.log(values);
+        action.resetForm();
+      },
+    });
+
   return (
     <div>
       <section className="h-screen flex items-center justify-center relative overflow-hidden ">
@@ -30,18 +48,26 @@ const ResetPassword = () => {
                     Please enter your email address. You will receive a link to
                     create a new password via email.
                   </p>
-                  <form className="text-left">
+                  <form onSubmit={handleSubmit} className="text-left">
                     <div className="grid grid-cols-1">
                       <div className="mb-4 ltr:text-left rtl:text-right">
-                        <label className="font-semibold" for="LoginEmail">
+                        <label className="font-semibold" htmlFor="email">
                           Email Address:
                         </label>
                         <input
-                          id="LoginEmail"
-                          type="email"
                           className="form-input mt-3 rounded-md"
+                          type="email"
+                          autoComplete="off"
+                          name="email"
+                          id="email"
                           placeholder="name@example.com"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
                         />
+                        {errors.email && touched.email ? (
+                          <p className="form-error">{errors.email}</p>
+                        ) : null}
                       </div>
 
                       <div className="mb-4">

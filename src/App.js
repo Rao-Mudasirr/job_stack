@@ -4,7 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import Blogs from "./components/Pages/Blog/Blogs";
 import BlogDetail from "./components/Pages/Blog/BlogDetail";
 import LockScreen from "./components/Pages/AuthPages/LockScreen";
-import ResetPassword from "./components/Pages/AuthPages/ResetPassword";
+import ResetPassword from "./components/Pages/AuthPages/ResetPassword/ResetPassword";
 import Signup from "./components/Pages/AuthPages/Signup/Signup";
 
 function App() {

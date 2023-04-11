@@ -8,7 +8,7 @@ const initialValues = {
   name: "",
   email: "",
   password: "",
-  // confirm_password: "",
+  confirm_password: "",
 };
 
 const Signup = () => {
@@ -109,6 +109,44 @@ const Signup = () => {
                         <p className="form-error">{errors.password}</p>
                       ) : null}
                     </div>
+
+                    <div className="mb-4 ltr:text-left rtl:text-right">
+                      <label className="font-semibold" htmlFor="confirm_password">
+                        Confirm Password:
+                      </label>
+                      <input
+                      className="form-input mt-3 rounded-md"
+                      type="password"
+                      autoComplete="off"
+                      name="confirm_password"
+                      id="confirm_password"
+                      placeholder="Confirm Password"
+                      value={values.confirm_password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.confirm_password && touched.confirm_password ? (
+                      <p className="form-error">{errors.confirm_password}</p>
+                    ) : null}
+                    </div>
+{/* 
+                    <label htmlFor="confirm_password" className="input-label">
+                      Confirm Password
+                    </label>
+                    <input
+                      type="password"
+                      autoComplete="off"
+                      name="confirm_password"
+                      id="confirm_password"
+                      placeholder="Confirm Password"
+                      value={values.confirm_password}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                    />
+                    {errors.confirm_password && touched.confirm_password ? (
+                      <p className="form-error">{errors.confirm_password}</p>
+                    ) : null} */}
+
 
                     <div className="mb-4">
                       <div className="flex items-center w-full mb-0">
