@@ -2,7 +2,7 @@ import React from "react";
 
 const Error404 = () => {
   return (
-    <div>
+    <div dir="ltr">
       <section className="relative bg-emerald-600/5">
         <div className="container-fluid relative">
           <div className="grid grid-cols-1">

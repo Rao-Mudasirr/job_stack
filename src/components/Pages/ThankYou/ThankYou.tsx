@@ -2,7 +2,7 @@ import React from "react";
 
 const ThankYou = () => {
   return (
-    <div>
+    <div dir="ltr">
       <section className="relative h-screen flex items-center justify-center text-center bg-gray-50 dark:bg-slate-800">
         <div className="container relative">
           <div className="grid grid-cols-1">

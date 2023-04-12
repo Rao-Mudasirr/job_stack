@@ -2,7 +2,7 @@ import React from "react";
 
 const Maintenance = () => {
   return (
-    <div>
+    <div dir="ltr">
       {" "}
       <section className="md:h-screen py-36 flex items-center justify-center relative overflow-hidden ">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>

@@ -13,8 +13,6 @@ import CandidatesDetail from './components/Pages/Candidates/CandidatesDetail';
 function App() {
   return (
     <Routes>
-      
-
       <Route
         exact
         path="/terms"
@@ -37,7 +35,11 @@ function App() {
       <Route exact path="/maintenance" element={<Maintenance />} />
       <Route exact path="/error" element={<Error404 />} />
       <Route exact path="/thankyou" element={<ThankYou />} />
-      <Route exact path='/candidate-detail' element={<CandidatesDetail />} />
+      <Route exact path='/candidate-detail' element={
+        <Layout>
+          <CandidatesDetail />
+        </Layout>
+      } />
     </Routes>
   );
 }

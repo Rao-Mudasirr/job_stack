@@ -2,9 +2,9 @@ import React from "react";
 
 const TermsAndServices = () => {
   return (
-    <div>
+    <div dir="ltr">
      
-      <section className="relative table w-full py-36 ">
+      <section className="relative table w-full py-36">
         <div className="absolute inset-0 bg-emerald-900/90"></div>
         <div className="container">
           <div className="grid grid-cols-1 text-center mt-10">

@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <>
+    <div dir="ltr">
       <footer className="relative bg-slate-900 dark:bg-slate-800">
         <div className="container">
           <div className="grid grid-cols-1">
@@ -229,11 +229,11 @@ const Footer = () => {
         href="#"
         // onClick="topFunction()"
         id="back-to-top"
-        class="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 ltr:right-5 rtl:left-5 h-9 w-9 text-center bg-emerald-600 text-white justify-center items-center"
+        className="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 ltr:right-5 rtl:left-5 h-9 w-9 text-center bg-emerald-600 text-white justify-center items-center"
       >
         <i className="uil uil-arrow-up"></i>
       </a>
-    </>
+    </div>
   );
 };
 

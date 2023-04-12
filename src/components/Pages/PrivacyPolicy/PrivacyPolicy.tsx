@@ -2,7 +2,7 @@ import React from "react";
 
 const PrivacyPolicy = () => {
   return (
-    <div>
+    <div dir="ltr">
       {/* <nav id="topnav" className="defaultscroll is-sticky">
             <div className="container">
                 
