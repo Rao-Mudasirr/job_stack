@@ -9,6 +9,15 @@ import CommingSoon from "./components/Pages/CommingSoon/CommingSoon.tsx";
 import Maintenance from "./components/Pages/Maintenance/Maintenance.tsx";
 import ThankYou from "./components/Pages/ThankYou/ThankYou.tsx";
 import Layout from "./components/Pages/Layout/Layout.tsx";
+import './App.css';
+import Login from './components/Pages/AuthPages/Login';
+import {
+  Routes,
+  Route,
+  Link
+} from "react-router-dom";
+import Signup from './components/Pages/AuthPages/Signup';
+import { Employers } from './components/employers/Employers';
 
 function App() {
   return (
@@ -38,6 +47,8 @@ function App() {
       <Route exact path="/maintenance" element={<Maintenance />} />
       <Route exact path="/error" element={<Error404 />} />
       <Route exact path="/thankyou" element={<ThankYou />} />
+      <Route exact path='/signup' element={<Signup />} />
+      <Route exact path={"/jobs/employers"} element={<Employers />} />
     </Routes>
   );
 }
