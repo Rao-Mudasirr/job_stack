@@ -2,9 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
+ 
   return (
     <div dir="ltr">
-      <nav id="topnav" className="defaultscroll is-sticky">
+      <nav id="topnav" className={`defaultscroll is-sticky `} >
         <div className="container">
           <a className="logo" href="index.html">
             <div className="block sm:hidden">
@@ -354,12 +355,22 @@ const Navbar = () => {
                     <span className="submenu-arrow"></span>
                     <ul className="submenu">
                       <li>
-                        <a  className="sub-menu-item" onClick={()=>{ navigate("/terms");}}>
+                        <a
+                          className="sub-menu-item"
+                          onClick={() => {
+                            navigate("/terms");
+                          }}
+                        >
                           Terms of Services
                         </a>
                       </li>
                       <li>
-                        <a  className="sub-menu-item" onClick={()=>{ navigate("/privacy");}}>
+                        <a
+                          className="sub-menu-item"
+                          onClick={() => {
+                            navigate("/privacy");
+                          }}
+                        >
                           Privacy Policy
                         </a>
                       </li>
