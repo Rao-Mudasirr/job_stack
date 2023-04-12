@@ -98,7 +98,7 @@ const ResetPassword = () => {
                 <p className="mb-0 text-gray-400 font-medium">
                   © <script>document.write(new Date().getFullYear())</script>
                   Jobstack. Designed by
-                  <Link to="" target="_blank" class="text-reset">
+                  <Link to="" target="_blank" className="text-reset">
                     Shreethemes
                   </Link>
                   .
