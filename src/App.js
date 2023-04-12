@@ -1,4 +1,3 @@
-import { Routes, Route, Link } from "react-router-dom";
 import TermsAndServices from "./components/Pages/TermsAndServices/TermsAndServices.tsx";
 import PrivacyPolicy from "./components/Pages/PrivacyPolicy/PrivacyPolicy.tsx";
 import Error404 from "./components/Pages/404/404.tsx";
@@ -9,6 +8,13 @@ import Layout from "./components/Pages/Layout/Layout.tsx";
 import './App.css';
 import './index.css';
 import CandidatesDetail from './components/Pages/Candidates/CandidatesDetail';
+import Login from "./components/Pages/AuthPages/Login/Login";
+import { Routes, Route, Link } from "react-router-dom";
+import Blogs from "./components/Pages/Blog/Blogs";
+import BlogDetail from "./components/Pages/Blog/BlogDetail";
+import LockScreen from "./components/Pages/AuthPages/LockScreen";
+import ResetPassword from "./components/Pages/AuthPages/ResetPassword/ResetPassword";
+import Signup from "./components/Pages/AuthPages/Signup/Signup";
 
 function App() {
   return (
@@ -40,6 +46,12 @@ function App() {
           <CandidatesDetail />
         </Layout>
       } />
+      <Route exact path={"/login"} element={<Login />} />
+      <Route exact path="/signup" element={<Signup />} />
+      <Route exact path="/blogs" element={<Blogs />} />
+      <Route exact path="/blog-detail" element={<BlogDetail />} />
+      <Route exact path="/lock-screen" element={<LockScreen />} />
+      <Route exact path="/reset-password" element={<ResetPassword />} />
     </Routes>
   );
 }
