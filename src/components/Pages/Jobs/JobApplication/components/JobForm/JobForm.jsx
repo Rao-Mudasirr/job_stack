@@ -19,38 +19,16 @@ const validationSchema = Yup.object().shape({
       discipline: Yup.string().required("Discipline is required"),
     })
   ),
-  linkedInProfile: Yup.string().url("Please enter a valid URL"),
-  website: Yup.string().url("Please enter a valid URL"),
+  linkedInProfile: Yup.string().required("Please enter a valid URL"),
+  website: Yup.string().required("Please enter a valid URL"),
   yearsOfExperience: Yup.number()
-    .min(0, "Years of experience must be a positive number")
-    .required("Please enter your years of experience"),
-  operationsCoordinatorExperience: Yup.boolean().required(
-    "Please select your experience as Operations Coordinator"
+    .min(0, "Years of experience cannot be negative")
+    .max(100, "Please enter a valid number")
+    .required("This field is required"),
+  operationsCoordinatorExperince: Yup.string().required(
+    "This field is required"
   ),
 });
-
-const options = [
-  { label: "Operations Coordinator", value: "operationsCoordinator" },
-  { label: "Other", value: "other" },
-];
-
-const schoolData = [
-  { label: "School A", value: "schoolA" },
-  { label: "School B", value: "schoolB" },
-  { label: "School C", value: "schoolC" },
-];
-
-const degreeData = [
-  { label: "Degree A", value: "degreeA" },
-  { label: "Degree B", value: "degreeB" },
-  { label: "Degree C", value: "degreeC" },
-];
-
-const disciplineData = [
-  { label: "Discipline A", value: "disciplineA" },
-  { label: "Discipline B", value: "disciplineB" },
-  { label: "Discipline C", value: "disciplineC" },
-];
 
 const initialValues = {
   firstName: "",
@@ -60,10 +38,10 @@ const initialValues = {
   resume: "",
   coverLetter: "",
   education: [{ schoolName: "", degree: "", discipline: "", cgpa: "" }],
-  // yearsOfExperience: "",
-  // operationsExperience: false,
-  // linkedInProfile: "",
-  // website: "",
+  linkedInProfile: "",
+  website: "",
+  yearsOfExperience: "",
+  operationsCoordinatorExperince: "",
 };
 
 const JobForm = () => {
@@ -80,15 +58,21 @@ const JobForm = () => {
         onSubmit={handleSubmit}
       >
         {({ values, errors, touched, isSubmitting }) => (
-          <Form className="bg-red-50 p-7">
-            <div className="py-5 mb-2"> <h4>Apply for this Job</h4></div>
+          <Form className="bg-red-50 p-7 ">
+            <div className="py-5 mb-2 flex justify-between">
+              {" "}
+              <h4>Apply for this Job</h4>
+              <p>
+                <span className="text-red-500"> *</span> Required
+              </p>
+            </div>
             <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="firstName"
                 >
-                  First Name *
+                  First Name <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="firstName"
@@ -108,7 +92,7 @@ const JobForm = () => {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="lastName"
                 >
-                  Last Name *
+                  Last Name <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="lastName"
@@ -130,7 +114,7 @@ const JobForm = () => {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="email"
                 >
-                  Email *
+                  Email <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="email"
@@ -150,7 +134,7 @@ const JobForm = () => {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="phone"
                 >
-                  Phone *
+                  Phone <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="phone"
@@ -171,7 +155,7 @@ const JobForm = () => {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="resume"
                 >
-                  Resume/CV *
+                  Resume/CV <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="resume"
@@ -191,7 +175,7 @@ const JobForm = () => {
                   className="block text-gray-700 font-bold mb-2"
                   htmlFor="coverLetter"
                 >
-                  Cover Letter*
+                  Cover Letter<span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="coverLetter"
@@ -217,7 +201,7 @@ const JobForm = () => {
             </div>
             <div class="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
-              <ProfessionalExperience/>
+              <ProfessionalExperience />
             </div>
             <div class="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
@@ -226,12 +210,15 @@ const JobForm = () => {
               <Field
                 id="linkedInProfile"
                 name="linkedInProfile"
+                type="url"
                 className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.email && touched.email && "border-red-500"
+                  errors.firstName && touched.firstName && "border-red-500"
                 }`}
               />
               {errors.linkedInProfile && touched.linkedInProfile && (
-                <div>{errors.linkedInProfile}</div>
+                <p className="text-red-500 text-xs italic">
+                  {errors.linkedInProfile}
+                </p>
               )}
             </div>
             <div>
@@ -240,37 +227,70 @@ const JobForm = () => {
               <Field
                 id="website"
                 name="website"
-                // type="email"
+                type="url"
                 className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.email && touched.email && "border-red-500"
+                  errors.coverLetter && touched.coverLetter && "border-red-500"
                 }`}
               />
-              {errors.website && touched.website && <div>{errors.website}</div>}
+              {errors.website && touched.website && (
+                <p className="text-red-500 text-xs italic">{errors.website}</p>
+              )}
             </div>
-            {/* <div>
-            <label htmlFor="yearsOfExperience">
-              How many years of information services experience do you currently have?
-            </label>
-            <Field type="number" name="yearsOfExperience" />
-            {errors.yearsOfExperience && touched.yearsOfExperience && (
-              <div>{errors.yearsOfExperience}</div>
-            )}
-          </div>
-          <div>
-            <label htmlFor="operationsCoordinatorExperience">
-              Do you have strong experience as Operations Coordinator?
-            </label>
-            {options.map(({ label, value }) => (
-              <label key={value}>
-                <Field type="radio" name="operationsCoordinatorExperience" value={value} />
-                {label}
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="yearsOfExperience"
+              >
+                How many years of experience do you have?{" "}
+                <span className="text-red-500">*</span>
               </label>
-            ))}
-            {errors.operationsCoordinatorExperience && touched.operationsCoordinatorExperience && (
-              <div>{errors.operationsCoordinatorExperience}</div>
-            )}
-          </div> */}
+              <Field
+                id="yearsOfExperience"
+                name="yearsOfExperience"
+                type="number"
+                className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  errors.yearsOfExperience &&
+                  touched.yearsOfExperience &&
+                  "border-red-500"
+                }`}
+              />
+              {errors.yearsOfExperience && touched.yearsOfExperience && (
+                <p className="text-red-500 text-xs italic">
+                  {errors.yearsOfExperience}
+                </p>
+              )}
+            </div>
 
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="operationsExperience"
+              >
+                Do you have strong experience as Operations Coordinator?{" "}
+                <span className="text-red-500">*</span>
+              </label>
+              <Field
+                as="select"
+                id="operationsCoordinatorExperince"
+                name="operationsCoordinatorExperince"
+                className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  errors.operationsCoordinatorExperince &&
+                  touched.operationsCoordinatorExperince &&
+                  "border-red-500"
+                }`}
+              >
+                <option value="">Select an option</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+              </Field>
+              {errors.operationsCoordinatorExperince &&
+                touched.operationsCoordinatorExperince && (
+                  <p className="text-red-500 text-xs italic">
+                    {errors.operationsCoordinatorExperince}
+                  </p>
+                )}
+            </div>
+            <div class="border-t border-gray-400  mt-5 mb-5"></div>
             <div className="flex mt-5">
               <button
                 type="submit"

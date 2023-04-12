@@ -51,7 +51,7 @@ const EducationDetails = () => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor={`education.${index}.schoolName`}
                           >
-                            School Name *
+                            School Name <span className="text-red-500"> *</span>
                           </label>
                           <Field
                             id={`education.${index}.schoolName`}
@@ -84,7 +84,7 @@ const EducationDetails = () => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor={`education.${index}.degree`}
                           >
-                            Degree *
+                            Degree <span className="text-red-500"> *</span>
                           </label>
                           <Field
                             id={`education.${index}.degree`}
@@ -117,7 +117,7 @@ const EducationDetails = () => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor={`education.${index}.discipline`}
                           >
-                            Discipline *
+                            Discipline <span className="text-red-500"> *</span>
                           </label>
                           <Field
                             id={`education.${index}.discipline`}
@@ -150,7 +150,7 @@ const EducationDetails = () => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor={`education.${index}.cgpa`}
                           >
-                            CGPA *
+                            CGPA <span className="text-red-500"> *</span>
                           </label>
                           <Field
                             id={`education.${index}.cgpa`}
@@ -183,7 +183,7 @@ const EducationDetails = () => {
                             className="block text-gray-700 font-bold mb-2"
                             htmlFor={`education.${index}.extrala`}
                           >
-                            Attach Document*
+                            Attach Document<span className="text-red-500"> *</span>
                           </label>
                           <Field
                             id={`education.${index}.extrala`}

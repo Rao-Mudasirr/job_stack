@@ -55,7 +55,7 @@ const ProfessionalExperience = () => {
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor={`experiences.${index}.company`}
                         >
-                          Company Name *
+                          Company Name <span className="text-red-500"> *</span>
                         </label>
                         <Field
                           id={`experiences.${index}.company`}
@@ -88,7 +88,7 @@ const ProfessionalExperience = () => {
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor={`experiences.${index}.jobTitle`}
                         >
-                          Job Title *
+                          Job Title <span className="text-red-500"> *</span>
                         </label>
                         <Field
                           id={`experiences.${index}.jobTitle`}
@@ -121,7 +121,7 @@ const ProfessionalExperience = () => {
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor={`experiences.${index}.startDate`}
                         >
-                          Start Date *
+                          Start Date <span className="text-red-500"> *</span>
                         </label>
                         <Field
                           id={`experiences.${index}.startDate`}
@@ -154,7 +154,7 @@ const ProfessionalExperience = () => {
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor={`experiences.${index}.endDate`}
                         >
-                          End Date *
+                          End Date <span className="text-red-500"> *</span>
                         </label>
                         <Field
                           id={`experiences.${index}.endDate`}
@@ -186,7 +186,7 @@ const ProfessionalExperience = () => {
                           className="block text-gray-700 font-bold mb-2"
                           htmlFor={`experiences.${index}.experienceLetter`}
                         >
-                          Experience Letter*
+                          Experience Letter<span className="text-red-500"> *</span>
                         </label>
                         <Field
                           id={`experiences.${index}.experienceLetter`}
