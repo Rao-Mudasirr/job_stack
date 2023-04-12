@@ -80,7 +80,8 @@ const JobForm = () => {
         onSubmit={handleSubmit}
       >
         {({ values, errors, touched, isSubmitting }) => (
-          <Form>
+          <Form className="bg-red-50 p-7">
+            <div className="py-5 mb-2"> <h4>Apply for this Job</h4></div>
             <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label
