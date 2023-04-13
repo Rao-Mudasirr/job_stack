@@ -2,7 +2,7 @@ import React from 'react';
 
 const PopularJob = () => {
   return (
-    <div className="container md:mt-24 mt-16">
+    <div className="container md:mt-24 mt-16" dir='ltr'>
       <div className="grid grid-cols-1 pb-8 text-center">
         <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Popular Jobs</h3>
 

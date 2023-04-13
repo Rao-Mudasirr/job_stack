@@ -27,7 +27,7 @@ const JobDetails = () => {
 
   console.log("dasdasdasdas", jobDetails);
   return (
-    <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
+    <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16" dir="ltr">
       <div className="container mt-10">
         {jobDetails?.map((details) => (
           <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">

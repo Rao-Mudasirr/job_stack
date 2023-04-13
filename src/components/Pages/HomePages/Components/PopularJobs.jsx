@@ -33,7 +33,7 @@ const PopularJobs = () => {
     // }
     // console.log(data?.data?.data, 'data')
     return (
-        <section className="relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
+        <section className="relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16" dir='ltr'>
             <div className="container">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Popular Jobs</h3>
