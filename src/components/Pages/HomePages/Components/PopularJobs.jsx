@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import JobCard from './Components/JobCard'
+import { NavLink } from 'react-router-dom'
 
 const PopularJobs = () => {
     const PopularJobData = [
@@ -107,7 +108,7 @@ const PopularJobs = () => {
 
                 <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
                     <div className="md:col-span-12 text-center">
-                        <a href="job-grid-two.html" className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">See More Jobs <i className="uil uil-arrow-right align-middle"></i></a>
+                        <NavLink to={`jobDetails/1`} className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">See More Jobs <i className="uil uil-arrow-right align-middle"></i></NavLink>
                     </div>
                 </div>
             </div>

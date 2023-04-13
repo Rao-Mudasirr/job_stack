@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "moduleResolution": "nodenext",
+        "target": "es6",
+        "jsx": "react"
+    }
+}

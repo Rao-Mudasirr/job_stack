@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { NavLink } from 'react-router-dom';
 
 const JobCard = (props) => {
     const { id, companyIcon, slug, companyName, type, title, location, isRemote } = props;
@@ -15,7 +15,7 @@ const JobCard = (props) => {
                     </div>
 
                     <div className="ml-3 rtl:mr-3">
-                        <a href="employer-detail.html" className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">{companyName}</a>
+                        <NavLink to={`jobDetails/${id}`} className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">{companyName}</NavLink>
                         <span className="block text-sm text-slate-400">2 days ago</span>
                     </div>
                 </div>
