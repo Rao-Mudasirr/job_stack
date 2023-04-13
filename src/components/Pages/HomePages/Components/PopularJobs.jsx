@@ -1,18 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import JobCard from './Components/JobCard'
 import { NavLink } from 'react-router-dom'
 
 const PopularJobs = () => {
-    const PopularJobData = [
-        { id: 1, companyIcon: 'assets/images/company/facebook-logo.png', companyName: 'Facebook', jobType: 'Full Time', jobName: 'Web Designer / Developer', jobLoc: 'Australia' },
-        { id: 2, companyIcon: 'assets/images/company/google-logo.png', companyName: 'Google', jobType: 'Part Time', jobName: 'Marketing Director', jobLoc: 'USA' },
-        { id: 3, companyIcon: 'assets/images/company/android.png', companyName: 'Android', jobType: 'Remote', jobName: 'Application Developer', jobLoc: 'China' },
-        { id: 4, companyIcon: 'assets/images/company/lenovo-logo.png', companyName: 'Lenovo', jobType: 'WFH', jobName: 'Senior Product Designer', jobLoc: 'Dubai' },
-        { id: 5, companyIcon: 'assets/images/company/spotify.png', companyName: 'Spotify', jobType: 'Full Time', jobName: 'C++ Developer', jobLoc: 'India' },
-        { id: 6, companyIcon: 'assets/images/company/linkedin.png', companyName: 'Linkedin', jobType: 'Remote', jobName: 'Php Developer', jobLoc: 'Pakistan' },
-    ]
+
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get('https://jobs.orcaloholding.co.uk/api/jobs');
+                setData(response.data);
+                setLoading(false);
+            } catch (error) {
+                setError(error.message);
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    // if (loading) {
+    //     return <div>Loading...</div>;
+    // }
+
+    // if (error) {
+    //     return <div>Error: {error}</div>;
+    // }
+    // console.log(data?.data?.data, 'data')
     return (
-        <section className="relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
+        <section className="relative bg-slate-50 dark:bg-slate-800 md:py-24 py-16" dir='ltr'>
             <div className="container">
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-4 md:text-[26px] md:leading-normal text-2xl leading-normal font-semibold">Popular Jobs</h3>
@@ -21,10 +42,10 @@ const PopularJobs = () => {
                 </div>
 
                 <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px]">
-                    {PopularJobData.map((item) => {
+                    {data?.data?.data.map((item) => {
                         return (
                             <div key={item.id}>
-                                <JobCard id={item.id} companyIcon={item.companyIcon} companyName={item.companyName} jobType={item.jobType} jobName={item.jobName} jobLoc={item.jobLoc} />
+                                <JobCard id={item.id} slug={item.slug} companyIcon={item.company?.logo} companyName={item.company?.name} type={item.type} title={item.title} location={item.location} isRemote={item?.is_remote} />
                             </div>
                         )
                     })}

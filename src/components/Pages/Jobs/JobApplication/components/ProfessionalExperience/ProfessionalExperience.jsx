@@ -215,13 +215,13 @@ const ProfessionalExperience = () => {
                       </div>
 
                       <div className="col-span-1 md:col-span-2 flex items-center">
-                        <button
-                          type="button"
-                          className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
-                          onClick={() => remove(index)}
-                        >
-                          Remove
-                        </button>
+                      {values.experiences.length > 1 && (   <button
+                            type="button"
+                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
+                            onClick={() => remove(index)}
+                          >
+                            Remove
+                          </button>)}
                         {index === values.experiences.length - 1 && (
                           <button
                             type="button"

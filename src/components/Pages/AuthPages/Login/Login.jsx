@@ -1,39 +1,53 @@
-import react from "react";
-import { Link } from "react-router-dom";
+import react, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
 import "../Signup.css";
-
-const initialValues = {
-  email: "",
-  password: "",
-};
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   let date = new Date().getFullYear();
-
+  const initialValues = {
+    email: "",
+    password: "",
+  };
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: signInSchema,
       onSubmit: (values, action) => {
         console.log(values);
-        action.resetForm();
+        postData(values);
+        // action.resetForm();
       },
     });
 
+  const postData = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/login",
+        values
+      );
+      const { data, status } = response;
+
+      switch ((status, data?.status)) {
+        case true:
+          localStorage.setItem("token", data?.data?.token);
+          navigate("/");
+
+        default:
+          setErrorMessage(data?.msg);
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="dark:bg-slate-900">
-      {/* <!-- Loader Start --> */}
-      {/* <div id="preloader">
-            <div id="status">
-                <div className="spinner">
-                    <div className="double-bounce1"></div>
-                    <div className="double-bounce2"></div>
-                </div>
-            </div>
-        </div> */}
-      {/* <!-- Loader End --> */}
+    <div className="dark:bg-slate-900" dir="ltr">
       <section className="h-screen flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
@@ -136,6 +150,7 @@ const Login = () => {
                         Sign Up
                       </Link>
                     </div>
+                    <p>{errorMessage}</p>
                   </div>
                 </form>
               </div>
@@ -157,49 +172,6 @@ const Login = () => {
           </div>
         </div>
       </section>
-
-      {/* <!--end section --> */}
-
-      {/* <div className="fixed bottom-3 right-3">
-        <a
-          href="#"
-          className="back-button btn btn-icon bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
-        >
-          <i data-feather="arrow-left" className="h-4 w-4"></i>
-        </a>
-      </div> */}
-
-      {/* <!-- Switcher --> */}
-      {/* <div className="fixed top-1/4 -left-2 z-50 hidden sm:block">
-            <span className="relative inline-block rotate-90">
-                <input type="checkbox" className="checkbox opacity-0 absolute" id="chk" />
-                <label className="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-800 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8" htmlFor="chk">
-                    <i className="uil uil-moon text-[20px] text-yellow-500"></i>
-                    <i className="uil uil-sun text-[20px] text-yellow-500"></i>
-                    <span className="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] w-7 h-7"></span>
-                </label>
-            </span>
-        </div> */}
-
-      {/* <div className="fixed top-1/2 -right-11 z-50 hidden sm:block">
-            <a href="https://1.envato.market/jobstack" target="_blank" className="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-700 font-semibold"><i className="mdi mdi-cart-outline mr-1"></i> Download</a>
-        </div> */}
-      {/* <!-- Switcher --> */}
-
-      {/* <!-- LTR & RTL Mode Code --> */}
-      {/* <div className="fixed top-[40%] -left-3 z-50">
-            <a href="#" id="switchRtl">
-                <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold rtl:block ltr:hidden" >LTR</span>
-                <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold ltr:block rtl:hidden">RTL</span>
-            </a>
-        </div> */}
-      {/* <!-- LTR & RTL Mode Code --> */}
-
-      {/* <!-- JAVASCRIPTS -->
-        <script src="assets/libs/feather-icons/feather.min.js"></script>
-        <script src="assets/js/plugins.init.js"></script>
-        <script src="assets/js/app.js"></script>
-        <!-- JAVASCRIPTS --> */}
     </div>
   );
 };

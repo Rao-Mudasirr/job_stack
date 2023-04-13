@@ -38,7 +38,7 @@ const JobVacancies = () => {
      
       
   return (
-    <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px]">
+    <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px]" dir="ltr">
       {JobVacanciesData.map((job) => (
         <div
           key={job.title}
