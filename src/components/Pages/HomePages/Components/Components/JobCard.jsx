@@ -8,14 +8,11 @@ const JobCard = (props) => {
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                        {/* <Link to={`/job-details/${slug}`}> */}
                             <img src={companyIcon} className="h-8 w-8" alt="" />
-                        {/* </Link> */}
-
                     </div>
 
                     <div className="ml-3 rtl:mr-3">
-                        <NavLink to={`jobDetails/${id}`} className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">{companyName}</NavLink>
+                        <NavLink to={`jobDetails/${slug}`} className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500">{companyName}</NavLink>
                         <span className="block text-sm text-slate-400">2 days ago</span>
                     </div>
                 </div>
