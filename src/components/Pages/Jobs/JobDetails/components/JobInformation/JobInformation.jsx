@@ -1,7 +1,13 @@
 import React from "react";
 import moment from "moment";
 
-const JobInformation = ({ experience, jobType, location, created_at }) => {
+const JobInformation = ({
+  experience,
+  type,
+  location,
+  created_at,
+  salary,
+}) => {
   const jobInformationData = [
     {
       icon: "user-check",
@@ -16,7 +22,7 @@ const JobInformation = ({ experience, jobType, location, created_at }) => {
     {
       icon: "monitor",
       title: "Job Type:",
-      value: jobType,
+      value: type,
     },
     {
       icon: "briefcase",
@@ -31,7 +37,7 @@ const JobInformation = ({ experience, jobType, location, created_at }) => {
     {
       icon: "dollar-sign",
       title: "Salary:",
-      value: "$4000 - $4500",
+      value: salary,
     },
     {
       icon: "clock",

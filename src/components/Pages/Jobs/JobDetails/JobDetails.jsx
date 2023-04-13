@@ -3,64 +3,18 @@ import JobApplyBanner from "./components/JobApplyBanner/JobApplyBanner";
 import JobVacancies from "./components/JobVacancies/JobVacancies";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-const jobDetailsArray = [
-  {
-    status: true,
-    data: {
-      id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
-      slug: "sit-ipsum-magnam-ess-1",
-      created_at: "2023-04-05T05:28:33.000000Z",
-      title: "Sit ipsum magnam ess",
-      is_remote: 0,
-      deadline: "2023-04-29",
-      location: "Distinctio Consequu",
-      salary: "https://www.dyrizujalycyb.org.au",
-      salary_type: "Monthly",
-      type: "Full Time",
-      experience: "5+ Years",
-      education: "Bachelor Degree",
-      description: "<p>asdasdas</p>",
-      role: {
-        id: 6,
-        name: "Administrator",
-      },
-      category: {
-        id: 11,
-        name: "Melissa Herring",
-      },
-      company: {
-        id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
-        name: "Randolph Cote Inc",
-        location: "Frederick Graham Inc",
-        industry_type: "Telecommunication",
-        team_size: "10-20 Members",
-        website: "https://www.tamogy.com.au",
-        established_date: "2023-04-04",
-        desc: "<p>asdsadsa</p>",
-        logo: "https://jobs.orcaloholding.co.uk/admin_assets/images/no_image.png",
-        image:
-          "https://jobs.orcaloholding.co.uk/admin_assets/images/no_image.png",
-      },
-    },
-    msg: null,
-  },
-];
 const JobDetails = () => {
-  const [jobDetails, setJobDetails] = useState([]);
-
+  const [jobDetails, setJobDetails] = useState();
+  const location = useLocation();
+  console.log(location, "dsfadasdasdasd");
   const fetchJobDetails = () => {
     axios
-      .get("https://jobs.orcaloholding.co.uk/api/jobs", {
-        headers: {
-          Authorization:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2pvYnMub3JjYWxvaG9sZGluZy5jby51ay9hcGkvbG9naW4iLCJpYXQiOjE2ODEzNjYwMDIsImV4cCI6MTY4MTM2OTYwMiwibmJmIjoxNjgxMzY2MDAyLCJqdGkiOiJPU2l0ZVlUN3JyNFhKV1RhIiwic3ViIjoiMiIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.oViLAhkhpakl0dc72agtnhu18Lhw_AppMaYXZSbMzZY",
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      .get("https://jobs.orcaloholding.co.uk/api/jobs/sit-ipsum-magnam-ess-1")
       .then((response) => {
-        setJobDetails(response.data);
+        console.log(response?.data?.data);
+        setJobDetails([response?.data?.data]);
       })
       .catch((error) => {
         console.log(error);
@@ -71,29 +25,30 @@ const JobDetails = () => {
     fetchJobDetails();
   }, []);
 
+  console.log("dasdasdasdas", jobDetails);
   return (
     <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
       <div className="container mt-10">
-        {jobDetailsArray?.map((details) => (
+        {jobDetails?.map((details) => (
           <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
             <div className="lg:col-span-8 md:col-span-6">
               <div className="md:flex items-center p-6 shadow dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900">
                 <img
-                  src="assets/images/company/lenovo-logo.png"
+                  src={details?.company?.logo}
                   className="rounded-full h-28 w-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700"
                   alt=""
                 />
 
                 <div className="md:ltr:ml-4 md:rtl:mr-4 md:mt-0 mt-6">
-                  <h5 className="text-xl font-semibold">Back-End Developer</h5>
+                  <h5 className="text-xl font-semibold">{details?.role?.name}</h5>
                   <div className="mt-2">
                     <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
                       <i className="uil uil-building text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1"></i>{" "}
-                      Lenovo pvt. ltd.
+                      {details?.company?.name}
                     </span>
                     <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
                       <i className="uil uil-map-marker text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1"></i>{" "}
-                      Beijing, China
+                      {details?.company?.location}
                     </span>
                   </div>
                 </div>
@@ -101,23 +56,7 @@ const JobDetails = () => {
 
               <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
 
-              <p className="text-slate-400 mt-4">
-                One disadvantage of Lorum Ipsum is that in Latin certain letters
-                appear more frequently than others - which creates a distinct
-                visual impression. Moreover, in Latin only words at the
-                beginning of sentences are capitalized.
-              </p>
-              <p className="text-slate-400 mt-4">
-                This means that Lorem Ipsum cannot accurately represent, for
-                example, German, in which all nouns are capitalized. Thus, Lorem
-                Ipsum has only limited suitability as a visual filler for German
-                texts. If the fill text is intended to illustrate the
-                characteristics of different typefaces.
-              </p>
-              <p className="text-slate-400 mt-4">
-                It sometimes makes sense to select texts containing the various
-                letters and symbols specific to the output language.
-              </p>
+              {details?.description}
 
               <h5 className="text-lg font-semibold mt-6">
                 Responsibilities and Duties:{" "}
@@ -213,10 +152,11 @@ const JobDetails = () => {
               </div>
             </div>
             <JobInformation
-              experience={details?.data?.experience}
-              jobType={details?.data?.type}
-              location={details?.data?.location}
-              created_at={details?.data?.created_at}
+              experience={details?.experience}
+              type={details?.type}
+              location={details?.location}
+              created_at={details?.created_at}
+              salary={details?.salary}
             />
           </div>
         ))}
