@@ -18,10 +18,16 @@ import Signup from "./components/Pages/AuthPages/Signup/Signup";
 import JobCategories from './components/Pages/Jobs/JobCategories/JobCategories';
 import JobDetails from './components/Pages/Jobs/JobDetails/JobDetails';
 import JobApplication from './components/Pages/Jobs/JobApplication/JobApplication';
+import Home from './components/Pages/HomePages/Home';
 
 function App() {
   return (
     <Routes>
+      <Route exact path={"/"} element={
+        <Layout>
+          <Home />
+        </Layout>
+        } />
       <Route
         exact
         path="/terms"
@@ -56,7 +62,7 @@ function App() {
       <Route exact path="/lock-screen" element={<LockScreen />} />
       <Route exact path="/reset-password" element={<ResetPassword />} />
       <Route exact path='/job-categories' element={<JobCategories />} />
-      <Route exact path='/JobDetails' element={<JobDetails />} />
+      <Route exact path='/JobDetails/:id' element={<JobDetails />} />
       <Route exact path='/job-application' element={<JobApplication />} />
     </Routes>
   );
