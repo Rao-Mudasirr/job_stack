@@ -3,15 +3,14 @@ import JobApplyBanner from "./components/JobApplyBanner/JobApplyBanner";
 import JobVacancies from "./components/JobVacancies/JobVacancies";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-  const location = useLocation();
-  console.log(location, "dsfadasdasdasd");
+  const { id } = useParams();
   const fetchJobDetails = () => {
     axios
-      .get("https://jobs.orcaloholding.co.uk/api/jobs/sit-ipsum-magnam-ess-1")
+      .get(`https://jobs.orcaloholding.co.uk/api/jobs/${id}`)
       .then((response) => {
         console.log(response?.data?.data);
         setJobDetails([response?.data?.data]);
@@ -24,8 +23,6 @@ const JobDetails = () => {
   useEffect(() => {
     fetchJobDetails();
   }, []);
-
-  console.log("dasdasdasdas", jobDetails);
   return (
     <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16" dir="ltr">
       <div className="container mt-10">
