@@ -135,7 +135,7 @@ const TermsAndServices = () => {
                   data-accordion="collapse"
                   className="mt-6"
                 >
-                  <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
+                  <div  className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
                     <h2
                       className="text-base font-medium"
                       id="accordion-collapse-heading-1"
