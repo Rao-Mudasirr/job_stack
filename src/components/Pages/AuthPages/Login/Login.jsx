@@ -1,26 +1,50 @@
-import react from "react";
-import { Link } from "react-router-dom";
+import react, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
 import "../Signup.css";
-
-const initialValues = {
-  email: "",
-  password: "",
-};
+import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   let date = new Date().getFullYear();
-
+  const initialValues = {
+    email: "",
+    password: "",
+  };
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: signInSchema,
       onSubmit: (values, action) => {
         console.log(values);
-        action.resetForm();
+        postData(values);
+        // action.resetForm();
       },
     });
+
+  const postData = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/login",
+        values
+      );
+      const { data, status } = response;
+
+      switch ((status, data?.status)) {
+        case true:
+          localStorage.setItem("token", data?.data?.token);
+          navigate("/");
+
+        default:
+          setErrorMessage(data?.msg);
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">
@@ -126,6 +150,7 @@ const Login = () => {
                         Sign Up
                       </Link>
                     </div>
+                    <p>{errorMessage}</p>
                   </div>
                 </form>
               </div>

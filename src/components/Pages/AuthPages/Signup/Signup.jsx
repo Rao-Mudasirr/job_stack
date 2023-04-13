@@ -1,13 +1,13 @@
 import { useFormik } from "formik";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
 import axios from "axios";
 
-
-
 const Signup = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const initialValues = {
     first_name: "",
     last_name: "",
@@ -15,14 +15,14 @@ const Signup = () => {
     password: "",
     password_confirmation: "",
   };
-  
+
   let date = new Date().getFullYear();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: signUpSchema,
       onSubmit: (values, action) => {
-        console.log(values);
+        // console.log(values);
         postData(values);
         // action.resetForm();
       },
@@ -34,7 +34,16 @@ const Signup = () => {
         "https://jobs.orcaloholding.co.uk/api/signup",
         values
       );
-      console.log(response.data.message);
+      const { data, status } = response;
+      console.log(data);
+      switch ((status, data?.status)) {
+        case true:
+          navigate("/login");
+
+        default:
+          setErrorMessage(data?.msg);
+          break;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -209,6 +218,7 @@ const Signup = () => {
                         Sign in
                       </Link>
                     </div>
+                    <p>{errorMessage}</p>
                   </div>
                 </form>
               </div>
