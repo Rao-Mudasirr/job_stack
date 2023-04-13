@@ -36,6 +36,7 @@ const JobApplication = () => {
       </p>
 
       <JobForm/>
+      
     </div>
   );
 };

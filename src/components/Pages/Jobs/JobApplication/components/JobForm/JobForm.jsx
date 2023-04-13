@@ -3,6 +3,9 @@ import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
 import EducationDetails from "../EducationDetails/EducationDetails";
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
+import JobReferences from "../JobReferences/JobReferences";
+import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
+import IntroductionVideo from "../../../JobDetails/components/IntroductionVideo/IntroductionVideo";
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -37,7 +40,6 @@ const initialValues = {
   phone: "",
   resume: "",
   coverLetter: "",
-  education: [{ schoolName: "", degree: "", discipline: "", cgpa: "" }],
   linkedInProfile: "",
   website: "",
   yearsOfExperience: "",
@@ -194,16 +196,18 @@ const JobForm = () => {
                 )}
               </div>
             </div>
-            <div class="border-t border-gray-400  mt-5 mb-5"></div>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               {" "}
               <EducationDetails />
             </div>
-            <div class="border-t border-gray-400  mt-5 mb-5"></div>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               <ProfessionalExperience />
             </div>
-            <div class="border-t border-gray-400  mt-5 mb-5"></div>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <JobReferences/>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               <label htmlFor="linkedInProfile">LinkedIn Profile</label>
 
@@ -290,19 +294,25 @@ const JobForm = () => {
                   </p>
                 )}
             </div>
-            <div class="border-t border-gray-400  mt-5 mb-5"></div>
+            <SelfIdentificationForm/>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <IntroductionVideo/>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div className="flex mt-5">
               <button
                 type="submit"
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 disabled={isSubmitting}
               >
-                Submit
+                Submit Application
               </button>
             </div>
+
+           
           </Form>
         )}
       </Formik>
+     
     </>
   );
 };
