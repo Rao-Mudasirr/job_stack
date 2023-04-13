@@ -1,11 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
- 
+  const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   return (
     <div dir="ltr">
-      <nav id="topnav" className={`defaultscroll is-sticky bg-white`} >
+      <nav id="topnav" className={`defaultscroll is-sticky bg-white`}>
         <div className="container">
           <a className="logo" href="index.html">
             <div className="block sm:hidden">
@@ -323,18 +324,20 @@ const Navbar = () => {
                     <a href="javascript:void(0)"> Auth Pages </a>
                     <span className="submenu-arrow"></span>
                     <ul className="submenu">
-                      <li>
-                        <a href="login.html" className="sub-menu-item">
-                          {" "}
-                          Login
-                        </a>
-                      </li>
-                      <li>
-                        <a href="signup.html" className="sub-menu-item">
-                          {" "}
-                          Signup
-                        </a>
-                      </li>
+                      {tokenCheck === "false" && (
+                        <li>
+                          <Link to={"/login"} className="sub-menu-item">
+                            Login{" "}
+                          </Link>
+                        </li>
+                      )}
+                      {tokenCheck === "false" && (
+                        <li>
+                          <Link to={"/signup"} className="sub-menu-item">
+                            Signup
+                          </Link>
+                        </li>
+                      )}
                       <li>
                         <a href="reset-password.html" className="sub-menu-item">
                           {" "}
