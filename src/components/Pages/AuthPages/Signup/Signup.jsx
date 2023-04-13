@@ -5,15 +5,17 @@ import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
 import axios from "axios";
 
-const initialValues = {
-  first_name: "",
-  last_name: "",
-  email: "",
-  password: "",
-  password_confirmation: "",
-};
+
 
 const Signup = () => {
+  const initialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  };
+  
   let date = new Date().getFullYear();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
