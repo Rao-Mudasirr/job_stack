@@ -1,13 +1,17 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const JobCard = (props) => {
-    const { id, companyIcon, companyName, jobType, jobName, jobLoc } = props;
+    const { id, companyIcon, slug, companyName, type, title, location, isRemote } = props;
     return (
         <div key={id} className="group shadow dark:shadow-gray-700 p-6 rounded-md bg-white dark:bg-slate-900">
             <div className="flex items-center justify-between">
                 <div className="flex items-center">
                     <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                        <img src={companyIcon} className="h-8 w-8" alt="" />
+                        {/* <Link to={`/job-details/${slug}`}> */}
+                            <img src={companyIcon} className="h-8 w-8" alt="" />
+                        {/* </Link> */}
+
                     </div>
 
                     <div className="ml-3 rtl:mr-3">
@@ -16,12 +20,12 @@ const JobCard = (props) => {
                     </div>
                 </div>
 
-                <span className="bg-emerald-600/10 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500">{jobType}</span>
+                <span className="bg-emerald-600/10 group-hover:bg-emerald-600 inline-block text-emerald-600 group-hover:text-white text-xs px-2.5 py-0.5 font-semibold rounded-full transition-all duration-500">{isRemote ? "Remote" : type}</span>
             </div>
 
             <div className="mt-6">
-                <a href="job-detail-two.html" className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500">{jobName}</a>
-                <h6 className="text-base font-medium"><i className="uil uil-map-marker"></i> {jobLoc}</h6>
+                <a href="job-detail-two.html" className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500">{title}</a>
+                <h6 className="text-base font-medium"><i className="uil uil-map-marker"></i> {location}</h6>
             </div>
 
             <div className="mt-6">
