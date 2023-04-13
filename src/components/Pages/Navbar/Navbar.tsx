@@ -5,7 +5,7 @@ const Navbar = () => {
  
   return (
     <div dir="ltr">
-      <nav id="topnav" className={`defaultscroll is-sticky `} >
+      <nav id="topnav" className={`defaultscroll is-sticky bg-white`} >
         <div className="container">
           <a className="logo" href="index.html">
             <div className="block sm:hidden">
@@ -28,7 +28,7 @@ const Navbar = () => {
                   alt=""
                 />
                 <img
-                  src="assets/images/logo-light.png"
+                  src="assets/images/logo-dark.png"
                   className="h-[24px] l-light"
                   alt=""
                 />
@@ -81,7 +81,7 @@ const Navbar = () => {
           </ul>
 
           <div id="navigation">
-            <ul className="navigation-menu justify-end nav-light">
+            <ul className="navigation-menu justify-end nav-dark">
               <li className="has-submenu parent-menu-item">
                 <a href="javascript:void(0)">Home</a>
                 <span className="menu-arrow"></span>
