@@ -2,3 +2,7 @@
     font-size: .8rem;
     color: #b22b27;
   }
+  .bg-cover-auth{
+    background-image: url("../../../../public/assets/images/blog/05.jpg");
+  }
+  

@@ -6,6 +6,7 @@ import "../Signup.css";
 import axios from "axios";
 
 const Signup = () => {
+  let date = new Date().getFullYear();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const initialValues = {
@@ -16,7 +17,7 @@ const Signup = () => {
     password_confirmation: "",
   };
 
-  let date = new Date().getFullYear();
+ 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -51,7 +52,7 @@ const Signup = () => {
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">
-      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover">
+      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
