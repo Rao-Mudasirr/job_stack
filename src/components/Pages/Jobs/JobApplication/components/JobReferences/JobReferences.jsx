@@ -5,7 +5,7 @@ const validationSchema = Yup.object().shape({
   references: Yup.array().of(
     Yup.object().shape({
       name: Yup.string().required("Name is required"),
-      company: Yup.string().required("Company is required"),
+      compname: Yup.string().required("Company Name is required"),
       position: Yup.string().required("Position is required"),
       contactNumber: Yup.string()
         .matches(/^\d+$/, "Contact number should be a number")
@@ -17,7 +17,14 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   references: [
-    { name: "", company: "", position: "", contactNumber: "", email: "" },
+    {
+      name: "",
+      compname: "",
+
+      position: "",
+      contactNumber: "",
+      email: "",
+    },
   ],
 };
 
@@ -35,7 +42,7 @@ const JobReferences = () => {
       {({ values, errors, touched, isSubmitting }) => (
         <Form>
           <div className="mb-8">
-            <h3 className="text-emerald-600 text-2xl font-bold">
+            <h3 className="mb-6 text-2xl leading-normal font-semibold">
               Job References
             </h3>
             <p className="mt-1 text-sm leading-5 text-gray-600">
@@ -48,7 +55,7 @@ const JobReferences = () => {
                     <div key={index} className="grid grid-cols-5 gap-4 mt-4">
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`references.${index}.name`}
                         >
                           Name <span className="text-red-500"> *</span>
@@ -78,40 +85,42 @@ const JobReferences = () => {
                             </p>
                           )}
                       </div>
+
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
-                          htmlFor={`references.${index}.company`}
+                          className="block  font-semibold  mb-2"
+                          htmlFor={`references.${index}.compname`}
                         >
-                          Company <span className="text-red-500"> *</span>
+                          Company Name <span className="text-red-500"> *</span>
                         </label>
                         <Field
-                          id={`references.${index}.company`}
-                          name={`references.${index}.company`}
+                          id={`references.${index}.compname`}
+                          name={`references.${index}.compname`}
                           type="text"
                           className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                             errors.references &&
-                            errors.references[index].company &&
+                            errors.references[index] &&
+                            errors.references[index].compname &&
                             touched.references &&
                             touched.references[index] &&
-                            touched.references[index].company &&
+                            touched.references[index].compname &&
                             "border-red-500"
                           }`}
                         />
                         {errors.references &&
                           errors.references[index] &&
-                          errors.references[index].company &&
+                          errors.references[index].compname &&
                           touched.references &&
                           touched.references[index] &&
-                          touched.references[index].company && (
+                          touched.references[index].compname && (
                             <p className="text-red-500 text-xs italic">
-                              {errors.references[index].company}
+                              {errors.references[index].compname}
                             </p>
                           )}
-                      </div>{" "}
+                      </div>
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`references.${index}.position`}
                         >
                           Position <span className="text-red-500"> *</span>
@@ -143,7 +152,7 @@ const JobReferences = () => {
                       </div>
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`references.${index}.contactNumber`}
                         >
                           Contact Number{" "}
@@ -177,7 +186,7 @@ const JobReferences = () => {
 
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`references.${index}.email`}
                         >
                           Email <span className="text-red-500"> *</span>
@@ -211,7 +220,7 @@ const JobReferences = () => {
                         {values.references.length > 1 && (
                           <button
                             type="button"
-                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
+                            className="py-2  rounded-md bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white mr-2"
                             onClick={() => remove(index)}
                           >
                             Remove
@@ -220,11 +229,12 @@ const JobReferences = () => {
                         {index === values.references.length - 1 && (
                           <button
                             type="button"
-                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                            className="py-2 bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white rounded-md  "
                             onClick={() =>
                               push({
                                 name: "",
-                                company: "",
+                                compname: "",
+
                                 position: "",
                                 contactNumber: "",
                                 email: "",
