@@ -1,6 +1,21 @@
 import React from "react";
 import HeroStyleCard from "./Components/HeroStyleCard";
-
+export const countryData =[
+    { id: 1, value: 'AF', Descp:'Afghanistan' },
+    { id: 2, value: 'AZ', Descp:'Azerbaijan' },
+    { id: 3, value: 'BS', Descp:'Bahamas' },
+    { id: 4, value: 'BH', Descp:'Bahrain' },
+    { id: 5, value: 'CA', Descp:'Canada' },
+    { id: 6, value: 'CV', Descp:'Cape Verde' },
+    { id: 7, value: 'DK', Descp:'Denmark' },
+];
+export const jobTypeData =[
+    { id: 1, value: '1', Descp:'Full Time' },
+    { id: 2, value: '2', Descp:'Part Time' },
+    { id: 3, value: '3', Descp:'Freelancer' },
+    { id: 4, value: '4', Descp:'Remote Work' },
+    { id: 5, value: '5', Descp:'Office Work' },
+];
 const Hero = () => {
   const SearchStylingData = [
     {
