@@ -1,10 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
-import EducationDetails from "../EducationDetails/EducationDetails";
-import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
-import JobReferences from "../JobReferences/JobReferences";
-import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
+// import EducationDetails from "../EducationDetails/EducationDetails";
+// import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
+// import JobReferences from "../JobReferences/JobReferences";
+// import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
 import IntroductionVideo from "../../../JobDetails/components/IntroductionVideo/IntroductionVideo";
 
 const validationSchema = Yup.object().shape({
@@ -197,7 +197,7 @@ const JobForm = () => {
               </div>
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            <div>
+            {/* <div>
               {" "}
               <EducationDetails />
             </div>
@@ -206,7 +206,7 @@ const JobForm = () => {
               <ProfessionalExperience />
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            <JobReferences/>
+            <JobReferences/> */}
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               <label htmlFor="linkedInProfile">LinkedIn Profile</label>
@@ -294,7 +294,7 @@ const JobForm = () => {
                   </p>
                 )}
             </div>
-            <SelfIdentificationForm/>
+            {/* <SelfIdentificationForm/> */}
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <IntroductionVideo/>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>

@@ -5,7 +5,7 @@ const validationSchema = Yup.object().shape({
   references: Yup.array().of(
     Yup.object().shape({
       name: Yup.string().required("Name is required"),
-      company: Yup.string().required("Company is required"),
+      compname: Yup.string().required("Company Name is required"),
       position: Yup.string().required("Position is required"),
       contactNumber: Yup.string()
         .matches(/^\d+$/, "Contact number should be a number")
@@ -17,7 +17,14 @@ const validationSchema = Yup.object().shape({
 
 const initialValues = {
   references: [
-    { name: "", company: "", position: "", contactNumber: "", email: "" },
+    {
+      name: "",
+      compname: "",
+
+      position: "",
+      contactNumber: "",
+      email: "",
+    },
   ],
 };
 
@@ -78,37 +85,39 @@ const JobReferences = () => {
                             </p>
                           )}
                       </div>
+
                       <div className="col-span-4 md:col-span-1">
                         <label
                           className="block text-gray-700 font-bold mb-2"
-                          htmlFor={`references.${index}.company`}
+                          htmlFor={`references.${index}.compname`}
                         >
-                          Company <span className="text-red-500"> *</span>
+                          Company Name <span className="text-red-500"> *</span>
                         </label>
                         <Field
-                          id={`references.${index}.company`}
-                          name={`references.${index}.company`}
+                          id={`references.${index}.compname`}
+                          name={`references.${index}.compname`}
                           type="text"
                           className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                             errors.references &&
-                            errors.references[index].company &&
+                            errors.references[index] &&
+                            errors.references[index].compname &&
                             touched.references &&
                             touched.references[index] &&
-                            touched.references[index].company &&
+                            touched.references[index].compname &&
                             "border-red-500"
                           }`}
                         />
                         {errors.references &&
                           errors.references[index] &&
-                          errors.references[index].company &&
+                          errors.references[index].compname &&
                           touched.references &&
                           touched.references[index] &&
-                          touched.references[index].company && (
+                          touched.references[index].compname && (
                             <p className="text-red-500 text-xs italic">
-                              {errors.references[index].company}
+                              {errors.references[index].compname}
                             </p>
                           )}
-                      </div>{" "}
+                      </div>
                       <div className="col-span-4 md:col-span-1">
                         <label
                           className="block text-gray-700 font-bold mb-2"
@@ -224,7 +233,8 @@ const JobReferences = () => {
                             onClick={() =>
                               push({
                                 name: "",
-                                company: "",
+                                compname: "",
+
                                 position: "",
                                 contactNumber: "",
                                 email: "",

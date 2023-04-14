@@ -228,10 +228,11 @@ const ProfessionalExperience = () => {
                             className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
                             onClick={() =>
                               push({
-                                schoolName: "",
-                                degree: "",
-                                discipline: "",
-                                cgpa: "",
+                                company: "",
+                                jobTitle: "",
+                                startDate: "",
+                                endDate: "",
+                                experienceLetter: "",
                               })
                             }
                           >
