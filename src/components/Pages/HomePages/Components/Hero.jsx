@@ -1,6 +1,21 @@
 import React from 'react';
 import HeroStyleCard from './Components/HeroStyleCard';
-
+export const countryData =[
+    { id: 1, value: 'AF', Descp:'Afghanistan' },
+    { id: 2, value: 'AZ', Descp:'Azerbaijan' },
+    { id: 3, value: 'BS', Descp:'Bahamas' },
+    { id: 4, value: 'BH', Descp:'Bahrain' },
+    { id: 5, value: 'CA', Descp:'Canada' },
+    { id: 6, value: 'CV', Descp:'Cape Verde' },
+    { id: 7, value: 'DK', Descp:'Denmark' },
+];
+export const jobTypeData =[
+    { id: 1, value: '1', Descp:'Full Time' },
+    { id: 2, value: '2', Descp:'Part Time' },
+    { id: 3, value: '3', Descp:'Freelancer' },
+    { id: 4, value: '4', Descp:'Remote Work' },
+    { id: 5, value: '5', Descp:'Office Work' },
+];
 const Hero = () => {
     const SearchStylingData = [
         { id: 1, mainDiv: '-top-20 left-1/2 -translate-x-1/2', subDiv: 'animate-[bounce_2s_infinite]', icon: 'assets/images/company/facebook-logo.png' },
@@ -10,22 +25,7 @@ const Hero = () => {
         { id: 5, mainDiv: 'top-3/4 -right-0', subDiv: 'animate-[spin_5s_linear_infinite]', icon: 'assets/images/company/skype.png' },
         { id: 6, mainDiv: '-bottom-32 left-1/2 -translate-x-1/2', subDiv: 'animate-pulse', icon: 'assets/images/company/snapchat.png' },
     ];
-    const countryData =[
-        { id: 1, value: 'AF', Descp:'Afghanistan' },
-        { id: 2, value: 'AZ', Descp:'Azerbaijan' },
-        { id: 3, value: 'BS', Descp:'Bahamas' },
-        { id: 4, value: 'BH', Descp:'Bahrain' },
-        { id: 5, value: 'CA', Descp:'Canada' },
-        { id: 6, value: 'CV', Descp:'Cape Verde' },
-        { id: 7, value: 'DK', Descp:'Denmark' },
-    ];
-    const jobTypeData =[
-        { id: 1, value: '1', Descp:'Full Time' },
-        { id: 2, value: '2', Descp:'Part Time' },
-        { id: 3, value: '3', Descp:'Freelancer' },
-        { id: 4, value: '4', Descp:'Remote Work' },
-        { id: 5, value: '5', Descp:'Office Work' },
-    ];
+   
 
     return (
         <section className="relative md:py-56 py-36 w-full">

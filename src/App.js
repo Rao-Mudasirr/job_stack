@@ -9,7 +9,7 @@ import './App.css';
 import './index.css';
 import CandidatesDetail from './components/Pages/Candidates/CandidatesDetail';
 import Login from "./components/Pages/AuthPages/Login/Login";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Blogs from "./components/Pages/Blog/Blogs";
 import BlogDetail from "./components/Pages/Blog/BlogDetail";
 import LockScreen from "./components/Pages/AuthPages/LockScreen";
@@ -22,6 +22,7 @@ import Home from './components/Pages/HomePages/Home';
 import { Employers } from "./components/Pages/employers/Employers.jsx";
 import { EmployerDetails } from "./components/Pages/employers/employer-details/EmployerDetails.jsx";
 import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
+import { JobList } from "./components/Pages/JobList/JobList.jsx";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
       <Route exact path='/employer-details' element={<EmployerDetails />} />
       <Route exact path='/employer-details' element={<EmployerDetails />} />
       <Route exact path='/job-openings' element={<JobOpenings />} />
+      <Route exact path='/job-list' element={<JobList />} />
     </Routes>
   );
 }
