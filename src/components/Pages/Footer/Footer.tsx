@@ -1,5 +1,6 @@
 import moment from "moment";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -11,8 +12,8 @@ const Footer = () => {
               <div className="relative w-full">
                 <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
                   <div className="md:col-span-3">
-                    <a
-                      href="#"
+                    <Link
+                      to="#"
                       className="flex justify-center md:justify-start focus:outline-none"
                     >
                       <img
@@ -20,50 +21,55 @@ const Footer = () => {
                         className=""
                         alt=""
                       />
-                    </a>
+                    </Link>
                   </div>
 
                   <div className="md:col-span-9">
                     <ul className="list-disc footer-list ltr:md:text-right rtl:md:text-left text-center">
                       <li className="inline-block">
-                        <a
-                          href="index.html"
+                        <Link
+                          to="/"
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
+                          replace={true}
                         >
                           Home
-                        </a>
+                        </Link>
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="services.html"
+                        <Link
+                          to="services.html"
+                          replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
                           How it works
-                        </a>
+                        </Link>
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="#"
+                        <Link
+                          to="#"
+                          replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
                           Create a job
-                        </a>
+                        </Link>
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="aboutus.html"
+                        <Link
+                          to="aboutus.html"
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
+                          replace={true}
                         >
                           About us
-                        </a>
+                        </Link>
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
-                        <a
-                          href="contact.html"
+                        <Link
+                          to="contact.html"
+                          replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
                         >
                           Contact us
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </div>
@@ -78,24 +84,25 @@ const Footer = () => {
             <div className="grid md:grid-cols-2 items-center gap-6">
               <div className="ltr:md:text-left rtl:md:text-right text-center">
                 <p className="mb-0 text-gray-300 font-medium">
-                  © {moment().year()}{" "}
-                  Jobstack. Design with{" "}
+                  © {moment().year()} Jobstack. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
-                  <a
-                    href="https://shreethemes.in/"
+                  <Link
+                    to="https://shreethemes.in/"
+                    replace={true}
                     target="_blank"
                     className="text-reset"
                   >
                     Shreethemes
-                  </a>
+                  </Link>
                   .
                 </p>
               </div>
 
               <ul className="list-none ltr:md:text-right rtl:md:text-left text-center">
                 <li className="inline">
-                  <a
-                    href="https://1.envato.market/jobstack"
+                  <Link
+                    to="https://1.envato.market/jobstack"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -103,11 +110,12 @@ const Footer = () => {
                       className="uil uil-shopping-cart align-middle"
                       title="Buy Now"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="https://dribbble.com/shreethemes"
+                  <Link
+                    to="https://dribbble.com/shreethemes"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -115,29 +123,32 @@ const Footer = () => {
                       className="uil uil-dribbble align-middle"
                       title="dribbble"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="https://www.behance.net/shreethemes"
+                  <Link
+                    to="https://www.behance.net/shreethemes"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i className="uil uil-behance" title="Behance"></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="http://linkedin.com/company/shreethemes"
+                  <Link
+                    to="http://linkedin.com/company/shreethemes"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i className="uil uil-linkedin" title="Linkedin"></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="https://www.facebook.com/shreethemes"
+                  <Link
+                    to="https://www.facebook.com/shreethemes"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -145,11 +156,12 @@ const Footer = () => {
                       className="uil uil-facebook-f align-middle"
                       title="facebook"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="https://www.instagram.com/shreethemes/"
+                  <Link
+                    to="https://www.instagram.com/shreethemes/"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -157,11 +169,12 @@ const Footer = () => {
                       className="uil uil-instagram align-middle"
                       title="instagram"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="https://twitter.com/shreethemes"
+                  <Link
+                    to="https://twitter.com/shreethemes"
+                    replace={true}
                     target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
@@ -169,18 +182,19 @@ const Footer = () => {
                       className="uil uil-twitter align-middle"
                       title="twitter"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
                 <li className="inline">
-                  <a
-                    href="mailto:support@shreethemes.in"
+                  <Link
+                    to="mailto:support@shreethemes.in"
+                    replace={true}
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
                       className="uil uil-envelope align-middle"
                       title="email"
                     ></i>
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -206,34 +220,34 @@ const Footer = () => {
       </div>
 
       <div className="fixed top-1/2 -right-11 z-50 hidden sm:block">
-        <a
-          href="https://1.envato.market/jobstack"
+        <Link
+          to="https://1.envato.market/jobstack"
           target="_blank"
           className="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-700 font-semibold"
         >
           <i className="mdi mdi-cart-outline mr-1"></i> Download
-        </a>
+        </Link>
       </div>
 
       <div className="fixed top-[40%] -left-3 z-50">
-        <a href="#" id="switchRtl">
+        <Link to="#" id="switchRtl">
           <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold rtl:block ltr:hidden">
             LTR
           </span>
           <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold ltr:block rtl:hidden">
             RTL
           </span>
-        </a>
+        </Link>
       </div>
 
-      <a
-        href="#"
+      <Link
+        to="#"
         // onClick="topFunction()"
         id="back-to-top"
         className="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 ltr:right-5 rtl:left-5 h-9 w-9 text-center bg-emerald-600 text-white justify-center items-center"
       >
         <i className="uil uil-arrow-up"></i>
-      </a>
+      </Link>
     </div>
   );
 };

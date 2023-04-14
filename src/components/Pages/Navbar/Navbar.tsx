@@ -53,18 +53,7 @@ const Navbar = () => {
           </div>
 
           <ul className="buy-button list-none mb-0">
-            <li className="inline-block mb-0">
-              <div className="relative top-[3px]">
-                <i className="uil uil-search text-lg absolute top-[3px] ltr:right-3 rtl:left-3"></i>
-                <input
-                  type="text"
-                  className="form-input h-9 ltr:pr-10 rtl:pr-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900"
-                  name="s"
-                  id="searchItem"
-                  placeholder="Search..."
-                />
-              </div>
-            </li>
+            
             <li className="inline-block pl-1 mb-0">
               <Link
                 to="#"
