@@ -66,7 +66,7 @@ const JobDetails = () => {
                 <div className="mt-5">
                   <NavLink
                     to={
-                      localStorage.getItem("accessToken")
+                      localStorage.getItem("token")
                         ? {
                             pathname: "/job-application",
                             state: { details },
