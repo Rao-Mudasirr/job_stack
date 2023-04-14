@@ -6,6 +6,7 @@ import "../Signup.css";
 import axios from "axios";
 
 const Signup = () => {
+  let date = new Date().getFullYear();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const initialValues = {
@@ -16,7 +17,7 @@ const Signup = () => {
     password_confirmation: "",
   };
 
-  let date = new Date().getFullYear();
+ 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
