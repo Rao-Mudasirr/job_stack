@@ -4,9 +4,7 @@ import { countryData, jobTypeData } from '../HomePages/Components/Hero'
 import axios from "axios";
 
 export const JobList = () => {
-
     const [jobDetails, setJobDetails] = useState();
-
     const fetchJobDetails = () => {
         axios.get("https://jobs.orcaloholding.co.uk/api/jobs").then((response) => {
             setJobDetails(response?.data?.data?.data);
@@ -18,8 +16,6 @@ export const JobList = () => {
     useEffect(() => {
         fetchJobDetails()
     }, [])
-
-    console.log("dasdasdasdas", jobDetails);
     return (
         <div dir='ltr'>
             <section className="relative table w-full py-36 bg-top bg-no-repeat bg-cover">
@@ -50,7 +46,6 @@ export const JobList = () => {
                                                     <i className="uil uil-briefcase-alt icons pl-1"></i>
                                                     <input name="name" type="text" id="job-keyword" className=" pl-7 form-input filter-input-box bg-gray-50 dark:bg-slate-800 border-0" placeholder="Search your Keywords" />
                                                 </div>
-
                                                 <div className="filter-search-form relative filter-border bg-gray-50">
                                                     <i className="uil uil-map-marker icons"></i>
                                                     <select className="form-select w-full h-full ml-3 bg-gray-50" data-trigger name="choices-location" id="choices-location" aria-label="Default select example">
@@ -59,11 +54,8 @@ export const JobList = () => {
                                                                 <option key={item.id} value={item.value}>{item.Descp}</option>
                                                             )
                                                         })}
-
                                                     </select>
-
                                                 </div>
-
                                                 <div className="filter-search-form relative filter-border">
                                                     <i className="uil uil-briefcase-alt icons"></i>
                                                     <select className="form-select w-full h-full ml-3 bg-gray-50" data-trigger name="choices-type" id="choices-type" aria-label="Default select example">
@@ -74,7 +66,6 @@ export const JobList = () => {
                                                         })}
                                                     </select>
                                                 </div>
-
                                                 <input type="submit" id="search" name="search" style={{ height: "60px" }} className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white searchbtn submit-btn w-100" value="Search" />
                                             </div>
                                         </div>
@@ -84,36 +75,30 @@ export const JobList = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="container mt-10">
-                    
                     <div className="grid grid-cols-1 gap-[30px]">
-                    {
-                        jobDetails?.map((item) => <div key={item?.id} className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-                            <div className="flex items-center">
-                                <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                                    <img src={item?.company?.logo} className="h-8 w-8" alt="" />
+                        {
+                            jobDetails?.map((item) => <div key={item?.id} className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
+                                <div className="flex items-center">
+                                    <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                        <img src={item?.company?.logo} className="h-8 w-8" alt="" />
+                                    </div>
+                                    <a href="job-detail-two.html" className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]">{item?.role?.name}</a>
                                 </div>
-                                <a href="job-detail-two.html" className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]">{item?.role?.name}</a>
-                            </div>
-
-                            <div className="md:block flex justify-between md:mt-0 mt-4">
-                                <span className="block"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">{item?.type}</span></span>
-                                <span className="block text-slate-400 text-sm md:mt-1 mt-0"><i className="uil uil-clock"></i>{item?.deadline}</span>
-                            </div>
-
-                            <div className="md:block flex justify-between md:mt-0 mt-2">
-                                <span className="text-slate-400"><i className="uil uil-map-marker"></i> {item?.location}</span>
-                                <span className="block font-semibold md:mt-1 mt-0">{item?.salary}</span>
-                            </div>
-
-                            <div className="md:mt-0 mt-4">
-                                <Link href="job-apply.html" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
-                            </div>
-
-                           {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
-                        </div>)
-                    }
+                                <div className="md:block flex justify-between md:mt-0 mt-4">
+                                    <span className="block"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">{item?.type}</span></span>
+                                    <span className="block text-slate-400 text-sm md:mt-1 mt-0"><i className="uil uil-clock"></i>{item?.deadline}</span>
+                                </div>
+                                <div className="md:block flex justify-between md:mt-0 mt-2">
+                                    <span className="text-slate-400"><i className="uil uil-map-marker"></i> {item?.location}</span>
+                                    <span className="block font-semibold md:mt-1 mt-0">{item?.salary}</span>
+                                </div>
+                                <div className="md:mt-0 mt-4">
+                                    <Link href="job-apply.html" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
+                                </div>
+                                {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
+                            </div>)
+                        }
                     </div>
                 </div>
             </section>
