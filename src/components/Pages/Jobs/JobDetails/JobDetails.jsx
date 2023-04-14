@@ -4,11 +4,16 @@ import JobVacancies from "./components/JobVacancies/JobVacancies";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-
+import GlobalSnackBar from "../../UI/SnackBar";
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
+  const [snackBar, setSnackBar] = useState({
+    title: "hasdjkasjda",
+    isToggle: false,
+    type: "success",
+  });
   const location = useLocation();
-  console.log(location, "dsfadasdasdasd");
+  console.log(location, "location");
   const fetchJobDetails = () => {
     axios
       .get("https://jobs.orcaloholding.co.uk/api/jobs/sit-ipsum-magnam-ess-1")
@@ -29,6 +34,11 @@ const JobDetails = () => {
   return (
     <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
       <div className="container mt-10">
+        {/* <GlobalSnackBar
+          title={snackBar.title}
+          isToggle={snackBar.isToggle}
+          type={snackBar.type}
+        /> */}
         {jobDetails?.map((details) => (
           <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
             <div className="lg:col-span-8 md:col-span-6">
@@ -40,7 +50,9 @@ const JobDetails = () => {
                 />
 
                 <div className="md:ltr:ml-4 md:rtl:mr-4 md:mt-0 mt-6">
-                  <h5 className="text-xl font-semibold">{details?.role?.name}</h5>
+                  <h5 className="text-xl font-semibold">
+                    {details?.role?.name}
+                  </h5>
                   <div className="mt-2">
                     <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
                       <i className="uil uil-building text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1"></i>{" "}
