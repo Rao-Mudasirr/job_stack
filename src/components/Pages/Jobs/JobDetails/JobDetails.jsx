@@ -23,6 +23,7 @@ const JobDetails = () => {
     fetchJobDetails();
   }, []);
   return (
+    <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
         <div className="container mt-10">
           {/* <GlobalSnackBar
@@ -89,6 +90,7 @@ const JobDetails = () => {
           ))}
         </div>
       </section>
+    </div>
   );
 };
 
