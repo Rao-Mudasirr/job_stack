@@ -18,6 +18,8 @@ import JobCategories from './components/Pages/Jobs/JobCategories/JobCategories';
 import JobDetails from './components/Pages/Jobs/JobDetails/JobDetails';
 import JobApplication from './components/Pages/Jobs/JobApplication/JobApplication';
 import Home from './components/Pages/HomePages/Home';
+import ForgetPassword from "./components/Pages/AuthPages/ForgetPassword/ForgetPassword";
+import ResetForgetPassword from "./components/Pages/AuthPages/ResetForgetPassword/ResetForgetPassword";
 import { Employers } from "./components/Pages/employers/Employers.jsx";
 import { EmployerDetails } from "./components/Pages/employers/employer-details/EmployerDetails.jsx";
 import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
@@ -87,9 +89,10 @@ function App() {
         }
       />
       <Route exact path="/lock-screen" element={<LockScreen />} />
-      <Route exact path="/reset-password" element={<ResetPassword />} />
+      <Route exact path="/forget-password" element={<ForgetPassword/>} />
+      <Route exact path="/reset-forget-password" element={<ResetForgetPassword/>} />
       <Route exact path='/job-categories' element={<JobCategories />} />
-      <Route exact path='/JobDetails/:id' element={
+      <Route exact path='/jobDetails/:id' element={
         <Layout>
           <JobDetails />
         </Layout>
