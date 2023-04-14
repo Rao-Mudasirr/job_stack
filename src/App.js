@@ -68,7 +68,7 @@ function App() {
       <Route exact path="/forget-password" element={<ForgetPassword/>} />
       <Route exact path="/reset-forget-password" element={<ResetForgetPassword/>} />
       <Route exact path='/job-categories' element={<JobCategories />} />
-      <Route exact path='/JobDetails/:id' element={
+      <Route exact path='/jobDetails/:id' element={
         <Layout>
           <JobDetails />
         </Layout>
