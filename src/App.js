@@ -62,7 +62,7 @@ function App() {
       <Route exact path="/lock-screen" element={<LockScreen />} />
       <Route exact path="/reset-password" element={<ResetPassword />} />
       <Route exact path='/job-categories' element={<JobCategories />} />
-      <Route exact path='/JobDetails/:id' element={
+      <Route exact path='/jobDetails/:id' element={
         <Layout>
           <JobDetails />
         </Layout>
