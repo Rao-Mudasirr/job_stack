@@ -39,7 +39,7 @@ const ProfessionalExperience = () => {
       {({ values, errors, touched, isSubmitting }) => (
         <Form>
           <div className="mb-8">
-            <h3 className="text-emerald-600  text-2xl font-bold">
+            <h3 className="mb-6 text-2xl leading-normal font-semibold">
               Professional Experience
             </h3>
             <p className="mt-1 text-sm leading-5 text-gray-600">
@@ -52,7 +52,7 @@ const ProfessionalExperience = () => {
                     <div key={index} className="grid grid-cols-5 gap-4 mt-4">
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`experiences.${index}.company`}
                         >
                           Company Name <span className="text-red-500"> *</span>
@@ -85,7 +85,7 @@ const ProfessionalExperience = () => {
 
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`experiences.${index}.jobTitle`}
                         >
                           Job Title <span className="text-red-500"> *</span>
@@ -118,7 +118,7 @@ const ProfessionalExperience = () => {
 
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`experiences.${index}.startDate`}
                         >
                           Start Date <span className="text-red-500"> *</span>
@@ -151,7 +151,7 @@ const ProfessionalExperience = () => {
 
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`experiences.${index}.endDate`}
                         >
                           End Date <span className="text-red-500"> *</span>
@@ -183,7 +183,7 @@ const ProfessionalExperience = () => {
                       </div>
                       <div className="col-span-4 md:col-span-1">
                         <label
-                          className="block text-gray-700 font-bold mb-2"
+                          className="block  font-semibold  mb-2"
                           htmlFor={`experiences.${index}.experienceLetter`}
                         >
                           Experience Letter<span className="text-red-500"> *</span>
@@ -217,7 +217,7 @@ const ProfessionalExperience = () => {
                       <div className="col-span-1 md:col-span-2 flex items-center">
                       {values.experiences.length > 1 && (   <button
                             type="button"
-                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
+                            className="py-2  rounded-md bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white mr-2"
                             onClick={() => remove(index)}
                           >
                             Remove
@@ -225,7 +225,7 @@ const ProfessionalExperience = () => {
                         {index === values.experiences.length - 1 && (
                           <button
                             type="button"
-                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                            className="py-2 bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white rounded-md  "
                             onClick={() =>
                               push({
                                 company: "",

@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
-// import EducationDetails from "../EducationDetails/EducationDetails";
-// import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
-// import JobReferences from "../JobReferences/JobReferences";
-// import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
+import EducationDetails from "../EducationDetails/EducationDetails";
+import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
+import JobReferences from "../JobReferences/JobReferences";
+import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
 import IntroductionVideo from "../../../JobDetails/components/IntroductionVideo/IntroductionVideo";
+import VoluntaryDisability from "../VoluntaryDisability/VoluntaryDisability";
+import axios from "axios";
 
 const validationSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string().required("Phone is required"),
-  resume: Yup.mixed().required(" Resume is Required"),
-  coverLetter: Yup.mixed().required("Cover Letter is required"),
+  first_name: Yup.string().required("First Name is required"),
+  last_name: Yup.string().required("Last Name is required"),
+  email: Yup.string().email("Invalid email").required("email is required"),
+  phone_no: Yup.string().required("phone_no is required"),
+  resume: Yup.mixed().required(" resume is Required"),
+  cover_letter: Yup.mixed().required("Cover Letter is required"),
   education: Yup.array().of(
     Yup.object().shape({
       schoolName: Yup.string().required("School name is required"),
@@ -22,8 +24,9 @@ const validationSchema = Yup.object().shape({
       discipline: Yup.string().required("Discipline is required"),
     })
   ),
-  linkedInProfile: Yup.string().required("Please enter a valid URL"),
+  linkedin: Yup.string().required("Please enter a valid URL"),
   website: Yup.string().required("Please enter a valid URL"),
+  github: Yup.string().required("Please enter a valid URL"),
   yearsOfExperience: Yup.number()
     .min(0, "Years of experience cannot be negative")
     .max(100, "Please enter a valid number")
@@ -31,25 +34,75 @@ const validationSchema = Yup.object().shape({
   operationsCoordinatorExperince: Yup.string().required(
     "This field is required"
   ),
+  gender: Yup.string().required("gender is required"),
+  hispanic: Yup.mixed().required(" hispanic is Required"),
+  veteran: Yup.mixed().required(" veteran status is Required"),
+  disabilitystatus: Yup.string().required(" status is required"),
 });
 
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  phone: "",
-  resume: "",
-  coverLetter: "",
-  linkedInProfile: "",
-  website: "",
-  yearsOfExperience: "",
-  operationsCoordinatorExperince: "",
-};
+const genderOptions = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+  { value: "nonbinary", label: "Non-binary" },
+];
+
+const hispanicOptions = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
+];
+
+const veteranOptions = [
+  { value: "yes", label: "Yes" },
+  { value: "no", label: "No" },
+  { value: "unknown", label: "Unknown" },
+];
+
+const disabilityOptions = [
+  { value: "disabled", label: "Disabled" },
+  { value: "not-disabled", label: "Not disabled" },
+  { value: "unknown", label: "Unknown" },
+];
 
 const JobForm = () => {
   const handleSubmit = (values, { resetForm }) => {
-    console.log(values); // logs the value of firstName
+    console.log(values); // logs the value of first_name
     resetForm();
+  };
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://jobs.orcaloholding.co.uk/api/my-profile"
+        );
+        setData(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+  console.log(data);
+  console.log(error);
+  const initialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_no: "",
+    resume: "",
+    cover_letter: "",
+    linkedin: "",
+    website: "",
+    github: "",
+    yearsOfExperience: "",
+    operationsCoordinatorExperince: "",
+    gender: "",
+    hispanic: "",
   };
 
   return (
@@ -71,52 +124,49 @@ const JobForm = () => {
             <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="firstName"
+                  className="block  font-semibold  mb-2"
+                  htmlFor="first_name"
                 >
                   First Name <span className="text-red-500"> *</span>
                 </label>
                 <Field
-                  id="firstName"
-                  name="firstName"
+                  id="first_name"
+                  name="first_name"
                   className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                    errors.firstName && touched.firstName && "border-red-500"
+                    errors.first_name && touched.first_name && "border-red-500"
                   }`}
                 />
-                {errors.firstName && touched.firstName && (
+                {errors.first_name && touched.first_name && (
                   <p className="text-red-500 text-xs italic">
-                    {errors.firstName}
+                    {errors.first_name}
                   </p>
                 )}
               </div>
               <div>
                 <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="lastName"
+                  className="block  font-semibold  mb-2"
+                  htmlFor="last_name"
                 >
                   Last Name <span className="text-red-500"> *</span>
                 </label>
                 <Field
-                  id="lastName"
-                  name="lastName"
+                  id="last_name"
+                  name="last_name"
                   className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                    errors.lastName && touched.lastName && "border-red-500"
+                    errors.last_name && touched.last_name && "border-red-500"
                   }`}
                 />
-                {errors.lastName && touched.lastName && (
+                {errors.last_name && touched.last_name && (
                   <p className="text-red-500 text-xs italic">
-                    {errors.lastName}
+                    {errors.last_name}
                   </p>
                 )}
               </div>
             </div>
             <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="email"
-                >
-                  Email <span className="text-red-500"> *</span>
+                <label className="block  font-semibold  mb-2" htmlFor="email">
+                  email <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="email"
@@ -132,32 +182,26 @@ const JobForm = () => {
               </div>
 
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="phone"
-                >
-                  Phone <span className="text-red-500"> *</span>
+                <label className="block  font-semibold  mb-2" htmlFor="phone_no">
+                  phone_no <span className="text-red-500"> *</span>
                 </label>
                 <Field
-                  id="phone"
-                  name="phone"
+                  id="phone_no"
+                  name="phone_no"
                   type="tel"
                   className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                    errors.phone && touched.phone && "border-red-500"
+                    errors.phone_no && touched.phone_no && "border-red-500"
                   }`}
                 />
-                {errors.phone && touched.phone && (
-                  <p className="text-red-500 text-xs italic">{errors.phone}</p>
+                {errors.phone_no && touched.phone_no && (
+                  <p className="text-red-500 text-xs italic">{errors.phone_no}</p>
                 )}
               </div>
             </div>
             <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="mb-4">
-                <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="resume"
-                >
-                  Resume/CV <span className="text-red-500"> *</span>
+                <label className="block  font-semibold  mb-2" htmlFor="resume">
+                  resume/CV <span className="text-red-500"> *</span>
                 </label>
                 <Field
                   id="resume"
@@ -174,30 +218,30 @@ const JobForm = () => {
 
               <div className="mb-4">
                 <label
-                  className="block text-gray-700 font-bold mb-2"
-                  htmlFor="coverLetter"
+                  className="block  font-semibold  mb-2"
+                  htmlFor="cover_letter"
                 >
                   Cover Letter<span className="text-red-500"> *</span>
                 </label>
                 <Field
-                  id="coverLetter"
-                  name="coverLetter"
+                  id="cover_letter"
+                  name="cover_letter"
                   type="file"
                   className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                    errors.coverLetter &&
-                    touched.coverLetter &&
+                    errors.cover_letter &&
+                    touched.cover_letter &&
                     "border-red-500"
                   }`}
                 />
-                {errors.coverLetter && touched.coverLetter && (
+                {errors.cover_letter && touched.cover_letter && (
                   <p className="text-red-500 text-xs italic">
-                    {errors.coverLetter}
+                    {errors.cover_letter}
                   </p>
                 )}
               </div>
             </div>
-            <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            {/* <div>
+            {/* <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <div>
               {" "}
               <EducationDetails />
             </div>
@@ -206,43 +250,68 @@ const JobForm = () => {
               <ProfessionalExperience />
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            <JobReferences/> */}
-            <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <JobReferences/>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div> */}
             <div>
-              <label htmlFor="linkedInProfile">LinkedIn Profile</label>
+              <label
+                htmlFor="linkedin"
+                className="block  font-semibold  mb-2"
+              >
+                {" "}
+                LinkedIn Profile
+              </label>
 
               <Field
-                id="linkedInProfile"
-                name="linkedInProfile"
+                id="linkedin"
+                name="linkedin"
                 type="url"
                 className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.firstName && touched.firstName && "border-red-500"
+                  errors.first_name && touched.first_name && "border-red-500"
                 }`}
               />
-              {errors.linkedInProfile && touched.linkedInProfile && (
+              {errors.linkedin && touched.linkedin && (
                 <p className="text-red-500 text-xs italic">
-                  {errors.linkedInProfile}
+                  {errors.linkedin}
                 </p>
               )}
             </div>
             <div>
-              <label htmlFor="website">Website</label>
+              <label htmlFor="website" className=" font-semibold  mb-2">
+                website
+              </label>
 
               <Field
                 id="website"
                 name="website"
                 type="url"
                 className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.coverLetter && touched.coverLetter && "border-red-500"
+                  errors.website && touched.website && "border-red-500"
                 }`}
               />
               {errors.website && touched.website && (
                 <p className="text-red-500 text-xs italic">{errors.website}</p>
               )}
             </div>
+            <div>
+              <label htmlFor="github" className=" font-semibold  mb-2">
+               Git Hub
+              </label>
+
+              <Field
+                id="github"
+                name="github"
+                type="url"
+                className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  errors.github && touched.github && "border-red-500"
+                }`}
+              />
+              {errors.github && touched.github && (
+                <p className="text-red-500 text-xs italic">{errors.website}</p>
+              )}
+            </div>
             <div className="mb-4">
               <label
-                className="block text-gray-700 font-bold mb-2"
+                className="block  font-semibold  mb-2"
                 htmlFor="yearsOfExperience"
               >
                 How many years of experience do you have?{" "}
@@ -267,7 +336,7 @@ const JobForm = () => {
 
             <div className="mb-4">
               <label
-                className="block text-gray-700 font-bold mb-2"
+                className="block  font-semibold  mb-2"
                 htmlFor="operationsExperience"
               >
                 Do you have strong experience as Operations Coordinator?{" "}
@@ -277,7 +346,7 @@ const JobForm = () => {
                 as="select"
                 id="operationsCoordinatorExperince"
                 name="operationsCoordinatorExperince"
-                className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                className={`form-select form-input border border-slate-100 dark:border-slate-800 mt-1 ${
                   errors.operationsCoordinatorExperince &&
                   touched.operationsCoordinatorExperince &&
                   "border-red-500"
@@ -294,9 +363,126 @@ const JobForm = () => {
                   </p>
                 )}
             </div>
-            {/* <SelfIdentificationForm/> */}
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            <IntroductionVideo/>
+            <div className="mt-10">
+              <p className="text-gray-600 mt-1">
+                <span className=" block  font-semibold  ">
+                  {" "}
+                  Voluntary Self-Identification
+                </span>
+              </p>
+
+              <p className="my-4">
+                For government reporting purposes, we ask candidates to respond
+                to the below self-identification survey. Completion of the form
+                is entirely
+                <span className="block  font-semibold  "> voluntary. </span>
+                Whatever your decision, it will not be considered in the hiring
+                process or thereafter. Any information that you do provide will
+                be recorded and maintained in a confidential file.
+              </p>
+              <p className="mb-2">
+                As set forth in Care Library’s Equal Employment Opportunity
+                policy, we do not discriminate on the basis of any protected
+                group status under any applicable law.
+              </p>
+              <div className="flex flex-col gap-4 w-1/2 mb-5">
+                <label htmlFor="gender" className="block  font-semibold  ">
+                  Gender
+                </label>
+                <Field
+                  as="select"
+                  name="gender"
+                  className="w-full form-select form-input  mt-1"
+                  placeholder="Select gender"
+                >
+                  <option value="" disabled>
+                    Select gender
+                  </option>
+                  {genderOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Field>
+
+                <label htmlFor="hispanic" className="text-gray-700 font-bold">
+                  Are you Hispanic/Latino?
+                </label>
+                <Field
+                  as="select"
+                  name="hispanic"
+                  className="w-full form-select form-input  mt-1"
+                  placeholder="Select an option"
+                >
+                  <option value="" disabled>
+                    Select an option
+                  </option>
+                  {hispanicOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </Field>
+              </div>
+            </div>
+            <SelfIdentificationForm />
+            <div className="mt-5 ">
+              {" "}
+              <label htmlFor="veteran" className="text-gray-700 font-bold">
+                Veteran Status
+              </label>
+              <Field
+                as="select"
+                name="veteran"
+                className="w-full form-select form-input  mt-1"
+                placeholder="Select an option"
+              >
+                <option value="" disabled>
+                  Select an option
+                </option>
+                {veteranOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Field>
+            </div>
+            <VoluntaryDisability />
+
+            <div className="w-1/2 mt-5">
+              {" "}
+              <label
+                htmlFor="disabilitystatus"
+                className="block font-semibold  mt-5 mb-2"
+              >
+                Disability Status
+              </label>
+              <Field
+                as="select"
+                name="disabilitystatus"
+                className="w-full form-select form-input  mt-1"
+                placeholder="Select gender mt-5 "
+              >
+                <option value="" disabled>
+                  please Select
+                </option>
+                {disabilityOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Field>
+            </div>
+            <p className="my-4">
+              PUBLIC BURDEN STATEMENT: According to the Paperwork Reduction Act
+              of 1995 no persons are required to respond to a collection of
+              information unless such collection displays a valid OMB control
+              number. This survey should take about 5 minutes to complete.
+            </p>
+
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <IntroductionVideo />
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div className="flex mt-5">
               <button
@@ -307,12 +493,9 @@ const JobForm = () => {
                 Submit Application
               </button>
             </div>
-
-           
           </Form>
         )}
       </Formik>
-     
     </>
   );
 };
