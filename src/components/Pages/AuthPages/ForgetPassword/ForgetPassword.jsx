@@ -1,28 +1,53 @@
+import axios from "axios";
 import { useFormik } from "formik";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "../Signup.css";
-import { resetPasswordSchemas } from "./schemas/resetPasswordSchemas";
+import { forgetPasswordSchemas } from "./schemas/forgetPasswordSchemas";
 
-const initialValues = {
-  email: "",
-};
-
-const ResetPassword = () => {
+const ForgetPassword = () => {
   let date = new Date().getFullYear();
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const initialValues = {
+    email: "",
+  };
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
-      validationSchema: resetPasswordSchemas,
+      validationSchema: forgetPasswordSchemas,
       onSubmit: (values, action) => {
+        postData(values);
         console.log(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
 
+  const postData = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/forget-password",
+        values
+      );
+      const { data, status } = response;
+      switch ((status, data?.status)) {
+        case true:
+          navigate("/login");
+
+        default:
+          setErrorMessage(data?.msg);
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div>
-      <section className="h-screen flex items-center justify-center relative overflow-hidden ">
+      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
@@ -41,7 +66,7 @@ const ResetPassword = () => {
                   />
                 </Link>
                 <h5 className="my-6 text-xl font-semibold">
-                  Reset Your Password
+                  Forget Your Password
                 </h5>
                 <div className="grid grid-cols-1">
                   <p className="text-slate-400 mb-6">
@@ -112,4 +137,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ForgetPassword;
