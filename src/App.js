@@ -14,10 +14,10 @@ import Blogs from "./components/Pages/Blog/Blogs";
 import BlogDetail from "./components/Pages/Blog/BlogDetail";
 import LockScreen from "./components/Pages/AuthPages/LockScreen";
 import Signup from "./components/Pages/AuthPages/Signup/Signup";
-import JobCategories from './components/Pages/Jobs/JobCategories/JobCategories';
-import JobDetails from './components/Pages/Jobs/JobDetails/JobDetails';
-import JobApplication from './components/Pages/Jobs/JobApplication/JobApplication';
-import Home from './components/Pages/HomePages/Home';
+import JobCategories from "./components/Pages/Jobs/JobCategories/JobCategories";
+import JobDetails from "./components/Pages/Jobs/JobDetails/JobDetails";
+import JobApplication from "./components/Pages/Jobs/JobApplication/JobApplication";
+import Home from "./components/Pages/HomePages/Home";
 import ForgetPassword from "./components/Pages/AuthPages/ForgetPassword/ForgetPassword";
 import ResetForgetPassword from "./components/Pages/AuthPages/ResetForgetPassword/ResetForgetPassword";
 import { Employers } from "./components/Pages/employers/Employers.jsx";
@@ -89,20 +89,28 @@ function App() {
         }
       />
       <Route exact path="/lock-screen" element={<LockScreen />} />
-      <Route exact path="/forget-password" element={<ForgetPassword/>} />
-      <Route exact path="/reset-forget-password" element={<ResetForgetPassword/>} />
-      <Route exact path='/job-categories' element={<JobCategories />} />
-      <Route exact path='/jobDetails/:id' element={
-        <Layout>
-          <JobDetails />
-        </Layout>
-        } />
-      <Route exact path='/job-application' element={<JobApplication />} />
-      <Route exact path='/employers' element={<Employers />} />
-      <Route exact path='/employer-details' element={<EmployerDetails />} />
-      <Route exact path='/employer-details' element={<EmployerDetails />} />
-      <Route exact path='/job-openings' element={<JobOpenings />} />
-      <Route exact path='/job-list' element={<JobList />} />
+      <Route exact path="/forget-password" element={<ForgetPassword />} />
+      <Route
+        exact
+        path="/reset-forget-password"
+        element={<ResetForgetPassword />}
+      />
+      <Route exact path="/job-categories" element={<JobCategories />} />
+      <Route
+        exact
+        path="/jobDetails/:id"
+        element={
+          <Layout>
+            <JobDetails />
+          </Layout>
+        }
+      />
+      <Route exact path="/job-application" element={<JobApplication />} />
+      <Route exact path="/employers" element={<Employers />} />
+      <Route exact path="/employer-details" element={<EmployerDetails />} />
+      <Route exact path="/employer-details" element={<EmployerDetails />} />
+      <Route exact path="/job-openings" element={<JobOpenings />} />
+      <Route exact path="/job-list" element={<JobList />} />
     </Routes>
   );
 }
