@@ -2,7 +2,7 @@ import React from 'react'
 
 const JobApplyBanner = () => {
   return (
-    <div className="container-fluid md:mt-24 mt-16">
+    <div className="container-fluid md:mt-24 mt-16" dir='ltr'>
     <div className="container">
       <div className="grid grid-cols-1">
         <div className="relative overflow-hidden lg:px-8 px-6 py-10 rounded-xl shadow-lg dark:shadow-gray-700">
