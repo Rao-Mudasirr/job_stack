@@ -48,7 +48,7 @@ const Login = () => {
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">
-      <section className="h-screen flex items-center justify-center relative overflow-hidden">
+      <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
           <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
@@ -125,7 +125,7 @@ const Login = () => {
                         </label>
                       </div>
                       <p className="text-slate-400 mb-0">
-                        <Link to="/reset-password" className="text-slate-400">
+                        <Link to="/forget-password" className="text-slate-400">
                           Forgot password ?
                         </Link>
                       </p>

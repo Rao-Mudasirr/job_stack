@@ -65,7 +65,6 @@ function App() {
       <Route exact path="/blogs" element={<Blogs />} />
       <Route exact path="/blog-detail" element={<BlogDetail />} />
       <Route exact path="/lock-screen" element={<LockScreen />} />
-      {/* <Route exact path="/reset-password" element={<ResetPassword />} /> */}
       <Route exact path="/forget-password" element={<ForgetPassword/>} />
       <Route exact path="/reset-forget-password" element={<ResetForgetPassword/>} />
       <Route exact path='/job-categories' element={<JobCategories />} />
