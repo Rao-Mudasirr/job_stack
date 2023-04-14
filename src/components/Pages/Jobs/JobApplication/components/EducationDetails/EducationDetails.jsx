@@ -20,7 +20,8 @@ const initialValues = {
   ],
 };
 const EducationDetails = () => {
-  const handleSave = (values, { resetForm }) => {
+  const handleSave = (values, 
+    { resetForm }) => {
     console.log(values); // logs the value of firstName
     resetForm();
   };
@@ -87,9 +88,10 @@ const EducationDetails = () => {
                             Degree <span className="text-red-500"> *</span>
                           </label>
                           <Field
+                           as="select"
                             id={`education.${index}.degree`}
                             name={`education.${index}.degree`}
-                            type="text"
+                            // type="text"
                             className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                               errors.education &&
                               errors.education[index] &&
@@ -99,7 +101,11 @@ const EducationDetails = () => {
                               touched.education[index].degree &&
                               "border-red-500"
                             }`}
-                          />
+                            >
+                            <option value="">Select an option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </Field>
                           {errors.education &&
                             errors.education[index] &&
                             errors.education[index].degree &&
@@ -120,9 +126,10 @@ const EducationDetails = () => {
                             Discipline <span className="text-red-500"> *</span>
                           </label>
                           <Field
+                            as="select"
                             id={`education.${index}.discipline`}
                             name={`education.${index}.discipline`}
-                            type="text"
+                            // type="text"
                             className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                               errors.education &&
                               errors.education[index] &&
@@ -132,7 +139,11 @@ const EducationDetails = () => {
                               touched.education[index].discipline &&
                               "border-red-500"
                             }`}
-                          />
+                            >
+                            <option value="">Select an option</option>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                          </Field>
 
                           {errors.education &&
                             errors.education[index] &&
@@ -212,13 +223,13 @@ const EducationDetails = () => {
                         </div>
 
                         <div className="col-span-1 md:col-span-2 flex items-center">
-                          <button
+                        {values.education.length > 1 && (   <button
                             type="button"
                             className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
                             onClick={() => remove(index)}
                           >
                             Remove
-                          </button>
+                          </button>)}
                           {index === values.education.length - 1 && (
                             <button
                               type="button"

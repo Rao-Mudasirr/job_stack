@@ -1,27 +1,53 @@
 import { useFormik } from "formik";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
-
-const initialValues = {
-  name: "",
-  email: "",
-  password: "",
-  confirm_password: "",
-};
+import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const initialValues = {
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    password_confirmation: "",
+  };
+
   let date = new Date().getFullYear();
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
       validationSchema: signUpSchema,
       onSubmit: (values, action) => {
-        console.log(values);
-        action.resetForm();
+        // console.log(values);
+        postData(values);
+        // action.resetForm();
       },
     });
+
+  const postData = async (values) => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/signup",
+        values
+      );
+      const { data, status } = response;
+      console.log(data);
+      switch ((status, data?.status)) {
+        case true:
+          navigate("/login");
+
+        default:
+          setErrorMessage(data?.msg);
+          break;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">
@@ -45,28 +71,45 @@ const Signup = () => {
                 </Link>
                 <h5 className="my-6 text-xl font-semibold">Signup</h5>
 
-
-
                 <form onSubmit={handleSubmit} className="text-left">
                   <div className="grid grid-cols-1">
                     <div className="mb-4 ltr:text-left rtl:text-right">
-
-                      <label className="font-semibold" htmlFor="name">
-                        Your Name:
+                      <label className="font-semibold" htmlFor="first_name">
+                        First Name:
                       </label>
                       <input
-                        type="name"
+                        type="text"
                         autoComplete="off"
-                        name="name"
-                        id="name"
+                        name="first_name"
+                        id="first_name"
                         className="form-input mt-3 rounded-md"
                         placeholder="Harry"
-                        value={values.name}
+                        value={values.first_name}
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
-                      {errors.name && touched.name ? (
-                        <p className="form-error">{errors.name}</p>
+                      {errors.first_name && touched.first_name ? (
+                        <p className="form-error">{errors.first_name}</p>
+                      ) : null}
+                    </div>
+
+                    <div className="mb-4 ltr:text-left rtl:text-right">
+                      <label className="font-semibold" htmlFor="last_name">
+                        Last Name:
+                      </label>
+                      <input
+                        type="text"
+                        autoComplete="off"
+                        name="last_name"
+                        id="last_name"
+                        className="form-input mt-3 rounded-md"
+                        placeholder="Harry"
+                        value={values.last_name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.last_name && touched.last_name ? (
+                        <p className="form-error">{errors.last_name}</p>
                       ) : null}
                     </div>
 
@@ -111,42 +154,30 @@ const Signup = () => {
                     </div>
 
                     <div className="mb-4 ltr:text-left rtl:text-right">
-                      <label className="font-semibold" htmlFor="confirm_password">
+                      <label
+                        className="font-semibold"
+                        htmlFor="password_confirmation"
+                      >
                         Confirm Password:
                       </label>
                       <input
-                      className="form-input mt-3 rounded-md"
-                      type="password"
-                      autoComplete="off"
-                      name="confirm_password"
-                      id="confirm_password"
-                      placeholder="Confirm Password"
-                      value={values.confirm_password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.confirm_password && touched.confirm_password ? (
-                      <p className="form-error">{errors.confirm_password}</p>
-                    ) : null}
+                        className="form-input mt-3 rounded-md"
+                        type="password"
+                        autoComplete="off"
+                        name="password_confirmation"
+                        id="password_confirmation"
+                        placeholder="Confirm Password"
+                        value={values.password_confirmation}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                      />
+                      {errors.password_confirmation &&
+                      touched.password_confirmation ? (
+                        <p className="form-error">
+                          {errors.password_confirmation}
+                        </p>
+                      ) : null}
                     </div>
-{/* 
-                    <label htmlFor="confirm_password" className="input-label">
-                      Confirm Password
-                    </label>
-                    <input
-                      type="password"
-                      autoComplete="off"
-                      name="confirm_password"
-                      id="confirm_password"
-                      placeholder="Confirm Password"
-                      value={values.confirm_password}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                    />
-                    {errors.confirm_password && touched.confirm_password ? (
-                      <p className="form-error">{errors.confirm_password}</p>
-                    ) : null} */}
-
 
                     <div className="mb-4">
                       <div className="flex items-center w-full mb-0">
@@ -187,6 +218,7 @@ const Signup = () => {
                         Sign in
                       </Link>
                     </div>
+                    <p>{errorMessage}</p>
                   </div>
                 </form>
               </div>

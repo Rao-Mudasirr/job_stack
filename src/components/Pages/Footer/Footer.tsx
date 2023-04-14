@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 
 const Footer = () => {
@@ -77,7 +78,7 @@ const Footer = () => {
             <div className="grid md:grid-cols-2 items-center gap-6">
               <div className="ltr:md:text-left rtl:md:text-right text-center">
                 <p className="mb-0 text-gray-300 font-medium">
-                  © <script>document.write(new Date().getFullYear())</script>{" "}
+                  © {moment().year()}{" "}
                   Jobstack. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
                   <a
