@@ -4,15 +4,26 @@ import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
 import "../Signup.css";
 import axios from "axios";
+<link
+  rel="stylesheet"
+  href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+></link>;
 
 const Login = () => {
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
   let date = new Date().getFullYear();
+  const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const initialValues = {
     email: "",
     password: "",
   };
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -51,7 +62,7 @@ const Login = () => {
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+        <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
                 <Link to="">
@@ -93,37 +104,36 @@ const Login = () => {
                       <label className="font-semibold" htmlFor="password">
                         Password:
                       </label>
-                      <input
-                        className="form-input mt-3 rounded-md"
-                        type="password"
-                        autoComplete="off"
-                        name="password"
-                        id="password"
-                        placeholder="Password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      <div style={{ display: "flex", position: "relative" }}>
+                        <input
+                          className="form-input mt-3 rounded-md"
+                          type={showPassword ? "text" : "password"}
+                          autoComplete="off"
+                          name="password"
+                          id="password"
+                          placeholder="Password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        <div
+                          onClick={togglePasswordVisibility}
+                          style={{ position: "absolute", right: 10, top: 20 }}
+                        >
+                          {showPassword ? (
+                            <i className="uil uil-eye-slash"></i>
+                          ) : (
+                            <i className="uil uil-eye"></i>
+                          )}
+                        </div>
+                      </div>
                       {errors.password && touched.password ? (
                         <p className="form-error">{errors.password}</p>
                       ) : null}
                     </div>
+                    <div></div>
 
-                    <div className="flex justify-between mb-4">
-                      <div className="inline-flex items-center">
-                        <input
-                          className="form-checkbox text-emerald-600 rounded w-4 h-4 ltr:mr-2 rtl:ml-2 border border-inherit"
-                          type="checkbox"
-                          value=""
-                          id="Rememberme"
-                        />
-                        <label
-                          className="form-check-label text-slate-400"
-                          htmlFor="Rememberme"
-                        >
-                          Remember me
-                        </label>
-                      </div>
+                    <div className="flex justify-end mb-4">
                       <p className="text-slate-400 mb-0">
                         <Link to="/forget-password" className="text-slate-400">
                           Forgot password ?
@@ -156,15 +166,12 @@ const Login = () => {
               </div>
 
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
-                <p className="mb-0 text-gray-400 font-medium">
-                  © {date} Jobstack. Designed by{" "}
-                  <a
-                    href="https://shreethemes.in/"
-                    target="_blank"
-                    className="text-reset"
-                  >
-                    Shreethemes
-                  </a>
+              <p className="mb-0 text-gray-400 font-medium">
+                  © <script>document.write(new Date().getFullYear())</script>
+                  Orcalo Holding. Designed by
+                  <Link to="/" target="_blank" className="text-reset">
+                  Orcalo Holding
+                  </Link>
                   .
                 </p>
               </div>

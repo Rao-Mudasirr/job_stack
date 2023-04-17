@@ -1,18 +1,27 @@
-import React from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import JobForm from "./components/JobForm/JobForm";
+import { useNavigate } from "react-router-dom";
 
 const JobApplication = () => {
+  const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (tokenCheck === "false") {
+      navigate("/login");
+    }
+  }, [navigate]);
+
   return (
     <div className="container mx-auto mt-10">
       <h1 className="text-emerald-600  text-2xl font-bold">
         People Operations Coordinator
       </h1>
       <p className="text-gray-600 mt-1">
-  at Care Library{' '}
-  <a href="#" className="text-blue-400 hover:underline">
-    (View all jobs)
-  </a>
-</p>
+        at Care Library{" "}
+        <a href="#" className="text-blue-400 hover:underline">
+          (View all jobs)
+        </a>
+      </p>
 
       <p className="mt-2">London</p>
       <p className="my-4">
@@ -35,8 +44,7 @@ const JobApplication = () => {
         high quality, well trained and compassionate healthcare workforce.
       </p>
 
-      <JobForm/>
-      
+      <JobForm />
     </div>
   );
 };

@@ -4,11 +4,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
 import axios from "axios";
+<link
+  rel="stylesheet"
+  href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
+></link>;
 
 const Signup = () => {
   let date = new Date().getFullYear();
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleComfirmPasswordVisibility = () => {
+    setComfirmShowPassword(!comfirmShowPassword);
+  };
+
   const initialValues = {
     first_name: "",
     last_name: "",
@@ -17,7 +31,6 @@ const Signup = () => {
     password_confirmation: "",
   };
 
- 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -55,7 +68,7 @@ const Signup = () => {
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+          <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
                 <Link to="">
@@ -138,17 +151,29 @@ const Signup = () => {
                       <label className="font-semibold" htmlFor="password">
                         Password:
                       </label>
-                      <input
-                        className="form-input mt-3 rounded-md"
-                        type="password"
-                        autoComplete="off"
-                        name="password"
-                        id="password"
-                        placeholder="Password"
-                        value={values.password}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      <div style={{ display: "flex", position: "relative" }}>
+                        <input
+                          className="form-input mt-3 rounded-md"
+                          type={showPassword ? "text" : "password"}
+                          autoComplete="off"
+                          name="password"
+                          id="password"
+                          placeholder="Password"
+                          value={values.password}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        <div
+                          onClick={togglePasswordVisibility}
+                          style={{ position: "absolute", right: 10, top: 20 }}
+                        >
+                          {showPassword ? (
+                            <i className="uil uil-eye-slash"></i>
+                          ) : (
+                            <i className="uil uil-eye"></i>
+                          )}
+                        </div>
+                      </div>
                       {errors.password && touched.password ? (
                         <p className="form-error">{errors.password}</p>
                       ) : null}
@@ -161,17 +186,29 @@ const Signup = () => {
                       >
                         Confirm Password:
                       </label>
-                      <input
-                        className="form-input mt-3 rounded-md"
-                        type="password"
-                        autoComplete="off"
-                        name="password_confirmation"
-                        id="password_confirmation"
-                        placeholder="Confirm Password"
-                        value={values.password_confirmation}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                      />
+                      <div style={{ display: "flex", position: "relative" }}>
+                        <input
+                          className="form-input mt-3 rounded-md"
+                          type={comfirmShowPassword ? "text" : "password"}
+                          autoComplete="off"
+                          name="password_confirmation"
+                          id="password_confirmation"
+                          placeholder="Confirm Password"
+                          value={values.password_confirmation}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        <div
+                          onClick={toggleComfirmPasswordVisibility}
+                          style={{ position: "absolute", right: 10, top: 20 }}
+                        >
+                          {comfirmShowPassword ? (
+                            <i className="uil uil-eye-slash"></i>
+                          ) : (
+                            <i className="uil uil-eye"></i>
+                          )}
+                        </div>
+                      </div>
                       {errors.password_confirmation &&
                       touched.password_confirmation ? (
                         <p className="form-error">
@@ -226,13 +263,13 @@ const Signup = () => {
 
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
-                  © {date} Jobstack. Designed by
+                  © {date} Orcalo Holding. Designed by
                   <Link
-                    to="https://shreethemes.in/"
+                    to="/"
                     target="_blank"
                     className="text-reset"
                   >
-                    Shreethemes
+                    Orcalo Holding
                   </Link>
                   .
                 </p>

@@ -95,7 +95,15 @@ function App() {
         path="/reset-forget-password"
         element={<ResetForgetPassword />}
       />
-      <Route exact path="/job-categories" element={<JobCategories />} />
+      <Route
+        exact
+        path="/job-categories"
+        element={
+          <Layout>
+            <JobCategories />
+          </Layout>
+        }
+      />
       <Route
         exact
         path="/jobDetails/:id"
@@ -106,9 +114,24 @@ function App() {
         }
       />
       <Route exact path="/job-application" element={<JobApplication />} />
-      <Route exact path="/employers" element={<Employers />} />
-      <Route exact path="/employer-details" element={<EmployerDetails />} />
-      <Route exact path="/employer-details" element={<EmployerDetails />} />
+      <Route
+        exact
+        path="/employers"
+        element={
+          <Layout>
+            <Employers />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/employer-details"
+        element={
+          <Layout>
+            <EmployerDetails />
+          </Layout>
+        }
+      />
       <Route exact path="/job-openings" element={<JobOpenings />} />
       <Route exact path="/job-list" element={<Layout><JobList /></Layout>} />
     </Routes>
