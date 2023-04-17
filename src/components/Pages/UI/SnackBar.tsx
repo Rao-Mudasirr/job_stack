@@ -23,7 +23,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
       setIsOpenSnack({ title: "", isToggle: false, type: "" });
     }, 2000);
     return () => clearTimeout(timer);
-  }, [isOpenSnack]);
+  }, [isOpenSnack?.isToggle]);
 
   return (
     <div
@@ -33,7 +33,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
         zIndex: 1111,
         padding: 8,
         borderRadius: "4px",
-        fontSize: "20px",
+        fontSize: "12px",
         borderLeft: 8,
         color: color,
         top: "5px",
