@@ -1,34 +1,20 @@
 import React, { useEffect } from "react";
 
-interface snackbarMsg {
-  title: string;
-  isToggle: boolean;
-  type: string;
-  top?: string;
-  right?: string;
-}
-
-interface Props {
-  isOpenSnack: snackbarMsg;
-  setIsOpenSnack: React.Dispatch<React.SetStateAction<snackbarMsg>>;
-}
-
-const GlobalSnackBar = (props: Props) => {
-  const { isOpenSnack, setIsOpenSnack } = props;
-  let bgColor: string = "";
-  let color: string = "";
+const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
+  let bgColor = "";
+  let color = "";
   switch (isOpenSnack.type) {
     case "error":
-      color = "error.main";
-      bgColor = "error.light";
+      color = "red";
+      bgColor = "rgba(229, 103, 103, 0.43)";
       break;
     case "warning":
       color = "#8F6D06";
-      bgColor = "warning.main";
+      bgColor = "rgba(226, 188, 91, 0.53)";
       break;
     case "success":
-      color = "success.main";
-      bgColor = "success.light";
+      color = "green";
+      bgColor = "rgba(65, 176, 29, 0.62)";
       break;
   }
 
@@ -44,13 +30,14 @@ const GlobalSnackBar = (props: Props) => {
       style={{
         position: "absolute",
         backgroundColor: bgColor,
-        zIndex: 11,
-        padding: 2,
+        zIndex: 1111,
+        padding: 8,
         borderRadius: "4px",
+        fontSize: "20px",
         borderLeft: 8,
         color: color,
-        top: isOpenSnack.top ? isOpenSnack.top : "5px",
-        right: isOpenSnack.right ? isOpenSnack.right : "15px",
+        top: "5px",
+        right: "15px",
       }}
     >
       <p>{isOpenSnack.title}</p>

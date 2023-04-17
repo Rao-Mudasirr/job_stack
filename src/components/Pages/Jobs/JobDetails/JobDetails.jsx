@@ -2,35 +2,39 @@ import React, { useEffect, useState } from "react";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
-
+import GlobalSnackBar from "../../UI/SnackBar";
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
   const { id } = useParams();
   console.log(id);
-  const fetchJobDetails = () => {
-    axios
-      .get(`https://jobs.orcaloholding.co.uk/api/jobs/${id}`)
-      .then((response) => {
-        console.log(response?.data?.data);
-        setJobDetails([response?.data?.data]);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
   useEffect(() => {
+    const fetchJobDetails = async () => {
+      try {
+        const response = await axios.get(
+          `https://jobs.orcaloholding.co.uk/api/jobs/${id}`
+        );
+
+        setJobDetails([response?.data?.data]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchJobDetails();
   }, []);
+
+  // useEffect(() => {
+  //   fetchJobDetails();
+  // }, []);
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
         <div className="container mt-10">
-          {/* <GlobalSnackBar
-          title={snackBar.title}
-          isToggle={snackBar.isToggle}
-          type={snackBar.type}
-        /> */}
+          <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
           {jobDetails?.map((details) => (
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div className="lg:col-span-8 md:col-span-6">
@@ -57,7 +61,18 @@ const JobDetails = () => {
                     </div>
                   </div>
                 </div>
-                <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
+                <h5
+                  className="text-lg font-semibold mt-6"
+                  onClick={() =>
+                    setSnackbar({
+                      title: "You have clicked the description",
+                      isToggle: true,
+                      type: "success",
+                    })
+                  }
+                >
+                  Job Description:
+                </h5>
                 {/* {details?.description} */}
                 <div
                   dangerouslySetInnerHTML={{ __html: details?.description }}
