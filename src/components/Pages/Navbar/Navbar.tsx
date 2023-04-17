@@ -1,14 +1,12 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 const Navbar = () => {
-  const navigate = useNavigate();
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   return (
     <div dir="ltr">
       <nav id="topnav" className={`defaultscroll is-sticky bg-white`}>
         <div className="container">
-          <a className="logo" href="index.html">
+          <Link className="logo" to="/" replace={true}>
             <div className="block sm:hidden">
               <img
                 src="assets/images/logo-icon-40.png"
@@ -40,7 +38,7 @@ const Navbar = () => {
                 alt=""
               />
             </div>
-          </a>
+          </Link>
 
           <div className="menu-extras">
             <div className="menu-item">
@@ -55,21 +53,10 @@ const Navbar = () => {
           </div>
 
           <ul className="buy-button list-none mb-0">
-            <li className="inline-block mb-0">
-              <div className="relative top-[3px]">
-                <i className="uil uil-search text-lg absolute top-[3px] ltr:right-3 rtl:left-3"></i>
-                <input
-                  type="text"
-                  className="form-input h-9 ltr:pr-10 rtl:pr-10 rounded-3xl sm:w-44 w-36 border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900"
-                  name="s"
-                  id="searchItem"
-                  placeholder="Search..."
-                />
-              </div>
-            </li>
+            
             <li className="inline-block pl-1 mb-0">
-              <a
-                href="#"
+              <Link
+                to="#"
                 className="btn btn-icon rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
               >
                 <img
@@ -77,132 +64,40 @@ const Navbar = () => {
                   className="rounded-full"
                   alt=""
                 />
-              </a>
+              </Link>
             </li>
           </ul>
 
           <div id="navigation">
             <ul className="navigation-menu justify-end nav-dark">
               <li className="has-submenu parent-menu-item">
-                <a href="javascript:void(0)">Home</a>
-                <span className="menu-arrow"></span>
-                <ul className="submenu">
-                  <li>
-                    <a href="index.html" className="sub-menu-item">
-                      Hero One
-                    </a>
-                  </li>
-                  <li>
-                    <a href="index-two.html" className="sub-menu-item">
-                      Hero Two
-                    </a>
-                  </li>
-                  <li>
-                    <a href="index-three.html" className="sub-menu-item">
-                      Hero Three
-                    </a>
-                  </li>
-                  <li>
-                    <a href="index-four.html" className="sub-menu-item">
-                      Hero Four
-                    </a>
-                  </li>
-                  <li>
-                    <a href="index-five.html" className="sub-menu-item">
-                      Hero Five
-                    </a>
-                  </li>
-                </ul>
+                <Link to="/" replace={true}>
+                  Home
+                </Link>
               </li>
 
               <li className="has-submenu parent-parent-menu-item">
-                <a href="javascript:void(0)"> Jobs </a>
+                <Link to="javascript:void(0)"> Jobs </Link>
                 <span className="menu-arrow"></span>
                 <ul className="submenu">
                   <li>
-                    <a href="job-categories.html" className="sub-menu-item">
+                    <Link
+                      to="/job-categories"
+                      className="sub-menu-item"
+                      replace={true}
+                    >
                       Job Categories
-                    </a>
+                    </Link>
                   </li>
 
                   <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)"> Job Grids </a>
-                    <span className="submenu-arrow"></span>
-                    <ul className="submenu">
-                      <li>
-                        <a href="job-grid-one.html" className="sub-menu-item">
-                          Job Grid One
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-grid-two.html" className="sub-menu-item">
-                          Job Grid Two
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-grid-three.html" className="sub-menu-item">
-                          Job Grid Three
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)"> Job Lists </a>
-                    <span className="submenu-arrow"></span>
-                    <ul className="submenu">
-                      <li>
-                        <a href="job-list-one.html" className="sub-menu-item">
-                          Job List One
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-list-two.html" className="sub-menu-item">
-                          Job List Two
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-list-three.html" className="sub-menu-item">
-                          Job List Three
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-list-four.html" className="sub-menu-item">
-                          Job List Four
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)"> Job Detail </a>
-                    <span className="submenu-arrow"></span>
-                    <ul className="submenu">
-                      <li>
-                        <a href="job-detail-one.html" className="sub-menu-item">
-                          Job Detail One
-                        </a>
-                      </li>
-                      <li>
-                        <a href="job-detail-two.html" className="sub-menu-item">
-                          Job Detail Two
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="job-detail-three.html"
-                          className="sub-menu-item"
-                        >
-                          Job Detail Three
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li>
-                    <a href="job-apply.html" className="sub-menu-item">
-                      Job Apply
-                    </a>
+                    <Link
+                      to="/job-categories"
+                      className="sub-menu-item"
+                      replace={true}
+                    >
+                      Job List
+                    </Link>
                   </li>
                 </ul>
               </li>
@@ -252,12 +147,13 @@ const Navbar = () => {
                         </a>
                       </li>
                       <li>
-                        <a
-                          href="candidate-detail.html"
+                        <Link
+                          to="/candidate-detail"
                           className="sub-menu-item"
+                          replace={true}
                         >
                           Candidate Detail
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
@@ -306,16 +202,22 @@ const Navbar = () => {
                     <span className="submenu-arrow"></span>
                     <ul className="submenu">
                       <li>
-                        <a href="blogs.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to="/blogs"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Blogs
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="blog-detail.html" className="sub-menu-item">
-                          {" "}
-                          Blog Detail
-                        </a>
+                        <Link
+                          to="/blog-detail"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
+                          Blog-detail
+                        </Link>
                       </li>
                     </ul>
                   </li>
@@ -326,29 +228,43 @@ const Navbar = () => {
                     <ul className="submenu">
                       {tokenCheck === "false" && (
                         <li>
-                          <Link to={"/login"} className="sub-menu-item">
+                          <Link
+                            to="/login"
+                            className="sub-menu-item"
+                            replace={true}
+                          >
                             Login{" "}
                           </Link>
                         </li>
                       )}
                       {tokenCheck === "false" && (
                         <li>
-                          <Link to={"/signup"} className="sub-menu-item">
+                          <Link
+                            to="/signup"
+                            className="sub-menu-item"
+                            replace={true}
+                          >
                             Signup
                           </Link>
                         </li>
                       )}
                       <li>
-                        <a href="reset-password.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to="/forget-password"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Forgot Password
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="lock-screen.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to="/lock-screen"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Lock Screen
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
@@ -358,24 +274,22 @@ const Navbar = () => {
                     <span className="submenu-arrow"></span>
                     <ul className="submenu">
                       <li>
-                        <a
+                        <Link
+                          to="/terms"
                           className="sub-menu-item"
-                          onClick={() => {
-                            navigate("/terms");
-                          }}
+                          replace={true}
                         >
                           Terms of Services
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a
+                        <Link
+                          to="/privacy"
                           className="sub-menu-item"
-                          onClick={() => {
-                            navigate("/privacy");
-                          }}
+                          replace={true}
                         >
                           Privacy Policy
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
@@ -385,28 +299,40 @@ const Navbar = () => {
                     <span className="submenu-arrow"></span>
                     <ul className="submenu">
                       <li>
-                        <a href="comingsoon.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to={"/comingsoon"}
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Coming Soon
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="maintenance.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to={"/maintenance"}
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Maintenance
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="error.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to="/error"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           404!
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="thankyou.html" className="sub-menu-item">
-                          {" "}
+                        <Link
+                          to="/thankyou"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
                           Thank you
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
