@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ModalUp = () => {
+const AccessDeniedModal = () => {
   const [showModal, setShowModal] = React.useState(false);
   return (
     <>
@@ -65,4 +65,4 @@ const ModalUp = () => {
     </>
   );
 };
-export default ModalUp;
+export default AccessDeniedModal;

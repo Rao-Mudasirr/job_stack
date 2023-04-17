@@ -24,7 +24,6 @@ import { Employers } from "./components/Pages/employers/Employers.jsx";
 import { EmployerDetails } from "./components/Pages/employers/employer-details/EmployerDetails.jsx";
 import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
 import { JobList } from "./components/Pages/JobList/JobList.jsx";
-import ModalUp from "./components/Pages/AccessDenied/Modal.jsx";
 
 function App() {
   return (
@@ -80,7 +79,6 @@ function App() {
       <Route exact path='/employer-details' element={<EmployerDetails />} />
       <Route exact path='/job-openings' element={<JobOpenings />} />
       <Route exact path='/job-list' element={<JobList />} />
-      <Route exact path='/job-up' element={<ModalUp />} />
       
     </Routes>
   );
