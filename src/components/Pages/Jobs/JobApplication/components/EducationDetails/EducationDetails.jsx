@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState} from "react";
 import { Formik, Form, Field, FieldArray } from "formik";
 import * as Yup from "yup";
+import EducationForm from "../EducationForm/EducationForm";
 
 const validationSchema = Yup.object().shape({
   education: Yup.array().of(
@@ -9,17 +10,30 @@ const validationSchema = Yup.object().shape({
       degree: Yup.string().required("Degree is required"),
       cgpa: Yup.number().required("CGPA is required"),
       discipline: Yup.string().required("Discipline is required"),
-      extrala: Yup.string().required("Extra la is required"),
+      attachdocument: Yup.string().required("Extra la is required"),
     })
   ),
 });
 
 const initialValues = {
   education: [
-    { schoolName: "", degree: "", discipline: "", cgpa: "", extrala: "" },
+    { schoolName: "", degree: "", discipline: "", cgpa: "", attachdocument: "" },
   ],
 };
 const EducationDetails = () => {
+
+  const [showModal, setShowModal] = useState(false);
+  const [education, setEducation] = useState([]);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+
+  const addEducation = (newEducation) => {
+    setEducation([...education, newEducation]);
+    toggleModal();
+  };
+
   const handleSave = (values, 
     { resetForm }) => {
     console.log(values); // logs the value of firstName
@@ -34,7 +48,7 @@ const EducationDetails = () => {
       {({ values, errors, touched, isSubmitting }) => (
         <Form>
           <div className="mb-8">
-            <h3 className="text-emerald-600  text-2xl font-bold">
+            <h3 className="mb-6 text-2xl leading-normal font-semibold">
               Education
             </h3>
             <p className="mt-1 text-sm leading-5 text-gray-600">
@@ -49,7 +63,7 @@ const EducationDetails = () => {
                       <div key={index} className="grid grid-cols-5 gap-4 mt-4">
                         <div className="col-span-4 md:col-span-1">
                           <label
-                            className="block text-gray-700 font-bold mb-2"
+                            className="block  font-semibold  mb-2"
                             htmlFor={`education.${index}.schoolName`}
                           >
                             School Name <span className="text-red-500"> *</span>
@@ -82,7 +96,7 @@ const EducationDetails = () => {
 
                         <div className="col-span-4 md:col-span-1">
                           <label
-                            className="block text-gray-700 font-bold mb-2"
+                            className="block  font-semibold  mb-2"
                             htmlFor={`education.${index}.degree`}
                           >
                             Degree <span className="text-red-500"> *</span>
@@ -120,7 +134,7 @@ const EducationDetails = () => {
 
                         <div className="col-span-4 md:col-span-1">
                           <label
-                            className="block text-gray-700 font-bold mb-2"
+                            className="block  font-semibold  mb-2"
                             htmlFor={`education.${index}.discipline`}
                           >
                             Discipline <span className="text-red-500"> *</span>
@@ -158,7 +172,7 @@ const EducationDetails = () => {
                         </div>
                         <div className="col-span-4 md:col-span-1">
                           <label
-                            className="block text-gray-700 font-bold mb-2"
+                            className="block  font-semibold  mb-2"
                             htmlFor={`education.${index}.cgpa`}
                           >
                             CGPA <span className="text-red-500"> *</span>
@@ -191,33 +205,33 @@ const EducationDetails = () => {
                         </div>
                         <div className="col-span-4 md:col-span-1">
                           <label
-                            className="block text-gray-700 font-bold mb-2"
-                            htmlFor={`education.${index}.extrala`}
+                            className="block  font-semibold mb-2"
+                            htmlFor={`education.${index}.attachdocument`}
                           >
                             Attach Document<span className="text-red-500"> *</span>
                           </label>
                           <Field
-                            id={`education.${index}.extrala`}
-                            name={`education.${index}.extrala`}
+                            id={`education.${index}.attachdocument`}
+                            name={`education.${index}.attachdocument`}
                             type="file"
                             className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                               errors.education &&
                               errors.education[index] &&
-                              errors.education[index].extrala &&
+                              errors.education[index].attachdocument &&
                               touched.education &&
                               touched.education[index] &&
-                              touched.education[index].extrala &&
+                              touched.education[index].attachdocument &&
                               "border-red-500"
                             }`}
                           />
                           {errors.education &&
                             errors.education[index] &&
-                            errors.education[index].extrala && 
+                            errors.education[index].attachdocument && 
                             touched.education &&
                             touched.education[index] &&
-                            touched.education[index].extrala && (
+                            touched.education[index].attachdocument && (
                               <p className="text-red-500 text-xs italic">
-                                {errors.education[index].extrala}
+                                {errors.education[index].attachdocument}
                               </p>
                             )}
                         </div>
@@ -225,27 +239,27 @@ const EducationDetails = () => {
                         <div className="col-span-1 md:col-span-2 flex items-center">
                         {values.education.length > 1 && (   <button
                             type="button"
-                            className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out mr-2"
+                             
+                          
+                            className="py-2  rounded-md bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white mr-2"
                             onClick={() => remove(index)}
                           >
                             Remove
                           </button>)}
-                          {index === values.education.length - 1 && (
+                          {/* {index === values.education.length - 1 && ( */}
                             <button
                               type="button"
-                              className="py-2 bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 border border-gray-300 rounded-md text-sm leading-5 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
-                              onClick={() =>
-                                push({
-                                  schoolName: "",
-                                  degree: "",
-                                  discipline: "",
-                                  cgpa: "",
-                                })
-                              }
+                              className="py-2 bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white rounded-md  "
+                              onClick={toggleModal}
                             >
                               Add Another Education
                             </button>
-                          )}
+                          {/* )} */}
+                          {showModal && (
+    <div>
+      <EducationForm onSubmit={addEducation} onClose={toggleModal} />
+    </div>
+  )}
                         </div>
                       </div>
                     ))}
@@ -260,9 +274,12 @@ const EducationDetails = () => {
           >
             save
           </button>
+
+          
         </Form>
       )}
     </Formik>
+    
   );
 };
 
