@@ -50,7 +50,7 @@ const ForgetPassword = () => {
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+        <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
                 <Link to="/login">
@@ -122,9 +122,9 @@ const ForgetPassword = () => {
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
                   © <script>document.write(new Date().getFullYear())</script>
-                  Jobstack. Designed by
-                  <Link to="" target="_blank" className="text-reset">
-                    Shreethemes
+                  Orcalo Holding. Designed by
+                  <Link to="/" target="_blank" className="text-reset">
+                  Orcalo Holding
                   </Link>
                   .
                 </p>
