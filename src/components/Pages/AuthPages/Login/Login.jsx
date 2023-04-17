@@ -4,15 +4,28 @@ import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
 import "../Signup.css";
 import axios from "axios";
+<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"></link>
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+
   const [errorMessage, setErrorMessage] = useState("");
   let date = new Date().getFullYear();
   const initialValues = {
     email: "",
     password: "",
   };
+
+
+
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
     useFormik({
       initialValues,
@@ -93,9 +106,12 @@ const Login = () => {
                       <label className="font-semibold" htmlFor="password">
                         Password:
                       </label>
+                      <div style={{display: 'flex', position: 'relative'}}>
+
+                      
                       <input
                         className="form-input mt-3 rounded-md"
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         autoComplete="off"
                         name="password"
                         id="password"
@@ -104,10 +120,26 @@ const Login = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                       />
+                      <p onClick={togglePasswordVisibility} style={{position: 'absolute', right: 10, top: 20}}>
+                        {showPassword ? <i className="uil uil-eye"></i> : <i className="uil uil-eye"></i>} 
+                      </p> 
+                      
+                      </div>
                       {errors.password && touched.password ? (
                         <p className="form-error">{errors.password}</p>
                       ) : null}
                     </div>
+                    <div>
+                      {/* <label htmlFor="password">Password:</label>
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        name="password"
+                      />
+                      <button onClick={togglePasswordVisibility}>
+                        {showPassword ? "Hide" : "Show"} Password
+                      </button> */}
+                      </div>
 
                     <div className="flex justify-between mb-4">
                       <div className="inline-flex items-center">
