@@ -71,11 +71,18 @@ const JobForm = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const tokenCheck = localStorage.getItem("token");
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://jobs.orcaloholding.co.uk/api/my-profile"
+          "https://jobs.orcaloholding.co.uk/api/my-profile",
+          {
+            headers: {
+              Authorization: `Bearer ${tokenCheck}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         setData(response.data);
         setLoading(false);
@@ -182,7 +189,10 @@ const JobForm = () => {
               </div>
 
               <div className="mb-4">
-                <label className="block  font-semibold  mb-2" htmlFor="phone_no">
+                <label
+                  className="block  font-semibold  mb-2"
+                  htmlFor="phone_no"
+                >
                   phone_no <span className="text-red-500"> *</span>
                 </label>
                 <Field
@@ -194,7 +204,9 @@ const JobForm = () => {
                   }`}
                 />
                 {errors.phone_no && touched.phone_no && (
-                  <p className="text-red-500 text-xs italic">{errors.phone_no}</p>
+                  <p className="text-red-500 text-xs italic">
+                    {errors.phone_no}
+                  </p>
                 )}
               </div>
             </div>
@@ -253,10 +265,7 @@ const JobForm = () => {
             <JobReferences/>
             <div className="border-t border-gray-400  mt-5 mb-5"></div> */}
             <div>
-              <label
-                htmlFor="linkedin"
-                className="block  font-semibold  mb-2"
-              >
+              <label htmlFor="linkedin" className="block  font-semibold  mb-2">
                 {" "}
                 LinkedIn Profile
               </label>
@@ -270,9 +279,7 @@ const JobForm = () => {
                 }`}
               />
               {errors.linkedin && touched.linkedin && (
-                <p className="text-red-500 text-xs italic">
-                  {errors.linkedin}
-                </p>
+                <p className="text-red-500 text-xs italic">{errors.linkedin}</p>
               )}
             </div>
             <div>
@@ -294,7 +301,7 @@ const JobForm = () => {
             </div>
             <div>
               <label htmlFor="github" className=" font-semibold  mb-2">
-               Git Hub
+                Git Hub
               </label>
 
               <Field
