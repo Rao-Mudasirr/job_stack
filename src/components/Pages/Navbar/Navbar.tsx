@@ -92,7 +92,7 @@ const Navbar = () => {
 
                   <li className="has-submenu parent-menu-item">
                     <Link
-                      to="/job-categories"
+                      to="/job-list"
                       className="sub-menu-item"
                       replace={true}
                     >
