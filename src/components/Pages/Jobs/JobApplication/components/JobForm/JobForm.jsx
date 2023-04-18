@@ -72,27 +72,27 @@ const JobForm = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const tokenCheck = localStorage.getItem("token");
+  const fetchProfileData = async () => {
+    try {
+      const response = await axios.get(
+        "https://jobs.orcaloholding.co.uk/api/my-profile",
+        {
+          headers: {
+            Authorization: `Bearer ${tokenCheck}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setData(response?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://jobs.orcaloholding.co.uk/api/my-profile",
-          {
-            headers: {
-              Authorization: `Bearer ${tokenCheck}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        setData(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-        console.log(error);
-      }
-    };
-    fetchData();
+    fetchProfileData();
   }, []);
   console.log(data);
   console.log(error);
@@ -255,14 +255,14 @@ const JobForm = () => {
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               {" "}
-              <EducationDetails />
+              <EducationDetails educationDetails={data?.education_details} fetchProfileData={fetchProfileData} />
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
-              <ProfessionalExperience />
+              <ProfessionalExperience professionalExperience={data?.experience_details} fetchProfileData={fetchProfileData} />
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
-            <JobReferences/>
+            <JobReferences jobReferences={data?.user?.reference_details} fetchProfileData={fetchProfileData} />
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               <label htmlFor="linkedin" className="block  font-semibold  mb-2">
