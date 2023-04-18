@@ -13,7 +13,7 @@ const Footer = () => {
                 <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
                   <div className="md:col-span-3">
                     <Link
-                      to="#"
+                      to="/"
                       className="flex justify-center md:justify-start focus:outline-none"
                     >
                       <img
@@ -53,15 +53,7 @@ const Footer = () => {
                           Create a job
                         </Link>
                       </li>
-                      <li className="inline-block mt-[10px] md:mt-0">
-                        <Link
-                          to="aboutus.html"
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
-                          replace={true}
-                        >
-                          About us
-                        </Link>
-                      </li>
+
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
                           to="contact.html"
@@ -201,53 +193,6 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-      <div className="fixed top-1/4 -left-2 z-50 hidden sm:block">
-        <span className="relative inline-block rotate-90">
-          <input
-            type="checkbox"
-            className="checkbox opacity-0 absolute"
-            id="chk"
-          />
-          <label
-            className="label bg-slate-900 dark:bg-white shadow dark:shadow-gray-800 cursor-pointer rounded-full flex justify-between items-center p-1 w-14 h-8"
-            htmlFor="chk"
-          >
-            <i className="uil uil-moon text-[20px] text-yellow-500"></i>
-            <i className="uil uil-sun text-[20px] text-yellow-500"></i>
-            <span className="ball bg-white dark:bg-slate-900 rounded-full absolute top-[2px] left-[2px] w-7 h-7"></span>
-          </label>
-        </span>
-      </div>
-
-      <div className="fixed top-1/2 -right-11 z-50 hidden sm:block">
-        <Link
-          to="https://1.envato.market/jobstack"
-          target="_blank"
-          className="py-1 px-3 relative inline-block rounded-b-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-700 font-semibold"
-        >
-          <i className="mdi mdi-cart-outline mr-1"></i> Download
-        </Link>
-      </div>
-
-      <div className="fixed top-[40%] -left-3 z-50">
-        <Link to="#" id="switchRtl">
-          <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold rtl:block ltr:hidden">
-            LTR
-          </span>
-          <span className="py-1 px-3 relative inline-block rounded-t-md -rotate-90 bg-white dark:bg-slate-900 shadow-md dark:shadow dark:shadow-gray-800 font-semibold ltr:block rtl:hidden">
-            RTL
-          </span>
-        </Link>
-      </div>
-
-      <Link
-        to="#"
-        // onClick="topFunction()"
-        id="back-to-top"
-        className="back-to-top fixed hidden text-lg rounded-full z-10 bottom-5 ltr:right-5 rtl:left-5 h-9 w-9 text-center bg-emerald-600 text-white justify-center items-center"
-      >
-        <i className="uil uil-arrow-up"></i>
-      </Link>
     </div>
   );
 };
