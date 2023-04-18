@@ -4,6 +4,7 @@ import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
 import "../Signup.css";
 import axios from "axios";
+import GlobalSnackBar from "../../UI/SnackBar";
 <link
   rel="stylesheet"
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
@@ -14,6 +15,11 @@ const Login = () => {
   let date = new Date().getFullYear();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -50,6 +56,11 @@ const Login = () => {
 
         default:
           setErrorMessage(data?.msg);
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "error",
+          });
           break;
       }
     } catch (error) {
@@ -61,8 +72,9 @@ const Login = () => {
     <div className="dark:bg-slate-900" dir="ltr">
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
         <div className="container">
-        <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
+          <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
                 <Link to="">
@@ -142,11 +154,12 @@ const Login = () => {
                     </div>
 
                     <div className="mb-4">
-                      <input
+                      <button
                         type="submit"
                         className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
-                        value="Login / Sign in"
-                      />
+                      >
+                        Send
+                      </button>
                     </div>
 
                     <div className="text-center">
@@ -160,17 +173,16 @@ const Login = () => {
                         Sign Up
                       </Link>
                     </div>
-                    <p>{errorMessage}</p>
                   </div>
                 </form>
               </div>
 
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
-              <p className="mb-0 text-gray-400 font-medium">
+                <p className="mb-0 text-gray-400 font-medium">
                   © <script>document.write(new Date().getFullYear())</script>
                   Orcalo Holding. Designed by
                   <Link to="/" target="_blank" className="text-reset">
-                  Orcalo Holding
+                    Orcalo Holding
                   </Link>
                   .
                 </p>

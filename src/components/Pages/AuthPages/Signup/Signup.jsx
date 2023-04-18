@@ -13,9 +13,7 @@ import GlobalSnackBar from "../../UI/SnackBar";
 const Signup = () => {
   let date = new Date().getFullYear();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  // const [acceptCondition, setAcceptCondition] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
   const [snackbar, setSnackbar] = useState({
     title: "",
@@ -31,20 +29,12 @@ const Signup = () => {
     setIsButtonDisabled(!e.target.checked);
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   // Handle form submit
-  // };
-
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   const toggleComfirmPasswordVisibility = () => {
     setComfirmShowPassword(!comfirmShowPassword);
   };
-  // const onchange = (e) => {
-  //   setAcceptCondition(e.target.value);
-  // };
 
   const initialValues = {
     first_name: "",
@@ -75,13 +65,27 @@ const Signup = () => {
       console.log(data);
       switch ((status, data?.status)) {
         case true:
-          navigate("/login");
-
+          setSnackbar({
+            title: "Successfully registered!",
+            isToggle: true,
+            type: "success",
+          });
+        // navigate("/login");
         default:
-          setErrorMessage(data?.msg);
+          // setErrorMessage();
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "error",
+          });
           break;
       }
     } catch (error) {
+      setSnackbar({
+        title: error,
+        isToggle: true,
+        type: "error",
+      });
       console.log(error);
     }
   };
@@ -90,11 +94,22 @@ const Signup = () => {
     <div className="dark:bg-slate-900" dir="ltr">
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
-        <div className="container">
         <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
+        <div className="container">
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-              <div className="p-6">
+              <div
+                className="p-6"
+                style={{
+                  overflow: "auto",
+                  height: "75vh",
+                  "&::-webkit-scrollbar": { width: 5, height: 6 },
+                  "&::-webkit-scrollbar-thumb": {
+                    backgroundColor: "#1dc99c",
+                    borderRadius: 2,
+                  },
+                }}
+              >
                 <Link to="">
                   <img
                     src="assets/images/logo-dark.png"
@@ -266,13 +281,6 @@ const Signup = () => {
                       className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                       value="Register"
                       disabled={isButtonDisabled}
-                      onClick={() =>
-                        setSnackbar({
-                          title: errorMessage,
-                          isToggle: true,
-                          type: "success",
-                        })
-                      }
                     >
                       Register
                     </button>

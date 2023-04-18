@@ -133,7 +133,15 @@ function App() {
         }
       />
       <Route exact path="/job-openings" element={<JobOpenings />} />
-      <Route exact path="/job-list" element={<Layout><JobList /></Layout>} />
+      <Route
+        exact
+        path="/job-list"
+        element={
+          <Layout>
+            <JobList />
+          </Layout>
+        }
+      />
     </Routes>
   );
 }
