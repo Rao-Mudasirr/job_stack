@@ -12,7 +12,7 @@ const PopularJobs = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://jobs.orcaloholding.co.uk/api/jobs');
+                const response = await axios.get(`${process.env.REACT_APP_SITE_URL}/api/jobs`);
                 setData(response.data);
                 setLoading(false);
             } catch (error) {
@@ -20,10 +20,10 @@ const PopularJobs = () => {
                 setLoading(false);
             }
         };
-
+ 
         fetchData();
     }, []);
-
+ 
     if (loading) {
         return <div>Loading...</div>;
     }
