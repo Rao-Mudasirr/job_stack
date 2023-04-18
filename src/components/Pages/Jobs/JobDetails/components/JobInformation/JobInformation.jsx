@@ -4,12 +4,19 @@ import moment from "moment";
   rel="stylesheet"
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
 ></link>;
-const JobInformation = ({ experience, type, location, created_at, salary }) => {
+const JobInformation = ({
+  experience,
+  type,
+  location,
+  created_at,
+  salary,
+  education,
+}) => {
   const jobInformationData = [
     {
       icon: "user-check",
       title: "Employee Type:",
-      value: "Full Time",
+      value: type,
     },
     {
       icon: "location-point",
@@ -29,7 +36,7 @@ const JobInformation = ({ experience, type, location, created_at, salary }) => {
     {
       icon: "book-alt",
       title: "Qualifications:",
-      value: "MCA",
+      value: education,
     },
     {
       icon: "dollar-alt",
