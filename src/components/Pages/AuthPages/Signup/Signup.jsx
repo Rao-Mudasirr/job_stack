@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
 import axios from "axios";
+import GlobalSnackBar from "../../UI/SnackBar";
 <link
   rel="stylesheet"
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
@@ -14,7 +15,26 @@ const Signup = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  // const [acceptCondition, setAcceptCondition] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
+
+  const [isChecked, setIsChecked] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+  const handleCheckboxChange = (e) => {
+    setIsChecked(e.target.checked);
+    setIsButtonDisabled(!e.target.checked);
+  };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   // Handle form submit
+  // };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -22,6 +42,9 @@ const Signup = () => {
   const toggleComfirmPasswordVisibility = () => {
     setComfirmShowPassword(!comfirmShowPassword);
   };
+  // const onchange = (e) => {
+  //   setAcceptCondition(e.target.value);
+  // };
 
   const initialValues = {
     first_name: "",
@@ -68,6 +91,7 @@ const Signup = () => {
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
@@ -222,29 +246,36 @@ const Signup = () => {
                         <input
                           className="form-checkbox text-emerald-600 rounded w-4 h-4 ltr:mr-2 rtl:ml-2 border border-inherit"
                           type="checkbox"
-                          value=""
-                          id="AcceptT&C"
+                          onChange={handleCheckboxChange}
+                          checked={isChecked}
                         />
                         <label
                           className="form-check-label text-slate-400"
                           htmlFor="AcceptT&C"
+                          id="AcceptT&C"
                         >
                           I Accept
-                          <Link to="/login" className="text-emerald-600">
+                          <Link to="/" className="text-emerald-600">
                             Terms And Condition
                           </Link>
                         </label>
                       </div>
                     </div>
-
-                    <div className="mb-4">
-                      <input
-                        type="submit"
-                        className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
-                        value="Register"
-                      />
-                    </div>
-
+                    <button
+                      type="submit"
+                      className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                      value="Register"
+                      disabled={isButtonDisabled}
+                      onClick={() =>
+                        setSnackbar({
+                          title: errorMessage,
+                          isToggle: true,
+                          type: "success",
+                        })
+                      }
+                    >
+                      Register
+                    </button>
                     <div className="text-center">
                       <span className="text-slate-400 me-2">
                         Already have an account ?
@@ -256,7 +287,19 @@ const Signup = () => {
                         Sign in
                       </Link>
                     </div>
-                    <p>{errorMessage}</p>
+                    {/* <p>{errorMessage}</p> */}
+                    {/* <p
+                  className="text-lg font-semibold mt-6"
+                  onClick={() =>
+                    setSnackbar({
+                      title: errorMessage,
+                      isToggle: true,
+                      type: "success",
+                    })
+                  }
+                >
+                  {errorMessage}
+                </p> */}
                   </div>
                 </form>
               </div>
@@ -264,11 +307,7 @@ const Signup = () => {
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
                   © {date} Orcalo Holding. Designed by
-                  <Link
-                    to="/"
-                    target="_blank"
-                    className="text-reset"
-                  >
+                  <Link to="/" target="_blank" className="text-reset">
                     Orcalo Holding
                   </Link>
                   .
