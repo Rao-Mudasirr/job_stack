@@ -50,7 +50,7 @@ const ForgetPassword = () => {
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
         <div className="container">
-        <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
+          <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
                 <Link to="/login">
@@ -96,11 +96,12 @@ const ForgetPassword = () => {
                       </div>
 
                       <div className="mb-4">
-                        <input
+                        <button
                           type="submit"
                           className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
-                          value="Send"
-                        />
+                        >
+                          Send
+                        </button>
                       </div>
 
                       <div className="text-center">
@@ -124,7 +125,7 @@ const ForgetPassword = () => {
                   © <script>document.write(new Date().getFullYear())</script>
                   Orcalo Holding. Designed by
                   <Link to="/" target="_blank" className="text-reset">
-                  Orcalo Holding
+                    Orcalo Holding
                   </Link>
                   .
                 </p>
