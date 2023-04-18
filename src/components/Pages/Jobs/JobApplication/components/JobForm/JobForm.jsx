@@ -252,7 +252,7 @@ const JobForm = () => {
                 )}
               </div>
             </div>
-            {/* <div className="border-t border-gray-400  mt-5 mb-5"></div>
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               {" "}
               <EducationDetails />
@@ -263,7 +263,7 @@ const JobForm = () => {
             </div>
             <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <JobReferences/>
-            <div className="border-t border-gray-400  mt-5 mb-5"></div> */}
+            <div className="border-t border-gray-400  mt-5 mb-5"></div>
             <div>
               <label htmlFor="linkedin" className="block  font-semibold  mb-2">
                 {" "}

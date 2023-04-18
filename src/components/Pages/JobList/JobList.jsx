@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { countryData, jobTypeData } from '../HomePages/Components/Hero'
 import axios from "axios";
+import { AppModal } from '../../AppModal/AppModal';
 
 export const JobList = () => {
     const [jobDetails, setJobDetails] = useState();
@@ -48,7 +49,7 @@ export const JobList = () => {
                                                 </div>
                                                 <div className="filter-search-form relative filter-border bg-gray-50">
                                                     <i className="uil uil-map-marker icons"></i>
-                                                    <select className="form-select w-full h-full ml-3 bg-gray-50" data-trigger name="choices-location" id="choices-location" aria-label="Default select example">
+                                                    <select className="form-select w-full h-full pl-10 bg-gray-50" data-trigger name="choices-location" id="choices-location" aria-label="Default select example">
                                                         {countryData.map((item) => {
                                                             return (
                                                                 <option key={item.id} value={item.value}>{item.Descp}</option>
@@ -58,7 +59,7 @@ export const JobList = () => {
                                                 </div>
                                                 <div className="filter-search-form relative filter-border">
                                                     <i className="uil uil-briefcase-alt icons"></i>
-                                                    <select className="form-select w-full h-full ml-3 bg-gray-50" data-trigger name="choices-type" id="choices-type" aria-label="Default select example">
+                                                    <select className="form-select w-full h-full pl-10 bg-gray-50" data-trigger name="choices-type" id="choices-type" aria-label="Default select example">
                                                         {jobTypeData.map((item) => {
                                                             return (
                                                                 <option key={item.id} value={item.value}>{item.Descp}</option>
@@ -83,7 +84,7 @@ export const JobList = () => {
                                     <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                                         <img src={item?.company?.logo} className="h-8 w-8" alt="" />
                                     </div>
-                                    <a href="job-detail-two.html" className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]">{item?.role?.name}</a>
+                                    <Link to={`/jobDetails/${item.slug}`} className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]">{item?.role?.name}</Link>
                                 </div>
                                 <div className="md:block flex justify-between md:mt-0 mt-4">
                                     <span className="block"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">{item?.type}</span></span>
@@ -94,7 +95,7 @@ export const JobList = () => {
                                     <span className="block font-semibold md:mt-1 mt-0">{item?.salary}</span>
                                 </div>
                                 <div className="md:mt-0 mt-4">
-                                    <Link href="job-apply.html" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
+                                    <Link to="/job-application" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
                                 </div>
                                 {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
                             </div>)
@@ -102,6 +103,7 @@ export const JobList = () => {
                     </div>
                 </div>
             </section>
+            <AppModal/>
         </div>
     )
 }

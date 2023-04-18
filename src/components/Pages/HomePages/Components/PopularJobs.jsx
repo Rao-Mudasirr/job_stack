@@ -53,7 +53,7 @@ const PopularJobs = () => {
 
                 <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
                     <div className="md:col-span-12 text-center">
-                        <NavLink to={`jobDetails/1`} className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">See More Jobs <i className="uil uil-arrow-right align-middle"></i></NavLink>
+                        <NavLink to={`job-list`} className="btn btn-link text-slate-400 hover:text-emerald-600 after:bg-emerald-600 duration-500 ease-in-out">See More Jobs <i className="uil uil-arrow-right align-middle"></i></NavLink>
                     </div>
                 </div>
             </div>
