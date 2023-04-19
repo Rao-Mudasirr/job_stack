@@ -292,7 +292,7 @@ const Navbar = () => {
                         >
                           Lock Screen
                         </Link>
-                      </li> */}
+                      </li>
                     </ul>
                   </li>
 
@@ -364,6 +364,12 @@ const Navbar = () => {
                     </ul>
                   </li>
                 </ul>
+              </li>
+
+              <li>
+                <a href="contact.html" className="sub-menu-item">
+                  Contact
+                </a>
               </li>
             </ul>
           </div>
