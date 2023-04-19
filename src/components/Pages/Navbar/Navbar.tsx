@@ -264,18 +264,7 @@ const Navbar = () => {
                           </Link>
                         </li>
                       )}
-                      {tokenCheck === "true" && (
-                        <li onClick={() => localStorage.removeItem('token')}>
-                          <Link
-                            to="/login"
-                            className="sub-menu-item"
-                            replace={true}
-                          >
-                            Logout
-                          </Link>
-                        </li>
-                      )}
-                      <li>
+                      {/* <li>
                         <Link
                           to="/forget-password"
                           className="sub-menu-item"
@@ -292,7 +281,7 @@ const Navbar = () => {
                         >
                           Lock Screen
                         </Link>
-                      </li>
+                      </li> */}
                     </ul>
                   </li>
 
@@ -364,12 +353,6 @@ const Navbar = () => {
                     </ul>
                   </li>
                 </ul>
-              </li>
-
-              <li>
-                <a href="contact.html" className="sub-menu-item">
-                  Contact
-                </a>
               </li>
             </ul>
           </div>

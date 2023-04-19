@@ -1,7 +1,7 @@
-import React from 'react'
-import Hero from './Components/Hero'
+import React from "react";
+import Hero from "./Components/Hero";
 // import PopularCategories from './Components/PopularCategories'
-import PopularJobs from './Components/PopularJobs'
+import PopularJobs from "./Components/PopularJobs";
 // import BestCompanies from './Components/BestCompanies'
 
 const Home = () => {
@@ -9,10 +9,10 @@ const Home = () => {
     <>
       <Hero />
       {/* <PopularCategories/> */}
-      <PopularJobs/>
+      <PopularJobs />
       {/* <BestCompanies/> */}
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
