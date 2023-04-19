@@ -24,6 +24,7 @@ import { Employers } from "./components/Pages/employers/Employers.jsx";
 import { EmployerDetails } from "./components/Pages/employers/employer-details/EmployerDetails.jsx";
 import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
 import { JobList } from "./components/Pages/JobList/JobList.jsx";
+import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
 
 function App() {
   return (
@@ -129,6 +130,15 @@ function App() {
         element={
           <Layout>
             <EmployerDetails />
+          </Layout>
+        }
+      />
+       <Route
+        exact
+        path="/introduction-vidio"
+        element={
+          <Layout>
+            <IntroductionVideo />
           </Layout>
         }
       />
