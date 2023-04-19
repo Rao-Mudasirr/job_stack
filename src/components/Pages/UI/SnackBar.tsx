@@ -6,7 +6,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
   switch (isOpenSnack.type) {
     case "error":
       color = "red";
-      bgColor = "rgba(229, 103, 103, 0.43)";
+      bgColor = "rgba(255, 255, 255, 0.8)";
       break;
     case "warning":
       color = "#8F6D06";
@@ -21,7 +21,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsOpenSnack({ title: "", isToggle: false, type: "" });
-    }, 2000);
+    }, 3000);
     return () => clearTimeout(timer);
   }, [isOpenSnack?.isToggle]);
 
@@ -31,13 +31,14 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
         position: "absolute",
         backgroundColor: bgColor,
         zIndex: 1111,
-        padding: 8,
-        borderRadius: "4px",
-        fontSize: "12px",
+        padding: "10px 40px",
+        borderRadius: "8px",
+        fontSize: "14px",
+        fontWeight:700,
         borderLeft: 8,
         color: color,
-        top: "5px",
-        right: "15px",
+        top: "20px",
+        right: "40px",
       }}
     >
       <p>{isOpenSnack.title}</p>
