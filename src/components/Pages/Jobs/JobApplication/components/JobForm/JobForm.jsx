@@ -39,12 +39,12 @@ const validationSchema = Yup.object().shape({
   reference_details: Yup.array().of(
     Yup.object().shape({
       name: Yup.string().required("Name is required"),
-      compname: Yup.string().required("Company Name is required"),
-      position: Yup.string().required("Position is required"),
+      company: Yup.string().required("Company Name is required"),
+      position: Yup.string().required("position is required"),
       // contactNumber: Yup.string()
       //   .matches(/^\d+$/, "Contact number should be a number")
       //   .required("Contact number is required"),
-      email: Yup.string().email("Invalid email").required("Email is required"),
+      email: Yup.string().email("Invalid email").required("email is required"),
     })
   ),
   education: Yup.array().of(
@@ -152,8 +152,8 @@ const JobForm = () => {
     veteran_status: data?.data?.user?.veteran_status,
     reference_details: [
       {
-        name: data?.data?.user?.reference_details.name,
-        compname: "",
+        name: "",
+        company: "",
         position: "",
         contactNumber: "",
         email: "",
@@ -355,7 +355,7 @@ const JobForm = () => {
 
 
 
-
+                    
 */}
                   <div className="border-t border-gray-400  mt-5 mb-5"></div>
                   <div className="mb-8">
@@ -884,7 +884,7 @@ const JobForm = () => {
                     <FieldArray name="reference_details">
                       {({ push, remove }) => (
                         <>
-                          {values.reference_details.map((ref, index) => (
+                          {data?.data?.user?.reference_details.map((ref, index) => (
                             <div
                               key={index}
                               className="grid grid-cols-5 gap-4 mt-4"
@@ -925,33 +925,33 @@ const JobForm = () => {
                               <div className="col-span-4 md:col-span-1">
                                 <label
                                   className="block  font-semibold  mb-2"
-                                  htmlFor={`reference_details.${index}.compname`}
+                                  htmlFor={`reference_details.${index}.company`}
                                 >
                                   Company Name{" "}
                                   <span className="text-red-500"> *</span>
                                 </label>
                                 <Field
-                                  id={`reference_details.${index}.compname`}
-                                  name={`reference_details.${index}.compname`}
+                                  id={`reference_details.${index}.company`}
+                                  name={`reference_details.${index}.company`}
                                   type="text"
                                   className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                                     errors.reference_details &&
                                     errors.reference_details[index] &&
-                                    errors.reference_details[index].compname &&
+                                    errors.reference_details[index].company &&
                                     touched.reference_details &&
                                     touched.reference_details[index] &&
-                                    touched.reference_details[index].compname &&
+                                    touched.reference_details[index].company &&
                                     "border-red-500"
                                   }`}
                                 />
                                 {errors.reference_details &&
                                   errors.reference_details[index] &&
-                                  errors.reference_details[index].compname &&
+                                  errors.reference_details[index].company &&
                                   touched.reference_details &&
                                   touched.reference_details[index] &&
-                                  touched.reference_details[index].compname && (
+                                  touched.reference_details[index].company && (
                                     <p className="text-red-500 text-xs italic">
-                                      {errors.reference_details[index].compname}
+                                      {errors.reference_details[index].company}
                                     </p>
                                   )}
                               </div>
@@ -960,7 +960,7 @@ const JobForm = () => {
                                   className="block  font-semibold  mb-2"
                                   htmlFor={`reference_details.${index}.position`}
                                 >
-                                  Position{" "}
+                                  position{" "}
                                   <span className="text-red-500"> *</span>
                                 </label>
                                 <Field
@@ -1027,7 +1027,7 @@ const JobForm = () => {
                                   className="block  font-semibold  mb-2"
                                   htmlFor={`reference_details.${index}.email`}
                                 >
-                                  Email <span className="text-red-500"> *</span>
+                                  email <span className="text-red-500"> *</span>
                                 </label>
                                 <Field
                                   id={`reference_details.${index}.email`}
@@ -1072,7 +1072,7 @@ const JobForm = () => {
                                     onClick={() =>
                                       push({
                                         name: "",
-                                        compname: "",
+                                        company: "",
 
                                         position: "",
 
