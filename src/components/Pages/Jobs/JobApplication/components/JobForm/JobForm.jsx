@@ -182,15 +182,16 @@ const JobForm = () => {
 
   return (
     <>
-      <div>
-  {loading ? (
-    <div className="h-48 flex items-center justify-center">
-      <div className="w-2 h-24 bg-blue-500 rounded-full animate-scale-y"></div>
-    </div>
-  ) : error ? (
-    <div>{error}</div>
-  ) : (
-          <div>
+    {loading ? (
+  <div className="h-48 flex items-center justify-center">
+    <span className="ml-2 text-blue-500 font-bold text-xl">
+      Loading<span className="animate-pulse">...</span>
+    </span>
+  </div>
+) : error ? (
+  <div>{error}</div>
+) : (
+  <div>
             <Formik
               initialValues={initialValues}
               validationSchema={validationSchema}
@@ -1365,9 +1366,8 @@ const JobForm = () => {
                 </Form>
               )}
             </Formik>
-          </div>
-        )}
-      </div>
+            </div>
+)}
     </>
   );
 };
