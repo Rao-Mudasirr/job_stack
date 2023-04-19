@@ -27,13 +27,10 @@ const JobDetails = () => {
     fetchJobDetails();
   }, []);
 
-  // useEffect(() => {
-  //   fetchJobDetails();
-  // }, []);
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
-        <div className="container mt-10">
+        <div className="container mt-10 mx-auto">
           <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
           {jobDetails?.map((details) => (
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
@@ -100,6 +97,7 @@ const JobDetails = () => {
                 location={details?.location}
                 created_at={details?.created_at}
                 salary={details?.salary}
+                education={details?.education}
               />
             </div>
           ))}

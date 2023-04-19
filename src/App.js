@@ -24,124 +24,136 @@ import { Employers } from "./components/Pages/employers/Employers.jsx";
 import { EmployerDetails } from "./components/Pages/employers/employer-details/EmployerDetails.jsx";
 import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
 import { JobList } from "./components/Pages/JobList/JobList.jsx";
+import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
+import { ProtectedAuths } from "./ProtectedAuths.tsx";
 
 function App() {
+  const isToken = localStorage.getItem("token");
+
   return (
     <Routes>
-      <Route
-        exact
-        path={"/"}
-        element={
-          <Layout>
-            <Home />
-          </Layout>
-        }
-      />
-      <Route
-        exact
-        path="/terms"
-        element={
-          <Layout>
-            <TermsAndServices />
-          </Layout>
-        }
-      />
-      <Route
-        exact
-        path="/privacy"
-        element={
-          <Layout>
-            <PrivacyPolicy />
-          </Layout>
-        }
-      />
-      <Route exact path="/comingsoon" element={<CommingSoon />} />
-      <Route exact path="/maintenance" element={<Maintenance />} />
-      <Route exact path="/error" element={<Error404 />} />
-      <Route exact path="/thankyou" element={<ThankYou />} />
-      <Route
-        exact
-        path="/candidate-detail"
-        element={
-          <Layout>
-            <CandidatesDetail />
-          </Layout>
-        }
-      />
-      <Route exact path={"/login"} element={<Login />} />
-      <Route exact path="/signup" element={<Signup />} />
-      <Route
-        exact
-        path="/blogs"
-        element={
-          <Layout>
-            <Blogs />
-          </Layout>
-        }
-      />
-      <Route
-        exact
-        path="/blog-detail"
-        element={
-          <Layout>
-            <BlogDetail />
-          </Layout>
-        }
-      />
-      <Route exact path="/lock-screen" element={<LockScreen />} />
-      <Route exact path="/forget-password" element={<ForgetPassword />} />
-      <Route
-        exact
-        path="/reset-forget-password"
-        element={<ResetForgetPassword />}
-      />
-      <Route
-        exact
-        path="/job-categories"
-        element={
-          <Layout>
-            <JobCategories />
-          </Layout>
-        }
-      />
-      <Route
-        exact
-        path="/jobDetails/:id"
-        element={
-          <Layout>
-            <JobDetails />
-          </Layout>
-        }
-      />
-      <Route exact path="/job-application" element={<JobApplication />} />
-      <Route
-        exact
-        path="/employers"
-        element={
-          <Layout>
-            <Employers />
-          </Layout>
-        }
-      />
-      <Route
-        exact
-        path="/employer-details"
-        element={
-          <Layout>
-            <EmployerDetails />
-          </Layout>
-        }
-      />
-      <Route exact path="/job-openings" element={<JobOpenings />} />
-      <Route
-        exact
-        path="/job-list"
-        element={
-          <Layout>
-            <JobList />
-          </Layout>
-        }
-      />
+      <Route element={<ProtectedAuths />}>
+        <Route exact path="/forget-password" element={<ForgetPassword />} />
+        <Route
+          exact
+          path="/reset-forget-password"
+          element={<ResetForgetPassword />}
+        />
+        <Route exact path={"/login"} element={<Login />} />
+        <Route exact path="/signup" element={<Signup />} />
+      </Route>
+
+      <Route element={<ProtectedRoutes />}>
+        <Route
+          exact
+          path={"/"}
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/terms"
+          element={
+            <Layout>
+              <TermsAndServices />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/privacy"
+          element={
+            <Layout>
+              <PrivacyPolicy />
+            </Layout>
+          }
+        />
+        <Route exact path="/comingsoon" element={<CommingSoon />} />
+        <Route exact path="/maintenance" element={<Maintenance />} />
+        <Route exact path="/error" element={<Error404 />} />
+        <Route exact path="/thankyou" element={<ThankYou />} />
+        <Route
+          exact
+          path="/candidate-detail"
+          element={
+            <Layout>
+              <CandidatesDetail />
+            </Layout>
+          }
+        />
+
+        <Route
+          exact
+          path="/blogs"
+          element={
+            <Layout>
+              <Blogs />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/blog-detail"
+          element={
+            <Layout>
+              <BlogDetail />
+            </Layout>
+          }
+        />
+        <Route exact path="/lock-screen" element={<LockScreen />} />
+
+        <Route
+          exact
+          path="/job-categories"
+          element={
+            <Layout>
+              <JobCategories />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/jobDetails/:id"
+          element={
+            <Layout>
+              <JobDetails />
+            </Layout>
+          }
+        />
+        <Route exact path="/job-application" element={<JobApplication />} />
+        <Route
+          exact
+          path="/employers"
+          element={
+            <Layout>
+              <Employers />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/employer-details"
+          element={
+            <Layout>
+              <EmployerDetails />
+            </Layout>
+          }
+        />
+        <Route exact path="/job-openings" element={<JobOpenings />} />
+        <Route
+          exact
+          path="/job-list"
+          element={
+            <Layout>
+              <JobList />
+            </Layout>
+          }
+        />
+      </Route>
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 }
