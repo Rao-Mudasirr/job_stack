@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ThankYou = () => {
   return (
@@ -19,12 +20,13 @@ const ThankYou = () => {
               </p>
 
               <div className="mt-6">
-                <a
-                  href="index.html"
+                <Link
+                  to="/"
                   className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                  replace={true}
                 >
                   Back to Home
-                </a>
+                </Link>
               </div>
             </div>
           </div>

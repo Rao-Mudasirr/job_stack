@@ -37,30 +37,29 @@ const Footer = () => {
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="services.html"
+                          to="job-list"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
-                          How it works
+                          Job List
                         </Link>
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="#"
+                          to="terms"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
-                          Create a job
+                          Terms & Services
                         </Link>
                       </li>
-
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="contact.html"
+                          to="thankyou"
                           replace={true}
-                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium"
+                          className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
-                          Contact us
+                          Thank You
                         </Link>
                       </li>
                     </ul>
@@ -84,7 +83,7 @@ const Footer = () => {
                     target="_blank"
                     className="text-reset"
                   >
-                    Shreethemes
+                    Orcalo Holding
                   </Link>
                   .
                 </p>
