@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Error404 = () => {
+const Error404 = ({ key }) => {
+  const isToken = localStorage.getItem("token");
+  console.log(";token", isToken);
+
   return (
     <div dir="ltr">
       <section className="relative bg-emerald-600/5">
@@ -29,8 +32,7 @@ const Error404 = () => {
 
                 <div className="mt-4">
                   <Link
-                    to="/"
-                    replace={true}
+                    to={isToken ? "/" : "/login"}
                     className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
                   >
                     Back to Home
