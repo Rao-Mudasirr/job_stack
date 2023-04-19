@@ -2,6 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 const JobCard = (props) => {
+  const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
+
   const {
     id,
     companyIcon,
@@ -25,7 +27,7 @@ const JobCard = (props) => {
 
           <div className="ml-3 rtl:mr-3">
             <NavLink
-              to={`jobDetails/${slug}`}
+              to={tokenCheck === "true" ? `jobDetails/${slug}` : "login"}
               className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500"
             >
               {companyName}
@@ -41,7 +43,7 @@ const JobCard = (props) => {
 
       <div className="mt-6">
         <NavLink
-          to={`jobDetails/${slug}`}
+          to={tokenCheck === "true" ? `jobDetails/${slug}` : "login"}
           className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
         >
           {title}
