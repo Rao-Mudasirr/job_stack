@@ -1,9 +1,17 @@
 import React from "react";
 
 const TermsAndServices = () => {
+  function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
+    divToBeClickedOn.classList.toggle("open");
+    var isOpen = theDIvToBeShown;
+    if (isOpen.style.display === "none") {
+      isOpen.style.display = "block";
+    } else {
+      isOpen.style.display = "none";
+    }
+  }
   return (
     <div dir="ltr">
-     
       <section className="relative table w-full py-36">
         <div className="absolute inset-0 bg-emerald-900/90"></div>
         <div className="container">
@@ -135,22 +143,29 @@ const TermsAndServices = () => {
                   data-accordion="collapse"
                   className="mt-6"
                 >
-                  <div  className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
+                  <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
                     <h2
                       className="text-base font-medium"
-                      id="accordion-collapse-heading-1"
+                      id="accordion-collapse-heading-2"
                     >
                       <button
                         type="button"
                         className="flex justify-between items-center p-5 w-full font-medium text-left"
-                        data-accordion-target="#accordion-collapse-body-1"
-                        aria-expanded="true"
+                        data-accordion-target="#accordion-collapse-body-2"
+                        aria-expanded="false"
                         aria-controls="accordion-collapse-body-1"
+                        id="firstAccordion"
+                        onClick={() =>
+                          jobMenuFunction(
+                            document.getElementById("firstAccordion"),
+                            document.getElementById("accordion-collapse-body-1")
+                          )
+                        }
                       >
                         <span>How does it work ?</span>
                         <svg
                           data-accordion-icon
-                          className="w-4 h-4 rotate-180 shrink-0"
+                          className="w-4 h-4 shrink-0"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                           xmlns="http://www.w3.org/2000/svg"
@@ -165,7 +180,7 @@ const TermsAndServices = () => {
                     </h2>
                     <div
                       id="accordion-collapse-body-1"
-                      className="hidden"
+                      style={{ display: "none" }}
                       aria-labelledby="accordion-collapse-heading-1"
                     >
                       <div className="p-5">
@@ -177,7 +192,6 @@ const TermsAndServices = () => {
                       </div>
                     </div>
                   </div>
-
                   <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
                     <h2
                       className="text-base font-medium"
@@ -189,6 +203,13 @@ const TermsAndServices = () => {
                         data-accordion-target="#accordion-collapse-body-2"
                         aria-expanded="false"
                         aria-controls="accordion-collapse-body-2"
+                        id="2ndAccordion"
+                        onClick={() =>
+                          jobMenuFunction(
+                            document.getElementById("2ndAccordion"),
+                            document.getElementById("accordion-collapse-body-2")
+                          )
+                        }
                       >
                         <span>Do I need a designer to use Jobstack ?</span>
                         <svg
@@ -208,7 +229,7 @@ const TermsAndServices = () => {
                     </h2>
                     <div
                       id="accordion-collapse-body-2"
-                      className="hidden"
+                      style={{ display: "none" }}
                       aria-labelledby="accordion-collapse-heading-2"
                     >
                       <div className="p-5">
@@ -232,6 +253,13 @@ const TermsAndServices = () => {
                         data-accordion-target="#accordion-collapse-body-3"
                         aria-expanded="false"
                         aria-controls="accordion-collapse-body-3"
+                        id="3rdAccordion"
+                        onClick={() =>
+                          jobMenuFunction(
+                            document.getElementById("3rdAccordion"),
+                            document.getElementById("accordion-collapse-body-3")
+                          )
+                        }
                       >
                         <span>What do I need to do to start selling ?</span>
                         <svg
@@ -251,7 +279,7 @@ const TermsAndServices = () => {
                     </h2>
                     <div
                       id="accordion-collapse-body-3"
-                      className="hidden"
+                      style={{ display: "none" }}
                       aria-labelledby="accordion-collapse-heading-3"
                     >
                       <div className="p-5">
@@ -275,6 +303,13 @@ const TermsAndServices = () => {
                         data-accordion-target="#accordion-collapse-body-4"
                         aria-expanded="false"
                         aria-controls="accordion-collapse-body-4"
+                        id="4thAccordion"
+                        onClick={() =>
+                          jobMenuFunction(
+                            document.getElementById("4thAccordion"),
+                            document.getElementById("accordion-collapse-body-4")
+                          )
+                        }
                       >
                         <span>What happens when I receive an order ?</span>
                         <svg
@@ -294,7 +329,7 @@ const TermsAndServices = () => {
                     </h2>
                     <div
                       id="accordion-collapse-body-4"
-                      className="hidden"
+                      style={{ display: "none" }}
                       aria-labelledby="accordion-collapse-heading-4"
                     >
                       <div className="p-5">
