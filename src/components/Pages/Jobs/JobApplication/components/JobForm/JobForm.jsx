@@ -79,7 +79,7 @@ const JobForm = () => {
     // setUpdatedProfileData({}); // Update profile data
     setIsSubmitting(true); // Set isSubmitting state to true
     console.log(event);
-    console.error(error,'click');
+    console.error(error, "click");
   };
 
   const fetchProfileData = async () => {
@@ -152,8 +152,6 @@ const JobForm = () => {
     }
   };
 
-
-
   return (
     <>
       {loading ? (
@@ -169,9 +167,16 @@ const JobForm = () => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={() => { }}
+            onSubmit={() => {}}
           >
-            {({ values, errors, touched, handleSubmit,setFieldValue, handleBlur }) => (
+            {({
+              values,
+              errors,
+              touched,
+              handleSubmit,
+              setFieldValue,
+              handleBlur,
+            }) => (
               <Form className="bg-red-50 p-7 ">
                 <div className="py-5 mb-2 flex justify-between">
                   {" "}
@@ -180,7 +185,7 @@ const JobForm = () => {
                     <span className="text-red-500"> *</span> Required
                   </p>
                 </div>
-                <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4"> 
+                <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label
                       className="block  font-semibold  mb-2"
@@ -279,20 +284,40 @@ const JobForm = () => {
                     >
                       resume/CV <span className="text-red-500"> *</span>
                     </label>
-                    <InputWrapper error={errors.document} touched={touched.document} label="Attach Document" labelName="document">
-                <input accept=".doc, .docx, .jpg, .png, .pdf" id="document" onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file != null) {
-                    setFieldValue("cover_letter", file)
-                  }
-                }} onBlur={handleBlur} name="document" type="file" className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.document && touched.document && "border-red-500"}`} />
-              </InputWrapper>
+                    <InputWrapper
+                      error={errors.document}
+                      touched={touched.document}
+                      label="Attach Document"
+                      labelName="document"
+                    >
+                      <input
+                        accept=".doc, .docx, .jpg, .png, .pdf"
+                        id="document"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file != null) {
+                            setFieldValue("cover_letter", file);
+                          }
+                        }}
+                        onBlur={handleBlur}
+                        name="document"
+                        type="file"
+                        className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                          errors.document &&
+                          touched.document &&
+                          "border-red-500"
+                        }`}
+                      />
+                    </InputWrapper>
                     {errors.resume && touched.resume && (
                       <p className="text-red-500 text-xs italic">
                         {errors.resume}
                       </p>
                     )}
                   </div>
+
+<div></div>
+
 
                   <div className="mb-4">
                     <label
@@ -301,14 +326,31 @@ const JobForm = () => {
                     >
                       Cover Letter<span className="text-red-500"> *</span>
                     </label>
-                    <InputWrapper error={errors.document} touched={touched.document} label="Attach Document" labelName="document">
-                <input accept=".doc, .docx, .jpg, .png, .pdf" id="document" onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file != null) {
-                    setFieldValue("resume", file)
-                  }
-                }} onBlur={handleBlur} name="document" type="file" className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.document && touched.document && "border-red-500"}`} />
-              </InputWrapper>
+                    <InputWrapper
+                      error={errors.document}
+                      touched={touched.document}
+                      label="Attach Document"
+                      labelName="document"
+                    >
+                      <input
+                        accept=".doc, .docx, .jpg, .png, .pdf"
+                        id="document"
+                        onChange={(e) => {
+                          const file = e.target.files[0];
+                          if (file != null) {
+                            setFieldValue("resume", file);
+                          }
+                        }}
+                        onBlur={handleBlur}
+                        name="document"
+                        type="file"
+                        className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                          errors.document &&
+                          touched.document &&
+                          "border-red-500"
+                        }`}
+                      />
+                    </InputWrapper>
                     {errors.cover_letter && touched.cover_letter && (
                       <p className="text-red-500 text-xs italic">
                         {errors.cover_letter}
@@ -548,8 +590,7 @@ const JobForm = () => {
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     // disabled={isSubmitting}
                     onClick={() => {
-                  
-                      console.log(values)
+                      console.log(values);
                       let allGood = true;
                       for (var key in values) {
                         if (values[key] === "") {
