@@ -1,55 +1,113 @@
-import { useState } from "react";
+import React, { useState, useRef } from 'react';
 
-const  IntroductionVideo =()=> {
+function IntroductionVideo() {
+  const [stream, setStream] = useState(null);
+  const videoRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
-  const handleStartRecording = () => {
-    setIsRecording(true);
-    // TODO: Implement logic to start recording
-  };
+  async function startRecording() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      setStream(stream);
+      videoRef.current.srcObject = stream;
 
-  const handleCancelRecording = () => {
+      const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+      mediaRecorderRef.current = mediaRecorder;
+      mediaRecorder.addEventListener('dataavailable', handleDataAvailable);
+      mediaRecorder.start();
+
+      setIsRecording(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  function handleDataAvailable(event) {
+    if (event.data.size > 0) {
+      setRecordedChunks(prevRecordedChunks => [...prevRecordedChunks, event.data]);
+    }
+  }
+
+  function pauseRecording() {
+    mediaRecorderRef.current.pause();
+    setIsPaused(true);
+  }
+
+  function resumeRecording() {
+    mediaRecorderRef.current.resume();
+    setIsPaused(false);
+  }
+
+  function stopRecording() {
+    mediaRecorderRef.current.stop();
+    stream.getTracks().forEach(track => track.stop());
+
     setIsRecording(false);
-    // TODO: Implement logic to cancel recording
-  };
+    setIsPaused(false);
+  }
+
+  function cancelRecording() {
+    setRecordedChunks([]);
+    setIsRecording(false);
+    setIsPaused(false);
+  }
+
+  function downloadRecording() {
+    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    document.body.appendChild(a);
+    a.style = 'display: none';
+    a.href = url;
+    a.download = 'introduction-video.webm';
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
   return (
-    <div className="flex flex-col ">
-      <h2 className="text-2xl font-bold mb-4">Introduction Video Section</h2>
-      <p className="text-gray-600 mb-4">
-        Please give a short introduction of yourself .
-      </p>
-      {isRecording ? (
-        <div className="flex flex-col items-center">
-          {/* TODO: Add video recording component */}
-          <div className="mt-4 flex">
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
-              onClick={handleCancelRecording}
-            >
-              Cancel
+    <div className="flex flex-col items-center py-10 bg-white rounded-lg shadow-lg">
+      <div className="relative mb-10">
+        <video ref={videoRef} className="w-full rounded-lg shadow-lg" autoPlay muted />
+        {isRecording && (
+          <div className="absolute top-0  left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
+           <div className='mt-50'>
+            {isPaused ? (
+              <button className="px-8 py-2 text-xl font-bold text-white rounded-full bg-red-500" onClick={resumeRecording}>
+                Resume
+              </button>
+            ) : (
+              <button className="px-8 py-2 text-xl font-bold text-white rounded-full bg-red-500" onClick={pauseRecording}>
+                Pause
+              </button>
+            )}
+            <button className="px-8 py-2 text-xl font-bold text-white ml-4 rounded-full bg-blue-500" onClick={stopRecording}>
+              Stop
             </button>
-            {/* TODO: Implement save functionality */}
-            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-              Save
-            </button>
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex flex-col items-center">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2"
-            onClick={handleStartRecording}
-          >
-            Start Recording
-          </button>
-          {/* <button className="text-blue-500 hover:text-blue-700 font-bold">
-            Cancel
-          </button> */}
-        </div>
+
+        )}
+      </div>
+      {!isRecording && !recordedChunks.length && (
+        <button className="px-8 py-2 text-xl font-bold text-white rounded-full bg-blue-500 hover:bg-blue-600" onClick={startRecording}>
+          Record
+        </button>
       )}
-    </div>
-  );
+      {!!recordedChunks.length && (
+        <div className="flex items-center justify-center w-full space-x-4">
+          <button className="px-8 py-2 text-xl font-bold text-white rounded-full bg-green-500 hover:bg-green-600" onClick={downloadRecording}>
+save
+</button>
+<button className="px-8 py-2 text-xl font-bold text-white rounded-full bg-red-500 hover:bg-red-600" onClick={cancelRecording}>
+Cancel
+</button>
+</div>
+)}
+</div>
+);
 }
 
 export default IntroductionVideo;

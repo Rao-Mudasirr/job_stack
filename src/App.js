@@ -26,6 +26,7 @@ import { JobOpenings } from "./components/Pages/JobOpenings/JobOpenings.jsx";
 import { JobList } from "./components/Pages/JobList/JobList.jsx";
 import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
 import { ProtectedAuths } from "./ProtectedAuths.tsx";
+import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
 
 function App() {
   const isToken = localStorage.getItem("token");
@@ -44,6 +45,15 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoutes />}>
+      <Route
+        exact
+        path="/introduction-vidio"
+        element={
+          <Layout>
+            <IntroductionVideo />
+          </Layout>
+        }
+      />
         <Route
           exact
           path={"/"}
