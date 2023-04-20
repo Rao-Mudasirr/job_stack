@@ -18,14 +18,21 @@ const Navbar = () => {
         <div className="container">
           <Link className="logo" to="/" replace={true}>
             <div className="block sm:hidden">
+              <span className="inline-block dark:hidden">
+                <img
+                  src="assets/images/logo-dark.png"
+                  className="h-[26px] l-dark"
+                  alt=""
+                />
+                <img
+                  src="assets/images/logo-dark.png"
+                  className=" l-light"
+                  alt=""
+                />
+              </span>
               <img
-                src="assets/images/logo-icon-40.png"
-                className="h-10 inline-block dark:hidden"
-                alt=""
-              />
-              <img
-                src="assets/images/logo-icon-40-white.png"
-                className="h-10 hidden dark:inline-block"
+                src="assets/images/logo-white.png"
+                className="h-[24px] hidden dark:inline-block"
                 alt=""
               />
             </div>
