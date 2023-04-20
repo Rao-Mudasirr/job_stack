@@ -55,7 +55,7 @@ const validationSchema = Yup.object().shape({
   //   "This field is required"
   // ),
   gender: Yup.string().required("gender is required"),
-  // hispanic: Yup.mixed().required(" hispanic is Required"),
+  hispanic: Yup.mixed().required(" hispanic is Required"),
   veteran_status: Yup.mixed().required(" veteran_status status is Required"),
   disability: Yup.string().required(" status is required"),
   ethnicity: Yup.string().required(" Field is required"),
