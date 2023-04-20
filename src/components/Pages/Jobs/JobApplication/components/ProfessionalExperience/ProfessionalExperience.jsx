@@ -57,7 +57,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
   return (
     <>
       <div className="mb-8">
-        <div className="flex justify-between">
+        <div className="flex justify-between items-center">
           <div className="">
             <h3 className="text-2xl leading-normal font-semibold">
               Professional Experience
@@ -67,13 +67,13 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
             </p>
           </div>
           <div className="">
-            <button type="button" onClick={() => setShowModal(true)} className="py-2 mt-4 bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white rounded-md ">
+            <button type="button" onClick={() => setShowModal(true)} className="py-2 text-xs bg-emerald-600 hover:bg-emerald-700 px-3 border-emerald-600 hover:border-emerald-700 text-white rounded-md ">
               Add Another experiences
             </button>
           </div>
         </div>
         {
-          !!professionalExperience?.length && <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
             <table className="w-full text-sm text-left">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -86,7 +86,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
               </thead>
               <tbody>
                 {
-                  professionalExperience?.map(item => <tr key={item?.id} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                 !!professionalExperience?.length ? professionalExperience?.map(item => <tr key={item?.id} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                     {
                       [item?.company, item?.job_title, item?.start_date, item?.end_date, item?.document, item?.id].map((item, index) =>
                         <td key={index} className="px-6 py-4">
@@ -95,7 +95,15 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
                           }
                         </td>)
                     }
-                  </tr>)
+                  </tr>) :
+                  <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  {
+                    ["","","No Details Found", "", "",""].map((item, index) =>
+                      <td key={index} className="px-6 py-4 text-right">
+                        {item}
+                      </td>)
+                  }
+                </tr>
                 }
               </tbody>
             </table>

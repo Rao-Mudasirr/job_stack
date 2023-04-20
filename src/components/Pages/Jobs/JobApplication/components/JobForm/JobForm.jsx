@@ -12,7 +12,26 @@ import EducationDetails from "../EducationDetails/EducationDetails";
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
 
 import JobReferences from "../JobReferences/JobReferences";
-
+const refrenceDetails = [
+  {
+    name:'junaid',
+    company:'Amin',
+    position:'1st',
+    email:'hello@mello.bello'
+  },
+  {
+    name:'Ali',
+    company:'Hassan',
+    position:'1st',
+    email:'hello@mello.bello'
+  },
+  {
+    name:'rao',
+    company:'Mudasir',
+    position:'1st',
+    email:'hello@mello.bello'
+  },
+]
 const validationSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name is required"),
   last_name: Yup.string().required("Last Name is required"),
@@ -406,8 +425,9 @@ const JobForm = () => {
                   fetchProfileData={fetchProfileData}
                 />
                 <JobReferences
-                  jobReferences={data?.data?.user?.reference_details}
+                  jobReferences={values?.jobReferences}
                   fetchProfileData={fetchProfileData}
+                  setFieldValue={setFieldValue}
                 />
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
 
@@ -668,34 +688,25 @@ const JobForm = () => {
                           "total_experience",
                           values.total_experience
                         );
-                        formData.append("hispanic", values.hispanic);
                         formData.append("gender", values.gender);
                         formData.append(
                           "veteran_status",
                           values.veteran_status
                         );
-                        formData.append(
-                          "education_details",
-                          values.education_details
-                        );
-                        formData.append(
-                          "experience_details",
-                          values.experience_details
-                        );
-                        formData.append(
-                          "reference_details",
-                          values.reference_details
-                        );
+                        for (let i = 0; i < values.jobReferences.length; i++) {
+                          for (const key in values.jobReferences[i]) {
+                            formData.append(
+                              `reference_details[${i}][${key}]`,
+                              values.jobReferences[i][key]
+                            );
+                            }
+                          
+                        }
                         formData.append(
                           "ethnicity",
                           values.ethnicity
                         );
-                        for (const [key, value] of formData) {
-                          console.log('»', key, value)
-                          }
                         postData(formData);
-                        // console.log(formData.getAll());
-                        
                       }
                       
                     }}
