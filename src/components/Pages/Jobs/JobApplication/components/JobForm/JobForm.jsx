@@ -36,7 +36,7 @@ const validationSchema = Yup.object().shape({
   //   "This field is required"
   // ),
   gender: Yup.string().required("gender is required"),
-  // hispanic: Yup.mixed().required(" hispanic is Required"),
+  hispanic: Yup.mixed().required(" hispanic is Required"),
   veteran_status: Yup.mixed().required(" veteran_status status is Required"),
   disability: Yup.string().required(" status is required"),
   ethnicity: Yup.string().required(" Field is required"),
@@ -75,22 +75,27 @@ const disabilityOptions = [
 
 const JobForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const tokenCheck = localStorage.getItem("token");
+ 
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
+  
   const [profilename, setProfileName] = useState("");
   const [updatedProfileData, setUpdatedProfileData] = useState({});
 
   const handleSubmit = (event) => {
-    // event.preventDefault();
+    event.preventDefault();
     // setUpdatedProfileData({}); // Update profile data
     setIsSubmitting(true); // Set isSubmitting state to true
     console.log(event);
     console.error(error, "click");
   };
-
+  const tokenCheck = localStorage.getItem("token");
+  const { REACT_APP_SITE_URL } = process.env;
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
   const fetchProfileData = async () => {
     setLoading(true); // Set loading to true before making the API call
     try {
@@ -104,8 +109,6 @@ const JobForm = () => {
         }
       );
       setData(response.data);
-
-      setProfileName(response?.data?.data?.user?.first_name);
       setLoading(false);
     } catch (error) {
       setError(error.message);
@@ -113,11 +116,36 @@ const JobForm = () => {
       console.log(error);
     }
   };
-
+  
   useEffect(() => {
     fetchProfileData();
   }, []);
 
+
+  const postData = async (values) => {
+    try {
+      setLoading(true);
+      const response = await axios.post(
+        `${REACT_APP_SITE_URL}/api/my-profile`,
+        values,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenCheck}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setLoading(false);
+        await fetchProfileData();
+      }
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+    }
+  };
+  
+
+  
   let initialValues = {
     first_name: data?.data?.user?.first_name,
     last_name: data?.data?.user?.last_name,
@@ -140,28 +168,28 @@ const JobForm = () => {
     jobReferences: data?.data?.user?.reference_details,
   };
   // const tokenCheck = localStorage.getItem("token");
-
-  const postData = async (values) => {
-    try {
-      setLoading(true);
-      await axios.post(
-        "https://jobs.orcaloholding.co.uk/api/my-profile",
-        values,
-        {
-          headers: {
-            Authorization: `Bearer ${tokenCheck}`,
-          },
-        }
-      );
-      setLoading(false);
-      fetchProfileData();
-      console.log(fetchProfileData);
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
-  };
-
+  
+  // const postData = async (formData) => {
+  //   try {
+  //     setLoading(true);
+  //     await axios.post(
+  //       "https://jobs.orcaloholding.co.uk/api/my-profile",
+  //       formData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${tokenCheck}`,
+  //         },
+  //       }
+  //     );
+  //     setLoading(false);
+  //     fetchProfileData(); // call fetchProfileData to get the updated data
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.error(error);
+  //   }
+  // };
+  
+ 
   return (
     <>
       {loading ? (
@@ -187,7 +215,7 @@ const JobForm = () => {
               setFieldValue,
               handleBlur,
             }) => (
-              <Form className="bg-red-50 p-7 ">
+              <Form className="bg-gray-100 p-7 ">
                 <div className="py-5 mb-2 flex justify-between">
                   {" "}
                   <h4>Apply for this Job</h4>
@@ -386,7 +414,7 @@ const JobForm = () => {
                 <div>
                   <label
                     htmlFor="linkedin"
-                    className="block  font-semibold  mb-2"
+                    className="block  font-semibold  mb-5 mt-2"
                   >
                     {" "}
                     LinkedIn Profile
@@ -558,7 +586,7 @@ const JobForm = () => {
                 </div>
                 <div className="w-1/2 mt-5">
                   <label htmlFor="ethnicity" className="block font-bold">
-                    veteran Status
+                  Ethnicity Status
                   </label>
                   <Field
                     as="select"
@@ -566,7 +594,7 @@ const JobForm = () => {
                     className="w-full form-select form-input mt-1"
                     placeholder="Select an option"
                   >
-                    {/* <option value="">Select an option</option> */}
+                    <option value="">Select an option</option>
                     { ethnicity_statusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
@@ -608,9 +636,9 @@ const JobForm = () => {
                   complete.
                 </p>
 
-                {/* <div className="border-t border-gray-400  mt-5 mb-5"></div>
+                <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <IntroductionVideo />
-                <div className="border-t border-gray-400  mt-5 mb-5"></div> */}
+                <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <div className="flex mt-5">
                   <button
                     type="submit"
@@ -658,10 +686,20 @@ const JobForm = () => {
                           "reference_details",
                           values.reference_details
                         );
-
+                        formData.append(
+                          "ethnicity",
+                          values.ethnicity
+                        );
+                        for (const [key, value] of formData) {
+                          console.log('»', key, value)
+                          }
                         postData(formData);
+                        // console.log(formData.getAll());
+                        
                       }
+                      
                     }}
+
                   >
                     {handleSubmit ? "Submit" : "Submit Application"}
                   </button>
