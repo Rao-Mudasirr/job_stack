@@ -39,6 +39,7 @@ const validationSchema = Yup.object().shape({
   // hispanic: Yup.mixed().required(" hispanic is Required"),
   veteran_status: Yup.mixed().required(" veteran_status status is Required"),
   disability: Yup.string().required(" status is required"),
+  ethnicity: Yup.string().required(" Field is required"),
 });
 
 const genderOptions = [
@@ -56,8 +57,16 @@ const veteran_statusOptions = [
   { value: "Yes", label: "Yes" },
   { value: "No", label: "No" },
   { value: "unknown", label: "Unknown" },
+
 ];
 
+
+const ethnicity_statusOptions = [
+  { value: "Asian", label: "Asian" },
+  { value: "Pakistan", label: "Pakistan" },
+  { value: "unknown", label: "Unknown" },
+
+];
 const disabilityOptions = [
   { value: "Yes", label: "Disabled" },
   { value: "No", label: "Not disabled" },
@@ -123,10 +132,11 @@ const JobForm = () => {
     // operationsCoordinatorExperince: "",
     gender: data?.data?.user?.gender,
     disability: data?.data?.user?.disability,
-    // hispanic: data?.data?.user?.hispanic,
+    hispanic: data?.data?.user?.hispanic,
     veteran_status: data?.data?.user?.veteran_status,
     education_details: data?.data?.education_details,
     professionalExperience: data?.data?.experience_details,
+    ethnicity: data?.data?.user?.ethnicity,
     jobReferences: data?.data?.user?.reference_details,
   };
   // const tokenCheck = localStorage.getItem("token");
@@ -237,7 +247,7 @@ const JobForm = () => {
                       className="block  font-semibold  mb-2"
                       htmlFor="email"
                     >
-                      email <span className="text-red-500"> *</span>
+                      Email <span className="text-red-500"> *</span>
                     </label>
                     <Field
                       id="email"
@@ -259,7 +269,7 @@ const JobForm = () => {
                       className="block  font-semibold  mb-2"
                       htmlFor="phone_no"
                     >
-                      phone_no <span className="text-red-500"> *</span>
+                      Phone No <span className="text-red-500"> *</span>
                     </label>
                     <Field
                       id="phone_no"
@@ -278,16 +288,16 @@ const JobForm = () => {
                 </div>
                 <div className="mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="mb-4">
-                    <label
+                    {/* <label
                       className="block  font-semibold  mb-2"
                       htmlFor="resume"
                     >
                       resume/CV <span className="text-red-500"> *</span>
-                    </label>
+                    </label> */}
                     <InputWrapper
                       error={errors.document}
                       touched={touched.document}
-                      label="Attach Document"
+                      label="Resume"
                       labelName="document"
                     >
                       <input
@@ -296,7 +306,7 @@ const JobForm = () => {
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file != null) {
-                            setFieldValue("cover_letter", file);
+                            setFieldValue("resume", file);
                           }
                         }}
                         onBlur={handleBlur}
@@ -316,20 +326,19 @@ const JobForm = () => {
                     )}
                   </div>
 
-<div></div>
 
 
                   <div className="mb-4">
-                    <label
+                    {/* <label
                       className="block  font-semibold  mb-2"
                       htmlFor="cover_letter"
                     >
                       Cover Letter<span className="text-red-500"> *</span>
-                    </label>
+                    </label> */}
                     <InputWrapper
                       error={errors.document}
                       touched={touched.document}
-                      label="Attach Document"
+                      label="Cover Letter"
                       labelName="document"
                     >
                       <input
@@ -338,7 +347,7 @@ const JobForm = () => {
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file != null) {
-                            setFieldValue("resume", file);
+                            setFieldValue("cover_letter", file);
                           }
                         }}
                         onBlur={handleBlur}
@@ -541,6 +550,24 @@ const JobForm = () => {
                   >
                     {/* <option value="">Select an option</option> */}
                     {veteran_statusOptions.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </Field>
+                </div>
+                <div className="w-1/2 mt-5">
+                  <label htmlFor="ethnicity" className="block font-bold">
+                    veteran Status
+                  </label>
+                  <Field
+                    as="select"
+                    name="ethnicity"
+                    className="w-full form-select form-input mt-1"
+                    placeholder="Select an option"
+                  >
+                    {/* <option value="">Select an option</option> */}
+                    { ethnicity_statusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
