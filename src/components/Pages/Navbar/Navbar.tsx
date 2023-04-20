@@ -143,6 +143,42 @@ const Navbar = () => {
                 ></span>
                 <ul className="submenu" id="furtherPages">
                   <li className="has-submenu parent-menu-item">
+                    <Link
+                      to="/candidate-detail"
+                      className="sub-menu-item"
+                      replace={true}
+                    >
+                      Candidate Detail
+                    </Link>
+                    {/* <a href="javascript:void(0)">Candidates</a>
+                    <span
+                      className="submenu-arrow"
+                      id="candidateMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("candidateMenu"),
+                          document.getElementById("furtherCandidate")
+                        )
+                      }
+                    ></span>
+                    <ul className="submenu" id="furtherCandidate">
+                      <li>
+                        <a href="candidate-list.html" className="sub-menu-item">
+                          Candidates
+                        </a>
+                      </li>
+                      <li>
+                        <Link
+                          to="/candidate-detail"
+                          className="sub-menu-item"
+                          replace={true}
+                        >
+                          Candidate Detail
+                        </Link>
+                      </li>
+                    </ul> */}
+                  </li>
+                  <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)">Employers</a>
                     <span
                       className="submenu-arrow"
@@ -171,36 +207,6 @@ const Navbar = () => {
                           replace={true}
                         >
                           Employer Detail
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Candidates</a>
-                    <span
-                      className="submenu-arrow"
-                      id="candidateMenu"
-                      onClick={() =>
-                        jobMenuFunction(
-                          document.getElementById("candidateMenu"),
-                          document.getElementById("furtherCandidate")
-                        )
-                      }
-                    ></span>
-                    <ul className="submenu" id="furtherCandidate">
-                      <li>
-                        <a href="candidate-list.html" className="sub-menu-item">
-                          Candidates
-                        </a>
-                      </li>
-                      <li>
-                        <Link
-                          to="/candidate-detail"
-                          className="sub-menu-item"
-                          replace={true}
-                        >
-                          Candidate Detail
                         </Link>
                       </li>
                     </ul>
@@ -341,6 +347,11 @@ const Navbar = () => {
                     </ul>
                   </li>
                 </ul>
+              </li>
+              <li className="has-submenu parent-menu-item">
+                <Link to="/" replace={true}>
+                  My Jobs
+                </Link>
               </li>
             </ul>
           </div>
