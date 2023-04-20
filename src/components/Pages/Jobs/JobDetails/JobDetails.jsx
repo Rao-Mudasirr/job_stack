@@ -3,15 +3,11 @@ import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
 import { NavLink, useParams } from "react-router-dom";
 import GlobalSnackBar from "../../UI/SnackBar";
+
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-  const [snackbar, setSnackbar] = useState({
-    title: "",
-    isToggle: false,
-    type: "",
-  });
   const { id } = useParams();
-  console.log(id);
+
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -31,7 +27,7 @@ const JobDetails = () => {
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
         <div className="container mt-10 mx-auto">
-          <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
+          
           {jobDetails?.map((details) => (
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div className="lg:col-span-8 md:col-span-6">
@@ -60,17 +56,9 @@ const JobDetails = () => {
                 </div>
                 <h5
                   className="text-lg font-semibold mt-6"
-                  onClick={() =>
-                    setSnackbar({
-                      title: "You have clicked the description",
-                      isToggle: true,
-                      type: "success",
-                    })
-                  }
                 >
                   Job Description:
                 </h5>
-                {/* {details?.description} */}
                 <div
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />
@@ -81,10 +69,10 @@ const JobDetails = () => {
                       localStorage.getItem("token")
                         ? {
                             pathname: "/job-application",
-                            state: { details },
                           }
                         : { pathname: "/login" }
                     }
+                    state={details}
                     className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
                   >
                     Apply Now
