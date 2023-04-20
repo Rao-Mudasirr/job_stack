@@ -3,19 +3,24 @@ import { Link } from 'react-router-dom'
 import { countryData, jobTypeData } from '../HomePages/Components/Hero'
 import axios from "axios";
 import { AppModal } from '../../AppModal/AppModal';
+import { AppLoader } from '../../AppLoader/AppLoader';
 
 export const JobList = () => {
     const [jobDetails, setJobDetails] = useState();
+    const [loading, setLoading] = useState(false);
     const fetchJobDetails = () => {
+        setLoading(true);
         axios.get("https://jobs.orcaloholding.co.uk/api/jobs").then((response) => {
             setJobDetails(response?.data?.data?.data);
+            setLoading(false);
         })
             .catch((error) => {
                 console.log(error);
+                setLoading(false);
             });
     }
     useEffect(() => {
-        fetchJobDetails()
+        fetchJobDetails();
     }, [])
     return (
         <div dir='ltr'>
@@ -78,8 +83,9 @@ export const JobList = () => {
                 </div>
                 <div className="container mt-10">
                     <div className="grid grid-cols-1 gap-[30px]">
+
                         {
-                            jobDetails?.map((item) => <div key={item?.id} className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
+                            !loading ? jobDetails?.map((item) => <div key={item?.id} className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
                                 <div className="flex items-center">
                                     <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                                         <img src={item?.company?.logo} className="h-8 w-8" alt="" />
@@ -98,12 +104,15 @@ export const JobList = () => {
                                     <Link to="/job-application" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
                                 </div>
                                 {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
-                            </div>)
+                            </div>) :
+                                <div className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                    <AppLoader />
+                                </div>
                         }
                     </div>
                 </div>
             </section>
-            <AppModal/>
+            <AppModal />
         </div>
     )
 }
