@@ -113,12 +113,12 @@ const Signup = () => {
                 <Link to="">
                   <img
                     src="assets/images/logo-dark.png"
-                    className="mx-auto h-[24px] block dark:hidden"
+                    className="mx-auto block dark:hidden"
                     alt=""
                   />
                   <img
                     src="assets/images/logo-light.png"
-                    className="mx-auto h-[24px] dark:block hidden"
+                    className="mx-auto dark:block hidden"
                     alt=""
                   />
                 </Link>
@@ -295,27 +295,14 @@ const Signup = () => {
                         Sign in
                       </Link>
                     </div>
-                    {/* <p>{errorMessage}</p> */}
-                    {/* <p
-                  className="text-lg font-semibold mt-6"
-                  onClick={() =>
-                    setSnackbar({
-                      title: errorMessage,
-                      isToggle: true,
-                      type: "success",
-                    })
-                  }
-                >
-                  {errorMessage}
-                </p> */}
                   </div>
                 </form>
               </div>
 
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
-                  © {date} Orcalo Holding. Designed by
-                  <Link to="/" target="_blank" className="text-reset">
+                  © {date} Designed by{" "}
+                  <Link to="/" className="text-reset">
                     Orcalo Holding
                   </Link>
                   .
