@@ -1,5 +1,5 @@
 import React from "react";
-
+import { jobMenuFunction } from "../../../TermsAndServices/TermsAndServices";
 const JobFAQSection = () => {
   return (
     <>
@@ -51,22 +51,29 @@ const JobFAQSection = () => {
                 data-accordion="collapse"
                 class="mt-8"
               >
-                <div class="relative shadow dark:shadow-gray-800 rounded-md overflow-hidden">
+                <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
                   <h2
                     class="text-base font-semibold"
-                    id="accordion-collapse-heading-1"
+                    id="accordion-collapse-heading-2"
                   >
                     <button
                       type="button"
                       class="flex justify-between items-center p-5 w-full font-semibold text-left"
-                      data-accordion-target="#accordion-collapse-body-1"
-                      aria-expanded="true"
+                      data-accordion-target="#accordion-collapse-body-2"
+                      aria-expanded="false"
                       aria-controls="accordion-collapse-body-1"
+                      id="firstAccordion"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("firstAccordion"),
+                          document.getElementById("accordion-collapse-body-1")
+                        )
+                      }
                     >
                       <span>How does it work ?</span>
                       <svg
                         data-accordion-icon
-                        class="w-4 h-4 rotate-180 shrink-0"
+                        className="w-4 h-4 shrink-0"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                         xmlns="http://www.w3.org/2000/svg"
@@ -81,11 +88,11 @@ const JobFAQSection = () => {
                   </h2>
                   <div
                     id="accordion-collapse-body-1"
-                    class="hidden"
+                    style={{ display: "none" }}
                     aria-labelledby="accordion-collapse-heading-1"
                   >
-                    <div class="p-5">
-                      <p class="text-slate-400 dark:text-gray-400">
+                    <div className="p-5">
+                      <p className="text-slate-400 dark:text-gray-400">
                         There are many variations of passages of Lorem Ipsum
                         available, but the majority have suffered alteration in
                         some form.
@@ -105,6 +112,13 @@ const JobFAQSection = () => {
                       data-accordion-target="#accordion-collapse-body-2"
                       aria-expanded="false"
                       aria-controls="accordion-collapse-body-2"
+                      id="2ndAccordion"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("2ndAccordion"),
+                          document.getElementById("accordion-collapse-body-2")
+                        )
+                      }
                     >
                       <span>Do I need a designer to use Jobstack ?</span>
                       <svg
@@ -124,8 +138,8 @@ const JobFAQSection = () => {
                   </h2>
                   <div
                     id="accordion-collapse-body-2"
-                    class="hidden"
                     aria-labelledby="accordion-collapse-heading-2"
+                    style={{ display: "none" }}
                   >
                     <div class="p-5">
                       <p class="text-slate-400 dark:text-gray-400">
@@ -148,6 +162,13 @@ const JobFAQSection = () => {
                       data-accordion-target="#accordion-collapse-body-3"
                       aria-expanded="false"
                       aria-controls="accordion-collapse-body-3"
+                      id="3rdAccordion"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("3rdAccordion"),
+                          document.getElementById("accordion-collapse-body-3")
+                        )
+                      }
                     >
                       <span>What do I need to do to start selling ?</span>
                       <svg
@@ -167,8 +188,8 @@ const JobFAQSection = () => {
                   </h2>
                   <div
                     id="accordion-collapse-body-3"
-                    class="hidden"
                     aria-labelledby="accordion-collapse-heading-3"
+                    style={{ display: "none" }}
                   >
                     <div class="p-5">
                       <p class="text-slate-400 dark:text-gray-400">
@@ -184,7 +205,6 @@ const JobFAQSection = () => {
           </div>
         </div>
       </div>
-    
     </>
   );
 };

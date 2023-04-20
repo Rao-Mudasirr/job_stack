@@ -2,15 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
-  divToBeClickedOn.classList.toggle('open');
-  var isOpen = theDIvToBeShown
-  if (isOpen.style.display === 'none') {
+  divToBeClickedOn.classList.toggle("open");
+  var isOpen = theDIvToBeShown;
+  if (isOpen.style.display === "none") {
     isOpen.style.display = "block";
   } else {
-      isOpen.style.display = "none";
-    
+    isOpen.style.display = "none";
   }
-
 }
 const Navbar = () => {
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
@@ -35,12 +33,12 @@ const Navbar = () => {
               <span className="inline-block dark:hidden">
                 <img
                   src="assets/images/logo-dark.png"
-                  className="h-[24px] l-dark"
+                  className=" l-dark"
                   alt=""
                 />
                 <img
                   src="assets/images/logo-dark.png"
-                  className="h-[24px] l-light"
+                  className=" l-light"
                   alt=""
                 />
               </span>
@@ -54,7 +52,16 @@ const Navbar = () => {
 
           <div className="menu-extras">
             <div className="menu-item">
-              <a className="navbar-toggle" id="isToggle"  onClick={() => jobMenuFunction(document.getElementById('isToggle'), document.getElementById('navigation'))}>
+              <a
+                className="navbar-toggle"
+                id="isToggle"
+                onClick={() =>
+                  jobMenuFunction(
+                    document.getElementById("isToggle"),
+                    document.getElementById("navigation")
+                  )
+                }
+              >
                 <div className="lines">
                   <span></span>
                   <span></span>
@@ -89,7 +96,16 @@ const Navbar = () => {
 
               <li className="has-submenu parent-parent-menu-item">
                 <Link to=""> Jobs </Link>
-                <span className="menu-arrow" id="jobMenu" onClick={() => jobMenuFunction(document.getElementById("jobMenu"), document.getElementById('FurtherJobs'))}></span>
+                <span
+                  className="menu-arrow"
+                  id="jobMenu"
+                  onClick={() =>
+                    jobMenuFunction(
+                      document.getElementById("jobMenu"),
+                      document.getElementById("FurtherJobs")
+                    )
+                  }
+                ></span>
                 <ul className="submenu" id="FurtherJobs">
                   <li>
                     <Link
@@ -115,47 +131,36 @@ const Navbar = () => {
 
               <li className="has-submenu parent-parent-menu-item">
                 <a href="javascript:void(0)">Pages</a>
-                <span className="menu-arrow" id="pagesMenu" onClick={() => jobMenuFunction(document.getElementById("pagesMenu"), document.getElementById('furtherPages'))}></span>
+                <span
+                  className="menu-arrow"
+                  id="pagesMenu"
+                  onClick={() =>
+                    jobMenuFunction(
+                      document.getElementById("pagesMenu"),
+                      document.getElementById("furtherPages")
+                    )
+                  }
+                ></span>
                 <ul className="submenu" id="furtherPages">
-                  <li>
-                    <a href="aboutus.html" className="sub-menu-item">
-                      About Us
-                    </a>
-                  </li>
-                  <li>
-                    <a href="services.html" className="sub-menu-item">
-                      Services
-                    </a>
-                  </li>
-
                   <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Employers</a>
-                    <span className="submenu-arrow" id="emplyeeMenu" onClick={() => jobMenuFunction(document.getElementById("emplyeeMenu"), document.getElementById('furtherEmplyee'))}></span>
-                    <ul className="submenu" id="furtherEmplyee">
-                      <li>
-                        <Link
-                          to="employers"
-                          className="sub-menu-item"
-                          replace={true}
-                        >
-                          Employers
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="employer-details"
-                          className="sub-menu-item"
-                          replace={true}
-                        >
-                          Employer Detail
-                        </Link>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)">Candidates</a>
-                    <span className="submenu-arrow" id="candidateMenu" onClick={() => jobMenuFunction(document.getElementById("candidateMenu"), document.getElementById('furtherCandidate'))}></span>
+                    <Link
+                      to="/candidate-detail"
+                      className="sub-menu-item"
+                      replace={true}
+                    >
+                      Candidate Detail
+                    </Link>
+                    {/* <a href="javascript:void(0)">Candidates</a>
+                    <span
+                      className="submenu-arrow"
+                      id="candidateMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("candidateMenu"),
+                          document.getElementById("furtherCandidate")
+                        )
+                      }
+                    ></span>
                     <ul className="submenu" id="furtherCandidate">
                       <li>
                         <a href="candidate-list.html" className="sub-menu-item">
@@ -171,68 +176,37 @@ const Navbar = () => {
                           Candidate Detail
                         </Link>
                       </li>
-                    </ul>
+                    </ul> */}
                   </li>
-
                   <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)"> Helpcenter </a>
-                    <span className="submenu-arrow" id="helpCenterMenu" onClick={() => jobMenuFunction(document.getElementById("helpCenterMenu"), document.getElementById('furtherhelpCenter'))}></span>
-                    <ul className="submenu" id="furtherhelpCenter">
-                      <li>
-                        <a
-                          href="helpcenter-overview.html"
-                          className="sub-menu-item"
-                        >
-                          Overview
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="helpcenter-faqs.html"
-                          className="sub-menu-item"
-                        >
-                          FAQs
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="helpcenter-guides.html"
-                          className="sub-menu-item"
-                        >
-                          Guides
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href="helpcenter-support.html"
-                          className="sub-menu-item"
-                        >
-                          Support
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-
-                  <li className="has-submenu parent-menu-item">
-                    <a href="javascript:void(0)"> Blog </a>
-                    <span className="submenu-arrow" id="blogMenu" onClick={() => jobMenuFunction(document.getElementById("blogMenu"), document.getElementById('furtherBlog'))}></span>
-                    <ul className="submenu" id="furtherBlog">
+                    <a href="javascript:void(0)">Employers</a>
+                    <span
+                      className="submenu-arrow"
+                      id="emplyeeMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("emplyeeMenu"),
+                          document.getElementById("furtherEmplyee")
+                        )
+                      }
+                    ></span>
+                    <ul className="submenu" id="furtherEmplyee">
                       <li>
                         <Link
-                          to="/blogs"
+                          to="/employers"
                           className="sub-menu-item"
                           replace={true}
                         >
-                          Blogs
+                          Employers
                         </Link>
                       </li>
                       <li>
                         <Link
-                          to="/blog-detail"
+                          to="/employer-details"
                           className="sub-menu-item"
                           replace={true}
                         >
-                          Blog-detail
+                          Employer Detail
                         </Link>
                       </li>
                     </ul>
@@ -240,7 +214,16 @@ const Navbar = () => {
 
                   <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)"> Auth Pages </a>
-                    <span className="submenu-arrow" id="authMenu" onClick={() => jobMenuFunction(document.getElementById("authMenu"), document.getElementById('furtherAuth'))}></span>
+                    <span
+                      className="submenu-arrow"
+                      id="authMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("authMenu"),
+                          document.getElementById("furtherAuth")
+                        )
+                      }
+                    ></span>
                     <ul className="submenu" id="furtherAuth">
                       {tokenCheck === "false" && (
                         <li>
@@ -265,7 +248,7 @@ const Navbar = () => {
                         </li>
                       )}
                       {tokenCheck === "true" && (
-                        <li onClick={() => localStorage.removeItem('token')}>
+                        <li onClick={() => localStorage.removeItem("token")}>
                           <Link
                             to="/login"
                             className="sub-menu-item"
@@ -275,30 +258,21 @@ const Navbar = () => {
                           </Link>
                         </li>
                       )}
-                      <li>
-                        <Link
-                          to="/forget-password"
-                          className="sub-menu-item"
-                          replace={true}
-                        >
-                          Forgot Password
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/lock-screen"
-                          className="sub-menu-item"
-                          replace={true}
-                        >
-                          Lock Screen
-                        </Link>
-                      </li>
                     </ul>
                   </li>
 
                   <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)"> Utility </a>
-                    <span className="submenu-arrow" id="utilityMenu" onClick={() => jobMenuFunction(document.getElementById("utilityMenu"), document.getElementById('furtherutility'))}></span>
+                    <span
+                      className="submenu-arrow"
+                      id="utilityMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("utilityMenu"),
+                          document.getElementById("furtherutility")
+                        )
+                      }
+                    ></span>
                     <ul className="submenu" id="furtherutility">
                       <li>
                         <Link
@@ -323,7 +297,16 @@ const Navbar = () => {
 
                   <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)"> Special </a>
-                    <span className="submenu-arrow" id="specialMenu" onClick={() => jobMenuFunction(document.getElementById("specialMenu"), document.getElementById('furtherSpecial'))}></span>
+                    <span
+                      className="submenu-arrow"
+                      id="specialMenu"
+                      onClick={() =>
+                        jobMenuFunction(
+                          document.getElementById("specialMenu"),
+                          document.getElementById("furtherSpecial")
+                        )
+                      }
+                    ></span>
                     <ul className="submenu" id="furtherSpecial">
                       <li>
                         <Link
@@ -365,11 +348,10 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
-
-              <li>
-                <a href="contact.html" className="sub-menu-item">
-                  Contact
-                </a>
+              <li className="has-submenu parent-menu-item">
+                <Link to="/" replace={true}>
+                  My Jobs
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,15 +1,15 @@
 import React from "react";
 
+export function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
+   divToBeClickedOn.classList.toggle("open");
+   var isOpen = theDIvToBeShown;
+   if (isOpen.style.display === "none") {
+     isOpen.style.display = "block";
+   } else {
+     isOpen.style.display = "none";
+   }
+ }
 const TermsAndServices = () => {
-  function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
-    divToBeClickedOn.classList.toggle("open");
-    var isOpen = theDIvToBeShown;
-    if (isOpen.style.display === "none") {
-      isOpen.style.display = "block";
-    } else {
-      isOpen.style.display = "none";
-    }
-  }
   return (
     <div dir="ltr">
       <section className="relative table w-full py-36">
