@@ -36,7 +36,7 @@ const Error404 = ({ key }) => {
                     replace={true}
                     className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md"
                   >
-                    Back to Home
+                    Back to {isToken ? "Home" : "Login"}
                   </Link>
                 </div>
               </div>
