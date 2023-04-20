@@ -414,7 +414,7 @@ const JobForm = () => {
                 <div>
                   <label
                     htmlFor="linkedin"
-                    className="block  font-semibold  mb-5 mt-2"
+                    className="block  font-semibold  mb-2 mt-2"
                   >
                     {" "}
                     LinkedIn Profile
@@ -437,7 +437,7 @@ const JobForm = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="website" className=" font-semibold  mb-2">
+                  <label htmlFor="website" className=" font-semibold  mb-2 mt-2">
                     website
                   </label>
 
@@ -456,7 +456,7 @@ const JobForm = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="github" className=" font-semibold  mb-2">
+                  <label htmlFor="github" className=" font-semibold  mb-2 mt-2">
                     Git Hub
                   </label>
 
@@ -476,7 +476,7 @@ const JobForm = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block  font-semibold  mb-2"
+                    className="block  font-semibold  mb-2 mt-2"
                     htmlFor="total_experience"
                   >
                     How many years of experience do you have?{" "}
