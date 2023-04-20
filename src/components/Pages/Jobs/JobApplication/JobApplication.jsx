@@ -13,36 +13,51 @@ const JobApplication = () => {
 
   return (
     <div className="container mx-auto mt-10">
-      <h1 className="text-emerald-600  text-2xl font-bold">
-        People Operations Coordinator
-      </h1>
-      <p className="text-gray-600 mt-1">
-        at Care Library{" "}
-        <a href="#" className="text-blue-400 hover:underline">
-          (View all jobs)
-        </a>
-      </p>
+      <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
+              <div className="lg:col-span-8 md:col-span-6">
+                <div className="md:flex items-center p-6 shadow dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900">
+                  <img
+                    // src={details?.company?.logo}
+                    className="rounded-full h-28 w-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700"
+                    alt=""
+                  />
 
-      <p className="mt-2">London</p>
-      <p className="my-4">
-        Uniting The Miracles Of Hope Through Our Devotion In Healthcare
-        Ecosystem
-      </p>
-      <p>
-        Care lIbrary is looking for an organized, detail-oriented individual
-        with a strong passion for learning to join the PeopleOps team as a&nbsp;
-        <span className="font-bold">People Operations Coordinator.</span> In
-        this position, the ideal candidate will partner with the PeopleOps team
-        to facilitate programs across business locations, support the
-        administration of employee health and welfare plans, and oversee
-        employee engagement programs while building strong, trusting
-        relationships.
-      </p>
-      <p className="my-4">
-        {" "}
-        Care Library is a staffing firm that specializes in putting together a
-        high quality, well trained and compassionate healthcare workforce.
-      </p>
+                  <div className="md:ltr:ml-4 md:rtl:mr-4 md:mt-0 mt-6">
+                    <h5 className="text-xl font-semibold ml-5">
+                    Administrator
+                    </h5>
+                    <div className="mt-2">
+                      <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
+                        <i className="uil uil-building text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1 ml-5"></i>{" "}
+                        Randolph Cote Inc
+                      </span>
+                      <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
+                        <i className="uil uil-map-marker text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1 ml-2"></i>{" "}
+                        Frederick Graham Inc
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <h5
+                  className="text-lg font-semibold mt-6"
+                >
+                  Job Description:
+                </h5>
+                <p
+                 asssss
+                />
+
+                
+              </div>
+              {/* <JobInformation
+                experience={details?.experience}
+                type={details?.type}
+                location={details?.location}
+                created_at={details?.created_at}
+                salary={details?.salary}
+                education={details?.education}
+              /> */}
+            </div>
 
       <JobForm />
     </div>

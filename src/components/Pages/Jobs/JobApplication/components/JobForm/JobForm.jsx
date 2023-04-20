@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
   last_name: Yup.string().required("Last Name is required"),
   email: Yup.string().email("Invalid email").required("email is required"),
   phone_no: Yup.string().required("phone_no is required"),
-  resume: Yup.string().required(" resume is Required"),
+  // resume: Yup.string().required(" resume is Required"),
   cover_letter: Yup.string().required("Cover Letter is required"),
   // education: Yup.array().of(
   //   Yup.object().shape({
@@ -64,32 +64,35 @@ const validationSchema = Yup.object().shape({
 const genderOptions = [
   { value: "Male", label: "Male" },
   { value: "Female", label: "Female" },
-  { value: "Nonbinary", label: "Non-binary" },
+  { value: "Decline To Self Identify", label: "Decline To Self Identify" },
 ];
 
 const hispanicOptions = [
   { value: "Yes", label: "Yes" },
   { value: "No", label: "No" },
+  { value: "Decline To Self Identify", label: "Decline To Self Identify" },
 ];
 
 const veteran_statusOptions = [
   { value: "Yes", label: "Yes" },
   { value: "No", label: "No" },
-  { value: "unknown", label: "Unknown" },
+  { value: "I don't wish to answer", label: "I don't wish to answer" },
 
 ];
 
 
 const ethnicity_statusOptions = [
   { value: "Asian", label: "Asian" },
-  { value: "Pakistan", label: "Pakistan" },
-  { value: "unknown", label: "Unknown" },
+  { value: "American Indian or Alaska Native", label: "American Indian or Alaska Native" },
+  { value: "Black or African America", label: "Black or African America" },
+  { value: "Native Hawaiian or Other Pacific Islander", label: "Native Hawaiian or Other Pacific Islander" },
+  { value: "White", label: "White" },
 
 ];
 const disabilityOptions = [
   { value: "Yes", label: "Disabled" },
   { value: "No", label: "Not disabled" },
-  { value: "Unknown", label: "Unknown" },
+  { value: "I don't wish to answer", label: "I don't wish to answer" },
 ];
 
 const JobForm = () => {
@@ -434,7 +437,7 @@ const JobForm = () => {
                 <div>
                   <label
                     htmlFor="linkedin"
-                    className="block  font-semibold  mb-5 mt-2"
+                    className="block  font-semibold  mb-2 mt-2"
                   >
                     {" "}
                     LinkedIn Profile
@@ -444,7 +447,7 @@ const JobForm = () => {
                     id="linkedin"
                     name="linkedin"
                     type="url"
-                    className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    className={`appearance-none border mt-2 mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                       errors.first_name &&
                       touched.first_name &&
                       "border-red-500"
@@ -457,7 +460,7 @@ const JobForm = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="website" className=" font-semibold  mb-2">
+                  <label htmlFor="website" className=" font-semibold  mb-5 mt-5">
                     website
                   </label>
 
@@ -465,7 +468,7 @@ const JobForm = () => {
                     id="website"
                     name="website"
                     type="url"
-                    className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    className={`appearance-none border rounded w-full py-2 px-3 mt-2 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                       errors.website && touched.website && "border-red-500"
                     }`}
                   />
@@ -476,7 +479,7 @@ const JobForm = () => {
                   )}
                 </div>
                 <div>
-                  <label htmlFor="github" className=" font-semibold  mb-2">
+                  <label htmlFor="github" className=" font-semibold  mb-2 mt-2">
                     Git Hub
                   </label>
 
@@ -484,7 +487,7 @@ const JobForm = () => {
                     id="github"
                     name="github"
                     type="url"
-                    className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    className={`appearance-none border mt-2 mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                       errors.github && touched.github && "border-red-500"
                     }`}
                   />
@@ -496,7 +499,7 @@ const JobForm = () => {
                 </div>
                 <div className="mb-4">
                   <label
-                    className="block  font-semibold  mb-2"
+                    className="block  font-semibold  mb-2 mt-2"
                     htmlFor="total_experience"
                   >
                     How many years of experience do you have?{" "}
@@ -505,7 +508,7 @@ const JobForm = () => {
                   <Field
                     id="total_experience"
                     name="total_experience"
-                    className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    className={`appearance-none border mt-2 mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                       errors.total_experience &&
                       touched.total_experience &&
                       "border-red-500"
@@ -588,7 +591,7 @@ const JobForm = () => {
                 <SelfIdentificationForm />
                 <div className="w-1/2 mt-5">
                   <label htmlFor="veteran_status" className="block font-bold">
-                    veteran Status
+                    Veteran Status
                   </label>
                   <Field
                     as="select"
@@ -596,7 +599,7 @@ const JobForm = () => {
                     className="w-full form-select form-input mt-1"
                     placeholder="Select an option"
                   >
-                    {/* <option value="">Select an option</option> */}
+                    <option value="">Select an option</option>
                     {veteran_statusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
