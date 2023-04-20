@@ -107,7 +107,7 @@ const Navbar = () => {
                   }
                 ></span>
                 <ul className="submenu" id="FurtherJobs">
-                  <li>
+                  {/* <li>
                     <Link
                       to="/job-categories"
                       className="sub-menu-item"
@@ -115,8 +115,12 @@ const Navbar = () => {
                     >
                       Job Categories
                     </Link>
+                  </li> */}
+                  <li className="has-submenu parent-menu-item">
+                    <Link to="/" replace={true}>
+                      My Jobs
+                    </Link>
                   </li>
-
                   <li className="has-submenu parent-menu-item">
                     <Link
                       to="/job-list"
@@ -143,13 +147,13 @@ const Navbar = () => {
                 ></span>
                 <ul className="submenu" id="furtherPages">
                   <li className="has-submenu parent-menu-item">
-                    <Link
+                    {/* <Link
                       to="/candidate-detail"
                       className="sub-menu-item"
                       replace={true}
                     >
                       Candidate Detail
-                    </Link>
+                    </Link> */}
                     {/* <a href="javascript:void(0)">Candidates</a>
                     <span
                       className="submenu-arrow"
@@ -178,7 +182,7 @@ const Navbar = () => {
                       </li>
                     </ul> */}
                   </li>
-                  <li className="has-submenu parent-menu-item">
+                  {/* <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)">Employers</a>
                     <span
                       className="submenu-arrow"
@@ -210,7 +214,7 @@ const Navbar = () => {
                         </Link>
                       </li>
                     </ul>
-                  </li>
+                  </li> */}
 
                   <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)"> Auth Pages </a>
@@ -347,11 +351,6 @@ const Navbar = () => {
                     </ul>
                   </li>
                 </ul>
-              </li>
-              <li className="has-submenu parent-menu-item">
-                <Link to="/" replace={true}>
-                  My Jobs
-                </Link>
               </li>
             </ul>
           </div>
