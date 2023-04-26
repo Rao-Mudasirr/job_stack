@@ -37,7 +37,7 @@ const Footer = () => {
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="job-list"
+                          to="/job-list"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
@@ -46,7 +46,7 @@ const Footer = () => {
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="terms"
+                          to="/terms"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
@@ -55,7 +55,7 @@ const Footer = () => {
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="thankyou"
+                          to="/thankyou"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
@@ -75,7 +75,7 @@ const Footer = () => {
             <div className="grid md:grid-cols-2 items-center gap-6">
               <div className="ltr:md:text-left rtl:md:text-right text-center">
                 <p className="mb-0 text-gray-300 font-medium">
-                  © {moment().year()} Jobstack. Design with{" "}
+                  © {moment().year()} Orcalo. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
                   <Link
                     to="https://shreethemes.in/"

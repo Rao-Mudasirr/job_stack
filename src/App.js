@@ -9,7 +9,7 @@ import "./App.css";
 import "./index.css";
 import CandidatesDetail from "./components/Pages/Candidates/CandidatesDetail";
 import Login from "./components/Pages/AuthPages/Login/Login";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Blogs from "./components/Pages/Blog/Blogs";
 import BlogDetail from "./components/Pages/Blog/BlogDetail";
 import LockScreen from "./components/Pages/AuthPages/LockScreen";
@@ -27,11 +27,14 @@ import { JobList } from "./components/Pages/JobList/JobList.jsx";
 import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
 import { ProtectedAuths } from "./ProtectedAuths.tsx";
 import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
-import JobForm from "./components/Pages/Jobs/JobApplication/components/JobForm/JobForm.jsx";
-
+import { MyJob } from "./components/Pages/MyJob/MyJob";
+import { useEffect } from "react";
 function App() {
   const isToken = localStorage.getItem("token");
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    !isToken && navigate("/login");
+  }, [isToken]);
   return (
     <Routes>
       <Route element={<ProtectedAuths />}>
@@ -46,15 +49,15 @@ function App() {
       </Route>
 
       <Route element={<ProtectedRoutes />}>
-      <Route
-        exact
-        path="/introduction-vidio"
-        element={
-          <Layout>
-            <IntroductionVideo />
-          </Layout>
-        }
-      />
+        <Route
+          exact
+          path="/introduction-vidio"
+          element={
+            <Layout>
+              <IntroductionVideo />
+            </Layout>
+          }
+        />
         <Route
           exact
           path={"/"}
@@ -164,7 +167,17 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          exact
+          path="/my-jobs"
+          element={
+            <Layout>
+              <MyJob />
+            </Layout>
+          }
+        />
       </Route>
+
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

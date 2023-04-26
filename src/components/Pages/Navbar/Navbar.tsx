@@ -125,7 +125,7 @@ const Navbar = () => {
                     </Link>
                   </li> */}
                   <li className="has-submenu parent-menu-item">
-                    <Link to="/" replace={true}>
+                    <Link to="/my-jobs" replace={true}>
                       My Jobs
                     </Link>
                   </li>
