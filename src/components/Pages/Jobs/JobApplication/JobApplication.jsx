@@ -1,64 +1,58 @@
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useState } from "react";
 import JobForm from "./components/JobForm/JobForm";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { AppLoader } from "../../../AppLoader/AppLoader";
 
 const JobApplication = () => {
+  const { REACT_APP_SITE_URL } = process.env;
+  console.log(REACT_APP_SITE_URL);
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [jobDetails, setJobDetails] = useState();
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const fetchJobDetails = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `${REACT_APP_SITE_URL}/api/jobs/${id}`
+        );
+        setJobDetails([response?.data?.data]);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+        setLoading(false);
+      }
+    };
+    fetchJobDetails();
+  }, []);
+  console.log(jobDetails);
   useEffect(() => {
     if (tokenCheck === "false") {
       navigate("/login");
     }
-  }, [navigate]);
+  }, [navigate,tokenCheck]);
 
   return (
     <div className="container mx-auto mt-10">
-      <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
-              <div className="lg:col-span-8 md:col-span-6">
-                <div className="md:flex items-center p-6 shadow dark:shadow-gray-700 rounded-md bg-white dark:bg-slate-900">
-                  <img
-                    // src={details?.company?.logo}
-                    className="rounded-full h-28 w-28 p-4 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700"
-                    alt=""
-                  />
+      {loading ?
+        <div className="py-16 flex justify-center"><AppLoader color="rgb(5 150 105)" /></div>
+      :
+      <div className="job-description mb-5">
+        <h1 className="text-emerald-600  text-2xl font-bold">
+          {jobDetails?.[0]?.role?.name}
+        </h1>
+        <p className="text-gray-600 mt-1">
+          at <i className="uil uil-building text-[18px] text-emerald-600"></i>{" "}{jobDetails?.[0]?.company?.name}
+        </p>
 
-                  <div className="md:ltr:ml-4 md:rtl:mr-4 md:mt-0 mt-6">
-                    <h5 className="text-xl font-semibold ml-5">
-                    Administrator
-                    </h5>
-                    <div className="mt-2">
-                      <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
-                        <i className="uil uil-building text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1 ml-5"></i>{" "}
-                        Randolph Cote Inc
-                      </span>
-                      <span className="text-slate-400 font-medium ltr:mr-2 rtl:ml-2 inline-block">
-                        <i className="uil uil-map-marker text-[18px] text-emerald-600 ltr:mr-1 rtl:ml-1 ml-2"></i>{" "}
-                        Frederick Graham Inc
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <h5
-                  className="text-lg font-semibold mt-6"
-                >
-                  Job Description:
-                </h5>
-                <p
-                 asssss
-                />
-
-                
-              </div>
-              {/* <JobInformation
-                experience={details?.experience}
-                type={details?.type}
-                location={details?.location}
-                created_at={details?.created_at}
-                salary={details?.salary}
-                education={details?.education}
-              /> */}
-            </div>
-
+        <p className="mt-2"><i className="uil uil-map-marker text-[18px] text-emerald-600"></i>{" "}{jobDetails?.[0]?.company?.location}</p>
+        <div
+          dangerouslySetInnerHTML={{ __html: jobDetails?.[0]?.description }}
+        />
+      </div>}
       <JobForm />
     </div>
   );

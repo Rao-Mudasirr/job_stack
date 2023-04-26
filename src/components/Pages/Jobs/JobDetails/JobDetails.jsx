@@ -68,7 +68,7 @@ const JobDetails = () => {
                     to={
                       localStorage.getItem("token")
                         ? {
-                            pathname: "/job-application",
+                            pathname: `/job-application/${details.slug}`,
                           }
                         : { pathname: "/login" }
                     }

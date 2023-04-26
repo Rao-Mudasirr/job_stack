@@ -101,7 +101,7 @@ export const JobList = () => {
                                     <span className="block font-semibold md:mt-1 mt-0">{item?.salary}</span>
                                 </div>
                                 <div className="md:mt-0 mt-4">
-                                    <Link to="/job-application" className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
+                                    <Link to={`/job-application/${item.slug}`} className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
                                 </div>
                                 {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
                             </div>) :
