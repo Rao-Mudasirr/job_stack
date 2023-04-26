@@ -27,6 +27,7 @@ import { JobList } from "./components/Pages/JobList/JobList.jsx";
 import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
 import { ProtectedAuths } from "./ProtectedAuths.tsx";
 import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
+import JobForm from "./components/Pages/Jobs/JobApplication/components/JobForm/JobForm.jsx";
 
 function App() {
   const isToken = localStorage.getItem("token");
@@ -134,6 +135,7 @@ function App() {
           }
         />
         <Route exact path="/job-application/:id" element={<JobApplication />} />
+        <Route exact path="/update-profile" element={<JobApplication page="update-profile" />} />
         <Route
           exact
           path="/employers"
