@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import JobCard from "./Components/JobCard";
 import { NavLink } from "react-router-dom";
-
+import { Pagination } from "../../UI/Pagination";
 const PopularJobs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(20);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +26,10 @@ const PopularJobs = () => {
 
     fetchData();
   }, []);
+
+  const lastPostIndex = currentPage * postPerPage;
+  const firstPostIndex = lastPostIndex - postPerPage;
+  const currentPosts = data?.data?.data.slice(firstPostIndex, lastPostIndex);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -50,8 +56,8 @@ const PopularJobs = () => {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px]">
-          {data?.data?.data.map((item) => {
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 mt-8 gap-[30px] mb-3">
+          {currentPosts?.map((item) => {
             return (
               <div key={item.id}>
                 <JobCard
@@ -68,7 +74,12 @@ const PopularJobs = () => {
             );
           })}
         </div>
-
+        <Pagination
+          totalPosts={data?.data?.data.length}
+          postsPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
         <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
           <div className="md:col-span-12 text-center">
             <NavLink
