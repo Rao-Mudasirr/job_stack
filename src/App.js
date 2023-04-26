@@ -137,7 +137,7 @@ function App() {
             </Layout>
           }
         />
-        <Route exact path="/job-application" element={<JobApplication />} />
+        <Route exact path="/job-application/:id" element={<JobApplication />} />
         <Route
           exact
           path="/employers"
