@@ -34,6 +34,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
   const [showModal, setShowModal] = useState(false);
   const tokenCheck = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
+  
   const postData = async (values) => {
     setLoading(true)
     try {
