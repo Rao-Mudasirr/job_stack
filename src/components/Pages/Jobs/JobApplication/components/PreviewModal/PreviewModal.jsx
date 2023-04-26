@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AppModal } from '../../../../../AppModal/AppModal';
+import { AppModal } from '../../../../UI/AppModal/AppModal';
 
 const getExtension = (filename) => {
     return filename.split('.').pop()

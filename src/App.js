@@ -138,6 +138,7 @@ function App() {
           }
         />
         <Route exact path="/job-application/:id" element={<JobApplication />} />
+        <Route exact path="/update-profile" element={<JobApplication page="update-profile" />} />
         <Route
           exact
           path="/employers"

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { AppModal } from "../../../../../AppModal/AppModal";
+import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { PreviewModal } from "../PreviewModal/PreviewModal";
 import { DelConfirmationModal } from "../DelConfirmationModal/DelConfirmationModal";
 import axios from "axios";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
-import { AppLoader } from "../../../../../AppLoader/AppLoader";
+import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
 
 const validationSchemaProfessionalExperience = Yup.object().shape({
   company: Yup.string().required("Company name is required"),
@@ -99,7 +99,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
                   </tr>) :
                   <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                   {
-                    ["","","No Details Found", "", "",""].map((item, index) =>
+                    ["","No"," Details ", "Found", "",""].map((item, index) =>
                       <td key={index} className="px-6 py-4 text-right">
                         {item}
                       </td>)

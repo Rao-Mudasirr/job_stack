@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { AppModal } from '../../../../../AppModal/AppModal'
+import { AppModal } from '../../../../UI/AppModal/AppModal'
 import axios from 'axios';
-import { AppLoader } from '../../../../../AppLoader/AppLoader';
+import { AppLoader } from '../../../../UI/AppLoader/AppLoader';
 
 export const DelConfirmationModal = ({ deletionId, apiRoute, fetchProfileData }) => {
     const [openDel, setOpenDel] = useState(false);
