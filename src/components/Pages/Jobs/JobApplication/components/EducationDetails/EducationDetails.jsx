@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { AppModal } from "../../../../../AppModal/AppModal";
+import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { PreviewModal } from "../PreviewModal/PreviewModal";
 import { DelConfirmationModal } from "../DelConfirmationModal/DelConfirmationModal";
 import axios from "axios";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
-import { AppLoader } from "../../../../../AppLoader/AppLoader";
+import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
 
 const disciplineArray = ["Accounting", "African Studies", "Agriculture", "Anthropology", "Applied Health Services", "Architecture", "Art", "Asian Studies", "Biology", "Business", "Business Administration", "Chemistry", "Classical Languages", "Communications &amp; Film", "Computer Science", "Dentistry", "Developing Nations", "Discipline Unknown", "Earth Sciences", "Economics", "Education", "Electronics", "Engineering", "English Studies", "Environmental Studies", "European Studies", "Fashion", "Finance", "Fine Arts", "General Studies", "Health Services", "History", "Human Resources Management", "Humanities", "Industrial Arts &amp; Carpentry", "Information Systems", "International Relations", "Journalism", "Languages", "Latin American Studies", "Law", "Linguistics", "Manufacturing &amp; Mechanics", "Mathematics", "Medicine", "Middle Eastern Studies", "Naval Science", "North American Studies", "Nuclear Technics", "Operations Research &amp; Strategy", "Organizational Theory", "Philosophy", "Physical Education", "Physical Sciences", "Physics", "Political Science", "Psychology", "Public Policy", "Public Service", "Religious Studies", "Russian &amp; Soviet Studies", "Scandinavian Studies", "Science", "Slavic Studies", "Social Science", "Social Sciences", "Sociology", "Speech", "Statistics &amp; Decision Theory", "Urban Studies", "Veterinary Medicine", "Other"]
 const degreeArray = ["High School", "Associate's Degree", "Bachelor's Degree", "Master's Degree", "Master of Business Administration (M.B.A.)", "Juris Doctor (J.D.)", "Doctor of Medicine (M.D.)", "Doctor of Philosophy (Ph.D.)", "Engineer's Degree", "Other"]
@@ -94,7 +94,7 @@ const EducationDetails = ({ educationDetails, fetchProfileData }) => {
                   </tr>) :
                   <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                   {
-                    ["","","No Details Found", "", "",""].map((item, index) =>
+                    ["","No"," Details ", "Found", "",""].map((item, index) =>
                       <td key={index} className="px-6 py-4 text-right">
                         {item}
                       </td>)

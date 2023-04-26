@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import JobForm from "./components/JobForm/JobForm";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { AppLoader } from "../../../AppLoader/AppLoader";
+import { AppLoader } from "../../UI/AppLoader/AppLoader";
 
 const JobApplication = () => {
   const { REACT_APP_SITE_URL } = process.env;
