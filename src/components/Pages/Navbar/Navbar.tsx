@@ -12,6 +12,7 @@ function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
 }
 const Navbar = () => {
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
+  const userProfile = JSON.parse(localStorage.getItem("user"));
   return (
     <div dir="ltr">
       <nav id="topnav" className={`defaultscroll is-sticky bg-white`}>
@@ -81,11 +82,11 @@ const Navbar = () => {
           <ul className="buy-button list-none mb-0">
             <li className="inline-block pl-1 mb-0">
               <Link
-                to="#"
+                to="/update-profile"
                 className="btn btn-icon rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
               >
                 <img
-                  src="assets/images/team/05.jpg"
+                  src={`${userProfile?.image}`}
                   className="rounded-full"
                   alt=""
                 />
@@ -124,7 +125,7 @@ const Navbar = () => {
                     </Link>
                   </li> */}
                   <li className="has-submenu parent-menu-item">
-                    <Link to="/" replace={true}>
+                    <Link to="/my-jobs" replace={true}>
                       My Jobs
                     </Link>
                   </li>
@@ -259,7 +260,7 @@ const Navbar = () => {
                         </li>
                       )}
                       {tokenCheck === "true" && (
-                        <li onClick={() => localStorage.removeItem("token")}>
+                        <li onClick={() => {localStorage.clear()}}>
                           <Link
                             to="/login"
                             className="sub-menu-item"

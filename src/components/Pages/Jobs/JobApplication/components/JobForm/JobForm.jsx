@@ -12,26 +12,9 @@ import EducationDetails from "../EducationDetails/EducationDetails";
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
 
 import JobReferences from "../JobReferences/JobReferences";
-const refrenceDetails = [
-  {
-    name:'junaid',
-    company:'Amin',
-    position:'1st',
-    email:'hello@mello.bello'
-  },
-  {
-    name:'Ali',
-    company:'Hassan',
-    position:'1st',
-    email:'hello@mello.bello'
-  },
-  {
-    name:'rao',
-    company:'Mudasir',
-    position:'1st',
-    email:'hello@mello.bello'
-  },
-]
+import GlobalSnackBar from "../../../../UI/SnackBar";
+import { useNavigate } from "react-router-dom";
+
 const validationSchema = Yup.object().shape({
   first_name: Yup.string().required("First Name is required"),
   last_name: Yup.string().required("Last Name is required"),
@@ -39,21 +22,9 @@ const validationSchema = Yup.object().shape({
   phone_no: Yup.string().required("phone_no is required"),
   // resume: Yup.string().required(" resume is Required"),
   cover_letter: Yup.string().required("Cover Letter is required"),
-  // education: Yup.array().of(
-  //   Yup.object().shape({
-  //     schoolName: Yup.string().required("School name is required"),
-  //     degree: Yup.string().required("Degree is required"),
-  //     cgpa: Yup.number().required("CGPA is required"),
-  //     discipline: Yup.string().required("Discipline is required"),
-  //   })
-  // ),
   linkedin: Yup.string().required("Please enter a valid URL"),
   website: Yup.string().required("Please enter a valid URL"),
   github: Yup.string().required("Please enter a valid URL"),
-  total_experience: Yup.string().required("This field is required"),
-  // operationsCoordinatorExperince: Yup.string().required(
-  //   "This field is required"
-  // ),
   gender: Yup.string().required("gender is required"),
   hispanic: Yup.mixed().required(" hispanic is Required"),
   veteran_status: Yup.mixed().required(" veteran_status status is Required"),
@@ -95,55 +66,17 @@ const disabilityOptions = [
   { value: "I don't wish to answer", label: "I don't wish to answer" },
 ];
 
-const JobForm = () => {
-  const [isSubmitting, setIsSubmitting] = useState(false);
- 
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
-  
-  const [profilename, setProfileName] = useState("");
-  const [updatedProfileData, setUpdatedProfileData] = useState({});
+const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) => {
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // setUpdatedProfileData({}); // Update profile data
-    setIsSubmitting(true); // Set isSubmitting state to true
-    console.log(event);
-    console.error(error, "click");
-  };
   const tokenCheck = localStorage.getItem("token");
+  const navigate = useNavigate();
   const { REACT_APP_SITE_URL } = process.env;
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [jobApplicationMsg, setJobApplicationMsg] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [_applyJobLoading, setApplyJobLoading] = useState(false);
   
-  const fetchProfileData = async () => {
-    setLoading(true); // Set loading to true before making the API call
-    try {
-      const response = await axios.get(
-        "https://jobs.orcaloholding.co.uk/api/my-profile",
-        {
-          headers: {
-            Authorization: `Bearer ${tokenCheck}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      setData(response.data);
-      setLoading(false);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      console.log(error);
-    }
-  };
+
   
-  useEffect(() => {
-    fetchProfileData();
-  }, []);
-
-
   const postData = async (values) => {
     try {
       setLoading(true);
@@ -155,9 +88,10 @@ const JobForm = () => {
             Authorization: `Bearer ${tokenCheck}`,
           },
         }
-      );
-      if (response.status === 200) {
-        setLoading(false);
+        );
+        if (response.status === 200) {
+          setStatus(response.data.status);
+          setLoading(false);
         await fetchProfileData();
       }
     } catch (error) {
@@ -165,9 +99,35 @@ const JobForm = () => {
       console.error(error);
     }
   };
-  
+  const applyForJob = async () => {
+    try {
+      setApplyJobLoading(true);
+      const response = await axios.post(
+        `${REACT_APP_SITE_URL}/api/apply-for-job`,
+        {job_id:jobId},
+        {
+          headers: {
+            Authorization: `Bearer ${tokenCheck}`,
+          },
+        }
+        );
+        setJobApplicationMsg({
+          title: response?.data?.msg,
+          isToggle: true,
+          type: response?.data?.status ? "success" : "error",
+        });
+        response?.data?.status && setTimeout(() => {
+          navigate("/")
+        }, 3000);
+    } catch (error) {
+      setApplyJobLoading(false);
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    (status && !!!page) && applyForJob();
+  }, [status]);
 
-  
   let initialValues = {
     first_name: data?.data?.user?.first_name,
     last_name: data?.data?.user?.last_name,
@@ -189,31 +149,10 @@ const JobForm = () => {
     ethnicity: data?.data?.user?.ethnicity,
     jobReferences: data?.data?.user?.reference_details,
   };
-  // const tokenCheck = localStorage.getItem("token");
-  
-  // const postData = async (formData) => {
-  //   try {
-  //     setLoading(true);
-  //     await axios.post(
-  //       "https://jobs.orcaloholding.co.uk/api/my-profile",
-  //       formData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${tokenCheck}`,
-  //         },
-  //       }
-  //     );
-  //     setLoading(false);
-  //     fetchProfileData(); // call fetchProfileData to get the updated data
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.error(error);
-  //   }
-  // };
-  
  
   return (
     <>
+    <GlobalSnackBar isOpenSnack={jobApplicationMsg} setIsOpenSnack={setJobApplicationMsg}/>
       {loading ? (
         <div className="h-48 flex items-center justify-center">
           <span className="ml-2 text-blue-500 font-bold text-xl">
@@ -238,10 +177,10 @@ const JobForm = () => {
               handleBlur,
             }) => (
               <Form className="bg-gray-100 p-7 ">
-                <div className="py-5 mb-2 flex justify-between">
+                <div className={`py-5 mb-2 flex ${!!!page ? 'justify-between' : 'justify-end'}`}>
                   {" "}
-                  <h4>Apply for this Job</h4>
-                  <p>
+                 {!!!page && <h4>Apply for this Job</h4>}
+                  <p >
                     <span className="text-red-500"> *</span> Required
                   </p>
                 </div>
@@ -666,15 +605,35 @@ const JobForm = () => {
                   <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    // disabled={isSubmitting}
                     onClick={() => {
-                      console.log(values);
+                      if (!values?.jobReferences) {
+                        setJobApplicationMsg({
+                          title: "At least 1 Job Refrence required",
+                          isToggle: true,
+                          type: "error",
+                        })
+                      }
+                      if (!data?.data?.education_details.length) {
+                        setJobApplicationMsg({
+                          title: "At least 1 Education Detail required",
+                          isToggle: true,
+                          type: "error",
+                        })
+                      }
+                      if (!data?.data?.experience_details.length) {
+                        setJobApplicationMsg({
+                          title: "At least 1 experience Detail required",
+                          isToggle: true,
+                          type: "error",
+                        })
+                      }
                       let allGood = true;
                       for (var key in values) {
                         if (values[key] === "") {
                           allGood = false;
                         }
                       }
+                      
                       if (allGood) {
                         const formData = new FormData();
                         formData.append("first_name", values.first_name);

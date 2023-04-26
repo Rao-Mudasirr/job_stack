@@ -6,7 +6,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
   switch (isOpenSnack.type) {
     case "error":
       color = "red";
-      bgColor = "rgba(255, 255, 255, 0.8)";
+      bgColor = "rgba(235, 235, 235, 0.8)";
       break;
     case "warning":
       color = "#8F6D06";

@@ -48,10 +48,11 @@ const Login = () => {
         values
       );
       const { data, status } = response;
-
+        console.log(data);
       switch ((status, data?.status)) {
         case true:
           localStorage.setItem("token", data?.data?.token);
+          localStorage.setItem("user", JSON.stringify(data?.data?.user));
           navigate("/");
 
         default:

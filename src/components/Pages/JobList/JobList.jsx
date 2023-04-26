@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { countryData, jobTypeData } from '../HomePages/Components/Hero'
 import axios from "axios";
-import { AppModal } from '../../AppModal/AppModal';
-import { AppLoader } from '../../AppLoader/AppLoader';
+import { AppModal } from '../UI/AppModal/AppModal';
+import { AppLoader } from '../UI/AppLoader/AppLoader';
 
 export const JobList = () => {
     const [jobDetails, setJobDetails] = useState();

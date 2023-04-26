@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
 import * as Yup from "yup";
-import { AppModal } from "../../../../../AppModal/AppModal";
+import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
 
 const validationSchemaJobReferences = Yup.object().shape({
@@ -63,8 +63,8 @@ const JobReferences = ({ jobReferences,setFieldValue }) => {
                     }
                   </tr>) : <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                   {
-                    ["","No Details Found", "", ""].map((item, index) =>
-                      <td key={index} className="px-6 py-4 text-right">
+                    ["","No ", "Data ", "Found",""].map((item, index) =>
+                      <td key={index} className={`px-6 py-4 ${index === 1 ? "text-center" : ''}`}>
                         {item}
                       </td>)
                   }
