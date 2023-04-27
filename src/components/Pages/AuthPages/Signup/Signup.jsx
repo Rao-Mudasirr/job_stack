@@ -51,7 +51,7 @@ const Signup = () => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        // action.resetForm();
+        action.resetForm();
       },
     });
 
@@ -62,7 +62,7 @@ const Signup = () => {
         values
       );
       const { data, status } = response;
-      console.log(data);
+      // console.log(data);
       switch ((status, data?.status)) {
         case true:
           setSnackbar({
@@ -86,7 +86,7 @@ const Signup = () => {
         isToggle: true,
         type: "error",
       });
-      console.log(error);
+      // console.log(error);
     }
   };
 
