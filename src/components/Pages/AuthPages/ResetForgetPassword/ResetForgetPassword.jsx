@@ -34,7 +34,7 @@ const ResetForgetPassword = () => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        // action.resetForm();
+        action.resetForm();
       },
     });
 
@@ -45,7 +45,7 @@ const ResetForgetPassword = () => {
         values
       );
       const { data, status } = response;
-      console.log(data);
+      // console.log(data);
       switch ((status, data?.status)) {
         case true:
           navigate("/login");
@@ -55,7 +55,7 @@ const ResetForgetPassword = () => {
           break;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   return (

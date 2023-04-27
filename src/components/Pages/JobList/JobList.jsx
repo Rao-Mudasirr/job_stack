@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { countryData, jobTypeData } from '../HomePages/Components/Hero'
 import axios from "axios";
+import moment from "moment";
 import { AppModal } from '../UI/AppModal/AppModal';
 import { AppLoader } from '../UI/AppLoader/AppLoader';
 
@@ -81,36 +82,119 @@ export const JobList = () => {
                         </div>
                     </div>
                 </div>
-                <div className="container mt-10">
-                    <div className="grid grid-cols-1 gap-[30px]">
+                <div>
+                    <div className="overflow-x-auto">
+                        <div className="min-w-screen min-h-screen flex items-start justify-center font-sans" style={{ marginInline: "15%" }}>
+                            <div className="w-full lg:w-5/6" >
+                                <div className="bg-white shadow-md rounded my-6">
+                                    <table className="min-w-max w-full table-auto">
+                                        <thead>
+                                            <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                                                <th className="py-3 px-6 text-left">Job Title</th>
+                                                <th className="py-3 px-6 text-center">Type</th>
+                                                <th className="py-3 px-6 text-center">Created At</th>
+                                                <th className="py-3 px-6 text-left">Location</th>
+                                                <th className="py-3 px-6 text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        {!loading ? (
+                                            <tbody className="text-gray-600 text-sm font-light">
+                                                <>
+                                                    {!!jobDetails &&
+                                                        jobDetails?.map((item) => (
+                                                            <tr
+                                                                key={item?.id}
+                                                                className="border-b border-gray-200 hover:bg-gray-100"
+                                                            >
+                                                                <td className="py-3 px-6 text-left whitespace-nowrap relative overflow-hidden">
+                                                                    {!!item?.is_remote && (<span
+                                                                        title="Remote Job 👨‍💻"
+                                                                        className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
+                                                                        style={{ left: '-20px' }}
+                                                                    >
+                                                                        <i className="uil uil-star"></i>
+                                                                    </span>)}
+                                                                    <div className="flex items-center z-10">
+                                                                        <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
+                                                                            <img
+                                                                                src={item?.company?.logo}
+                                                                                className="h-8 w-8"
+                                                                                alt=""
+                                                                            />
+                                                                        </div>
+                                                                        <div>
+                                                                            <Link
+                                                                                to={`/jobDetails/${item?.slug}`}
+                                                                                className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
+                                                                            >
+                                                                                {item?.title}
+                                                                            </Link>
+                                                                            <span className="block text-sm text-slate-400 pl-3">
+                                                                                {item?.role?.name}
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
+                                                                    <span className="block">
+                                                                        <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
+                                                                            {item?.type}
+                                                                        </span>
+                                                                    </span>
+                                                                    <span className="block text-slate-400 text-sm md:mt-1 mt-0">
+                                                                        <i className="uil uil-clock"></i>
+                                                                        {item?.deadline}
+                                                                    </span>
+                                                                </td>
+                                                                <td className="py-3 px-6 text-center">
+                                                                    <div className="flex item-center justify-center">
+                                                                        {moment(item?.created_at).format("DD-MM-YYYY")}
+                                                                    </div>
+                                                                </td>
+                                                                <td className="py-3 px-6 text-left">
+                                                                    <div className="flex items-center md:block justify-between md:mt-0 mt-2">
+                                                                        <span className="text-slate-400">
+                                                                            <i className="uil uil-map-marker"></i>{" "}
+                                                                            {item?.location}
+                                                                        </span>
+                                                                        <span className="block font-semibold md:mt-1 mt-0">
+                                                                            {item?.salary}
+                                                                        </span>
+                                                                    </div>
+                                                                </td>
 
-                        {
-                            !loading ? jobDetails?.map((item) => <div key={item?.id} className="group relative overflow-hidden md:flex justify-between items-center rounded shadow hover:shadow-md dark:shadow-gray-700 transition-all duration-500 p-5">
-                                <div className="flex items-center">
-                                    <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                                        <img src={item?.company?.logo} className="h-8 w-8" alt="" />
-                                    </div>
-                                    <Link to={`/jobDetails/${item.slug}`} className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]">{item?.role?.name}</Link>
+                                                                <td className="py-3 px-6 text-center">
+                                                                    <div className="flex item-center justify-center">
+                                                                        <Link
+                                                                            to="/"
+                                                                            className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                                                                        >
+                                                                            Apply Now
+                                                                        </Link>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    {!jobDetails && (
+                                                        <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                                            No Data Found!
+                                                        </span>
+                                                    )}
+                                                </>
+
+                                            </tbody>
+                                        ) : (
+                                            <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                                                <AppLoader />
+                                            </span>
+                                        )}
+                                    </table>
                                 </div>
-                                <div className="md:block flex justify-between md:mt-0 mt-4">
-                                    <span className="block"><span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">{item?.type}</span></span>
-                                    <span className="block text-slate-400 text-sm md:mt-1 mt-0"><i className="uil uil-clock"></i>{item?.deadline}</span>
-                                </div>
-                                <div className="md:block flex justify-between md:mt-0 mt-2">
-                                    <span className="text-slate-400"><i className="uil uil-map-marker"></i> {item?.location}</span>
-                                    <span className="block font-semibold md:mt-1 mt-0">{item?.salary}</span>
-                                </div>
-                                <div className="md:mt-0 mt-4">
-                                    <Link to={`/job-application/${item.slug}`} className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto">Apply Now</Link>
-                                </div>
-                                {!!item?.is_remote && <span title='Remote Job 👨‍💻' className="w-24 bg-yellow-400 text-white text-center absolute ltr:-rotate-45 rtl:rotate-45 ltr:-left-[30px] rtl:-right-[30px] top-1"><i className="uil uil-star"></i></span>}
-                            </div>) :
-                                <div className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                                    <AppLoader />
-                                </div>
-                        }
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </section>
             <AppModal />
         </div>

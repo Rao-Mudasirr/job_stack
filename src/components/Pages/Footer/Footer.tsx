@@ -55,11 +55,11 @@ const Footer = () => {
                       </li>
                       <li className="inline-block mt-[10px] md:mt-0">
                         <Link
-                          to="/thankyou"
+                          to="/privacy"
                           replace={true}
                           className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out font-medium ltr:mr-4 rtl:ml-4"
                         >
-                          Thank You
+                          Privacy Policy
                         </Link>
                       </li>
                     </ul>

@@ -34,7 +34,7 @@ export const DelConfirmationModal = ({ deletionId, apiRoute, fetchProfileData })
                     <button onClick={() => deleteDetails()} type="button" className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
                         Yes, I'm sure {loading && <AppLoader/>}
                     </button>
-                    <button onClick={() => setOpenDel(false)} type="button" className=" hover:bg-gray-100 focus:ring-4 focus:outline-none rounded-lg border text-sm focus:ring-transparent font-medium px-5 py-2.5  focus:z-10 bg-gray-700 text-gray-300 border-gray-500">No, cancel</button>
+                    <button onClick={() => setOpenDel(false)} type="button" className=" hover:bg-gray-500 focus:ring-4 focus:outline-none rounded-lg border text-sm focus:ring-transparent font-medium px-5 py-2.5  focus:z-10 bg-gray-700 text-gray-300 border-gray-500">No, cancel</button>
                 </div>
             </AppModal>
         </>

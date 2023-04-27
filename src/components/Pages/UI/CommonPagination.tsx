@@ -38,7 +38,7 @@ export const CommonPagination = (props) => {
           totalItemsCount={totalRecords}
           // pageRangeDisplayed={pageRange}
           onChange={handlePageChange}
-          className="pagination bg-emerald-600/10 text-emerald-600 font-semibold rounded"
+          activeClass="bg-emerald-600/10 text-emerald-600 font-semibold rounded"
         />
       </div>
     </>
