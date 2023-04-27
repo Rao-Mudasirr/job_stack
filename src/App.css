@@ -28,7 +28,7 @@
   color: #61dafb;
 }
 
-.uil{
+.uil {
   font-size: large;
 }
 
@@ -39,4 +39,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px !important;
+}
+
+.pagination li {
+  margin: 0 5px;
+  list-style: none;
+}
+
+.pagination li a {
+  /* color: #333; */
+  text-decoration: none;
+  font-weight: bold;
+  padding: 4px 10px 4px 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.pagination li.active a {
+  background-color: rgb(5 150 105 / 0.1);
+  color: rgb(5 150 105 / var(--tw-text-opacity));
+  border-color: rgb(5 150 105 / var(--tw-text-opacity));
+}
+
+.pagination li.disabled a {
+  color: #ccc;
+  pointer-events: none;
 }
