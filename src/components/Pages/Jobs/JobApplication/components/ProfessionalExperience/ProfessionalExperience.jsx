@@ -29,7 +29,7 @@ const initialValuesProfessionalExperience = {
   document: "",
   currentlyWorking:false
 };
-const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) => {
+const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJobApplicationMsg }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
   const tokenCheck = localStorage.getItem("token");
@@ -38,7 +38,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
   const postData = async (values) => {
     setLoading(true)
     try {
-      const res = await axios.post(
+       await axios.post(
         `${REACT_APP_SITE_URL}/api/experience-details`, values,
         {
           headers: {
@@ -49,7 +49,11 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
       setLoading(false);
       setShowModal(false);
       fetchProfileData();
-      console.log(res);
+      setJobApplicationMsg({
+        title: "Professional Experience Uploaded Successfully",
+        isToggle: true,
+        type: "success",
+      })
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -146,6 +150,14 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData }) =>
               <InputWrapper error={errors.document} touched={touched.document} label="Experience Letter" labelName="document">
                 <input accept=".doc, .docx, .jpg, .png, .pdf" id={`document`} onChange={(e) => {
                   const file = e.target.files[0];
+                  if(file?.size / 1024 / 1024 >= 2){
+                    setJobApplicationMsg({
+                      title: "File Size Must be Lower than 2 MB",
+                      isToggle: true,
+                      type: "error",
+                    })
+                    return;
+                  }
                   if (file != null) {
                     setFieldValue("document", file)
                   }

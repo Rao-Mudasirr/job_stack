@@ -79,17 +79,20 @@ const Navbar = () => {
             </div>
           </div>
 
-          <ul className="buy-button list-none mb-0">
-            <li className="inline-block pl-1 mb-0">
+          <ul className="buy-button list-none mb-0 ">
+            <li className="inline-block pl-1 mb-0 ">
               <Link
                 to="/update-profile"
-                className="btn btn-icon rounded-full bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
+                title="Update Profile"
+                className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
               >
-                <img
+                {userProfile?.image ? <img
                   src={`${userProfile?.image}`}
-                  className="rounded-full"
+                  className="rounded-full "
                   alt=""
-                />
+                /> :
+                (`${userProfile?.first_name[0]}${userProfile?.last_name[0]}`) 
+                }
               </Link>
             </li>
           </ul>
