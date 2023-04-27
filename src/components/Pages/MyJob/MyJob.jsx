@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { AppLoader } from "../../AppLoader/AppLoader";
-import { AppModal } from "../../AppModal/AppModal";
+import { AppLoader } from "../UI/AppLoader/AppLoader";
+import { AppModal } from "../UI/AppModal/AppModal";
 
 export const MyJob = () => {
   const [myJob, setMyJob] = useState(null);

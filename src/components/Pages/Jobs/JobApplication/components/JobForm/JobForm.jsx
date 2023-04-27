@@ -606,12 +606,13 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      if (!values?.jobReferences) {
+                      if (!values?.jobReferences.length) {
                         setJobApplicationMsg({
                           title: "At least 1 Job Refrence required",
                           isToggle: true,
                           type: "error",
                         })
+                        return;
                       }
                       if (!data?.data?.education_details.length) {
                         setJobApplicationMsg({
@@ -619,6 +620,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                           isToggle: true,
                           type: "error",
                         })
+                        return;
                       }
                       if (!data?.data?.experience_details.length) {
                         setJobApplicationMsg({
@@ -626,6 +628,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                           isToggle: true,
                           type: "error",
                         })
+                        return;
                       }
                       let allGood = true;
                       for (var key in values) {

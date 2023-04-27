@@ -28,7 +28,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
   return (
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         backgroundColor: bgColor,
         zIndex: 1111,
         padding: "10px 40px",
