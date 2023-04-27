@@ -7,7 +7,7 @@ import PopularJobs from "./Components/PopularJobs";
 const Home = () => {
   return (
     <>
-      <Hero />
+      {/* <Hero /> */}
       {/* <PopularCategories/> */}
       <PopularJobs />
       {/* <BestCompanies/> */}
