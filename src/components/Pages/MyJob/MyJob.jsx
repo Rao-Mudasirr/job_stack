@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 import axios from "axios";
 import { AppLoader } from "../UI/AppLoader/AppLoader";
 import { AppModal } from "../UI/AppModal/AppModal";
@@ -9,7 +10,6 @@ export const MyJob = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const tokenCheck = localStorage.getItem("token");
-
   const fetchMyJobs = async () => {
     setLoading(true); // Set loading to true before making the API call
     try {
@@ -63,7 +63,7 @@ export const MyJob = () => {
           </svg>
         </div>
       </div>
-      <section className="relative -mt-[42px] md:pb-24 pb-16">
+      {/* <section className="relative -mt-[42px] md:pb-24 pb-16">
         <div className="container mt-20">
           <div className="grid grid-cols-1 gap-[30px]">
             {!loading ? (
@@ -132,17 +132,19 @@ export const MyJob = () => {
             )}
           </div>
         </div>
-      </section>
+      </section> */}
       <div>
         <div className="overflow-x-auto">
           <div className="min-w-screen min-h-screen flex items-start justify-center font-sans overflow-hidden">
-            <div className="w-full lg:w-5/6" style={{ paddingInline: "20%" }}>
+            <div className="w-full lg:w-5/6" style={{ marginInline: "15%" }}>
               <div className="bg-white shadow-md rounded my-6">
-                <table className="min-w-max w-full table-auto">
+                <table className="min-w-max w-full table-auto overflow-scroll h-96">
                   <thead>
                     <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                       <th className="py-3 px-6 text-left">Job Title</th>
                       <th className="py-3 px-6 text-center">Type</th>
+                      <th className="py-3 px-6 text-center">Created At</th>
+                      <th className="py-3 px-6 text-center">Status</th>
                       <th className="py-3 px-6 text-left">Location</th>
                       <th className="py-3 px-6 text-center">Actions</th>
                     </tr>
@@ -156,21 +158,34 @@ export const MyJob = () => {
                               key={item?.id}
                               className="border-b border-gray-200 hover:bg-gray-100"
                             >
-                              <td className="py-3 px-6 text-left whitespace-nowrap">
-                                <div className="flex items-center">
-                                  <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                              <td className="py-3 px-6 text-left whitespace-nowrap relative overflow-hidden">
+                                {!!item?.job?.is_remote && (<span
+                                  title="Remote Job 👨‍💻"
+                                  className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
+                                  style={{ left: '-20px' }}
+                                >
+                                  <i className="uil uil-star"></i>
+                                </span>)}
+                                <div className="flex items-center z-10">
+                                  <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
                                     <img
                                       src={item?.job?.company?.logo}
                                       className="h-8 w-8"
                                       alt=""
                                     />
                                   </div>
-                                  <Link
-                                    to={`/jobDetails/${item?.job?.slug}`}
-                                    className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
-                                  >
-                                    {item?.job?.role?.name}
-                                  </Link>
+                                  <div>
+                                    <Link
+                                      to={`/jobDetails/${item?.job?.slug}`}
+                                      className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
+                                    >
+                                      {item?.job?.title}
+                                    </Link>
+                                    <span className="block text-sm text-slate-400 pl-3">
+                                      {item?.job?.role?.name}
+                                    </span>
+                                  </div>
+
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
@@ -184,8 +199,21 @@ export const MyJob = () => {
                                   {item?.job?.deadline}
                                 </span>
                               </td>
+                              <td className="py-3 px-6 text-center">
+                                <div className="flex item-center justify-center">
+                                  {moment(item?.created_at).format("DD-MM-YYYY")}
+                                </div>
+                              </td>
+                              <td className="py-3 px-6 text-center">
+                                <div className="flex item-center justify-center">
+                                  <span className="block font-semibold md:mt-1 mt-0">
+                                    {item?.status}
+                                  </span>
+                                </div>
+                              </td>
+
                               <td className="py-3 px-6 text-left">
-                                <div className="flex items-center md:block flex justify-between md:mt-0 mt-2">
+                                <div className="flex items-center md:block justify-between md:mt-0 mt-2">
                                   <span className="text-slate-400">
                                     <i className="uil uil-map-marker"></i>{" "}
                                     {item?.job?.location}
@@ -198,26 +226,31 @@ export const MyJob = () => {
 
                               <td className="py-3 px-6 text-center">
                                 <div className="flex item-center justify-center">
-                                  <Link
-                                    to="/job-application"
-                                    className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                                  {item?.status === 'In Review' ? <button disabled={true}
+                                    className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                   >
-                                    Apply Now
-                                  </Link>
+                                    Learning Material
+                                  </button> :
+                                    <Link
+                                      to="/"
+                                      className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                                    >
+                                      Learning Material
+                                    </Link>}
                                 </div>
                               </td>
                             </tr>
                           ))}
                         {!myJob && (
-                          <div className="flex items-center justify-center w-full">
-                            No Data Found
-                          </div>
+                          <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                            No Data Found!
+                          </span>
                         )}
                       </>
                     ) : (
-                      <div className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                      <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                         <AppLoader />
-                      </div>
+                      </span>
                     )}
                   </tbody>
                 </table>
