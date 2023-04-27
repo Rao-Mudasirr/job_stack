@@ -66,16 +66,21 @@ const disabilityOptions = [
   { value: "I don't wish to answer", label: "I don't wish to answer" },
 ];
 
-const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) => {
+const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg}) => {
 
   const tokenCheck = localStorage.getItem("token");
   const navigate = useNavigate();
   const { REACT_APP_SITE_URL } = process.env;
-  const [jobApplicationMsg, setJobApplicationMsg] = useState(false);
   const [status, setStatus] = useState(false);
   const [_applyJobLoading, setApplyJobLoading] = useState(false);
   
-
+  const showError = (msg)=>{
+    setJobApplicationMsg({
+      title: msg,
+      isToggle: true,
+      type: "error",
+    })
+  }
   
   const postData = async (values) => {
     try {
@@ -93,6 +98,11 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
           setStatus(response.data.status);
           setLoading(false);
         await fetchProfileData();
+        page && setJobApplicationMsg({
+          title: "Your Profile Updated Successfully",
+          isToggle: true,
+          type: "success",
+        })
       }
     } catch (error) {
       setLoading(false);
@@ -129,30 +139,29 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
   }, [status]);
 
   let initialValues = {
-    first_name: data?.data?.user?.first_name,
-    last_name: data?.data?.user?.last_name,
-    email: data?.data?.user?.email,
-    phone_no: data?.data?.user?.phone_no,
-    resume: data?.data?.user?.resume ?? "",
-    cover_letter: data?.data?.user?.cover_letter ?? "",
-    linkedin: data?.data?.user?.linkedin,
-    website: data?.data?.user?.website,
-    github: data?.data?.user?.github,
-    total_experience: data?.data?.user?.total_experience,
+    first_name: data?.user?.first_name,
+    last_name: data?.user?.last_name,
+    email: data?.user?.email,
+    phone_no: data?.user?.phone_no,
+    resume: data?.user?.resume ?? "",
+    cover_letter: data?.user?.cover_letter ?? "",
+    linkedin: data?.user?.linkedin,
+    website: data?.user?.website,
+    github: data?.user?.github,
+    total_experience: data?.user?.total_experience,
     // operationsCoordinatorExperince: "",
-    gender: data?.data?.user?.gender,
-    disability: data?.data?.user?.disability,
-    hispanic: data?.data?.user?.hispanic,
-    veteran_status: data?.data?.user?.veteran_status,
-    education_details: data?.data?.education_details,
-    professionalExperience: data?.data?.experience_details,
-    ethnicity: data?.data?.user?.ethnicity,
-    jobReferences: data?.data?.user?.reference_details,
+    gender: data?.user?.gender,
+    disability: data?.user?.disability,
+    hispanic: data?.user?.hispanic,
+    veteran_status: data?.user?.veteran_status,
+    education_details: data?.education_details,
+    professionalExperience: data?.experience_details,
+    ethnicity: data?.user?.ethnicity,
+    jobReferences: data?.user?.reference_details,
   };
  
   return (
     <>
-    <GlobalSnackBar isOpenSnack={jobApplicationMsg} setIsOpenSnack={setJobApplicationMsg}/>
       {loading ? (
         <div className="h-48 flex items-center justify-center">
           <span className="ml-2 text-blue-500 font-bold text-xl">
@@ -358,13 +367,15 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                 </div>
 
                 <EducationDetails
-                  educationDetails={data?.data?.education_details}
+                  educationDetails={data?.education_details}
                   fetchProfileData={fetchProfileData}
+                  setJobApplicationMsg={setJobApplicationMsg}
                 />
 
                 <ProfessionalExperience
-                  professionalExperience={data?.data?.experience_details}
+                  professionalExperience={data?.experience_details}
                   fetchProfileData={fetchProfileData}
+                  setJobApplicationMsg={setJobApplicationMsg}
                 />
                 <JobReferences
                   jobReferences={values?.jobReferences}
@@ -606,26 +617,17 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      if (!values?.jobReferences) {
-                        setJobApplicationMsg({
-                          title: "At least 1 Job Refrence required",
-                          isToggle: true,
-                          type: "error",
-                        })
+                      if (!values?.jobReferences.length) {
+                        showError("At least 1 Job Refrence required")
+                        return;
                       }
-                      if (!data?.data?.education_details.length) {
-                        setJobApplicationMsg({
-                          title: "At least 1 Education Detail required",
-                          isToggle: true,
-                          type: "error",
-                        })
+                      if (!data?.education_details.length) {
+                        showError("At least 1 Education Detail required")
+                        return;
                       }
-                      if (!data?.data?.experience_details.length) {
-                        setJobApplicationMsg({
-                          title: "At least 1 experience Detail required",
-                          isToggle: true,
-                          type: "error",
-                        })
+                      if (!data?.experience_details.length) {
+                        showError("At least 1 experience Detail required")
+                        return;
                       }
                       let allGood = true;
                       for (var key in values) {
@@ -646,15 +648,9 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                         formData.append("linkedin", values.linkedin);
                         formData.append("website", values.website);
                         formData.append("github", values.github);
-                        formData.append(
-                          "total_experience",
-                          values.total_experience
-                        );
+                        formData.append("total_experience",values.total_experience);
                         formData.append("gender", values.gender);
-                        formData.append(
-                          "veteran_status",
-                          values.veteran_status
-                        );
+                        formData.append("veteran_status",values.veteran_status);
                         for (let i = 0; i < values.jobReferences.length; i++) {
                           for (const key in values.jobReferences[i]) {
                             formData.append(
@@ -664,17 +660,14 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page}) =
                             }
                           
                         }
-                        formData.append(
-                          "ethnicity",
-                          values.ethnicity
-                        );
+                        formData.append("ethnicity", values.ethnicity);
                         postData(formData);
                       }
                       
                     }}
 
                   >
-                    {handleSubmit ? "Submit" : "Submit Application"}
+                    {!!page ? "Update Profile" : "Submit Application"}
                   </button>
                 </div>
               </Form>
