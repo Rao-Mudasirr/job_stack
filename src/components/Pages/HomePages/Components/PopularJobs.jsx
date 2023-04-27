@@ -2,13 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import JobCard from "./Components/JobCard";
 import { NavLink } from "react-router-dom";
-import { Pagination } from "../../UI/Pagination";
+import { CommonPagination } from "../../UI/CommonPagination";
+
 const PopularJobs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postPerPage, setPostPerPage] = useState(20);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [totalPost, setTotalPost] = useState();
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +19,12 @@ const PopularJobs = () => {
         const response = await axios.get(
           "https://jobs.orcaloholding.co.uk/api/jobs"
         );
-        setData(response.data);
+        setData(response.data?.data?.data);
+
+        setTotalPost(response?.data?.data?.meta?.total);
+        setPostsPerPage(response?.data?.data?.meta?.per_page);
+        setFrom(response?.data?.data?.meta?.from);
+        setTo(response?.data?.data?.meta?.to);
         setLoading(false);
       } catch (error) {
         setError(error.message);
@@ -27,13 +35,11 @@ const PopularJobs = () => {
     fetchData();
   }, []);
 
-  const lastPostIndex = currentPage * postPerPage;
-  const firstPostIndex = lastPostIndex - postPerPage;
-  const currentPosts = data?.data?.data.slice(firstPostIndex, lastPostIndex);
-
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const currentPosts = data?.slice(from - 1, to);
 
   // if (error) {
   //     return <div>Error: {error}</div>;
@@ -74,11 +80,10 @@ const PopularJobs = () => {
             );
           })}
         </div>
-        <Pagination
-          totalPosts={data?.data?.data.length}
-          postsPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
+        <CommonPagination
+          postsPerPage={postsPerPage}
+          totalPosts={totalPost}
+          setData={setData}
         />
         <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
           <div className="md:col-span-12 text-center">
