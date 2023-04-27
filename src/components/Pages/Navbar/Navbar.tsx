@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
   divToBeClickedOn.classList.toggle("open");
@@ -11,8 +11,10 @@ function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
   }
 }
 const Navbar = () => {
+  const location = useLocation();
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   const userProfile = JSON.parse(localStorage.getItem("user"));
+  console.log(location.pathname);
   return (
     <div dir="ltr">
       <nav id="topnav" className={`defaultscroll is-sticky bg-white`}>
@@ -96,13 +98,25 @@ const Navbar = () => {
 
           <div id="navigation">
             <ul className="navigation-menu justify-end nav-dark">
-              <li className="has-submenu parent-menu-item">
+              <li
+                className={`has-submenu parent-menu-item ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
                 <Link to="/" replace={true}>
                   Home
                 </Link>
               </li>
 
-              <li className="has-submenu parent-parent-menu-item">
+              <li
+                className={`has-submenu parent-parent-menu-item ${
+                  location.pathname === "/my-jobs"
+                    ? "active"
+                    : location.pathname === "/job-list"
+                    ? "active"
+                    : ""
+                }`}
+              >
                 <Link to=""> Jobs </Link>
                 <span
                   className="menu-arrow"
@@ -124,12 +138,20 @@ const Navbar = () => {
                       Job Categories
                     </Link>
                   </li> */}
-                  <li className="has-submenu parent-menu-item">
+                  <li
+                    className={`has-submenu parent-menu-item ${
+                      location.pathname === "/my-jobs" ? "active" : ""
+                    }`}
+                  >
                     <Link to="/my-jobs" replace={true}>
                       My Jobs
                     </Link>
                   </li>
-                  <li className="has-submenu parent-menu-item">
+                  <li
+                    className={`has-submenu parent-menu-item ${
+                      location.pathname === "/job-list" ? "active" : ""
+                    }`}
+                  >
                     <Link
                       to="/job-list"
                       className="sub-menu-item"
@@ -140,8 +162,18 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
-
-              <li className="has-submenu parent-parent-menu-item">
+              {tokenCheck === "true" && (
+                <li
+                  onClick={() => {
+                    localStorage.clear();
+                  }}
+                >
+                  <Link to="/login" className="sub-menu-item" replace={true}>
+                    Logout
+                  </Link>
+                </li>
+              )}
+              {/* <li className="has-submenu parent-parent-menu-item">
                 <a href="javascript:void(0)">Pages</a>
                 <span
                   className="menu-arrow"
@@ -154,15 +186,16 @@ const Navbar = () => {
                   }
                 ></span>
                 <ul className="submenu" id="furtherPages">
+                  
                   <li className="has-submenu parent-menu-item">
-                    {/* <Link
+                    <Link
                       to="/candidate-detail"
                       className="sub-menu-item"
                       replace={true}
                     >
                       Candidate Detail
-                    </Link> */}
-                    {/* <a href="javascript:void(0)">Candidates</a>
+                    </Link> 
+                    <a href="javascript:void(0)">Candidates</a>
                     <span
                       className="submenu-arrow"
                       id="candidateMenu"
@@ -188,9 +221,9 @@ const Navbar = () => {
                           Candidate Detail
                         </Link>
                       </li>
-                    </ul> */}
+                    </ul>
                   </li>
-                  {/* <li className="has-submenu parent-menu-item">
+                  <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)">Employers</a>
                     <span
                       className="submenu-arrow"
@@ -222,7 +255,7 @@ const Navbar = () => {
                         </Link>
                       </li>
                     </ul>
-                  </li> */}
+                  </li>
 
                   <li className="has-submenu parent-menu-item">
                     <a href="javascript:void(0)"> Auth Pages </a>
@@ -259,17 +292,7 @@ const Navbar = () => {
                           </Link>
                         </li>
                       )}
-                      {tokenCheck === "true" && (
-                        <li onClick={() => {localStorage.clear()}}>
-                          <Link
-                            to="/login"
-                            className="sub-menu-item"
-                            replace={true}
-                          >
-                            Logout
-                          </Link>
-                        </li>
-                      )}
+                      
                     </ul>
                   </li>
 
@@ -359,7 +382,7 @@ const Navbar = () => {
                     </ul>
                   </li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
