@@ -133,7 +133,6 @@ export const JobList = () => {
                                                                                 {item?.role?.name}
                                                                             </span>
                                                                         </div>
-
                                                                     </div>
                                                                 </td>
                                                                 <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
