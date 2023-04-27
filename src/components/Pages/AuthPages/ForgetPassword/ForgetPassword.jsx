@@ -20,8 +20,8 @@ const ForgetPassword = () => {
       validationSchema: forgetPasswordSchemas,
       onSubmit: (values, action) => {
         postData(values);
-        console.log(values);
-        // action.resetForm();
+        // console.log(values);
+        action.resetForm();
       },
     });
 
@@ -41,7 +41,7 @@ const ForgetPassword = () => {
           break;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
