@@ -48,7 +48,7 @@ const Login = () => {
         values
       );
       const { data, status } = response;
-        // console.log(data);
+      // console.log(data);
       switch ((status, data?.status)) {
         case true:
           localStorage.setItem("token", data?.data?.token);
@@ -78,12 +78,13 @@ const Login = () => {
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
-                <Link to="">
+                <Link to="/">
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
                     alt=""
                   />
+
                   <img
                     src="assets/images/logo-light.png"
                     className="mx-auto dark:block hidden"
@@ -159,10 +160,9 @@ const Login = () => {
                         type="submit"
                         className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                       >
-                        Send
+                        Login
                       </button>
                     </div>
-
                     <div className="text-center">
                       <span className="text-slate-400 me-2">
                         Don't have an account ?
@@ -174,13 +174,32 @@ const Login = () => {
                         Sign Up
                       </Link>
                     </div>
+                    <div className="text-center mt-2">
+                      <Link
+                        to="/"
+                        className="text-slate-400 "
+                      >
+                        Back to Home
+                      </Link>
+                    </div>
+                    {/* <div className="mt-4">
+                      <Link to="/">
+                        <button
+                          type="submit"
+                          // className="btn bg-green-200 border-emerald-600 hover:bg-green-200 text-dark rounded-md w-full"
+                          className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                        >
+                          Back to Home
+                        </button>
+                      </Link>
+                    </div> */}
                   </div>
                 </form>
               </div>
 
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
-                  © {date}  Designed by {" "}
+                  © {date} Designed by{" "}
                   <Link to="/" className="text-reset">
                     Orcalo Holding
                   </Link>
