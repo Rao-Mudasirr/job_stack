@@ -32,38 +32,26 @@ import { useEffect } from "react";
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
-  useEffect(() => {
-    !isToken && navigate("/login");
-  }, [isToken]);
+  // useEffect(() => {
+  //   !isToken && navigate("/login");
+  // }, [isToken]);
   return (
     <Routes>
-      <Route element={<ProtectedAuths />}>
-        <Route exact path="/forget-password" element={<ForgetPassword />} />
-        <Route
-          exact
-          path="/reset-forget-password"
-          element={<ResetForgetPassword />}
-        />
-        <Route exact path={"/login"} element={<Login />} />
-        <Route exact path="/signup" element={<Signup />} />
-      </Route>
-
-      <Route element={<ProtectedRoutes />}>
-        <Route
-          exact
-          path="/introduction-vidio"
-          element={
-            <Layout>
-              <IntroductionVideo />
-            </Layout>
-          }
-        />
-        <Route
+       <Route
           exact
           path={"/"}
           element={
             <Layout>
               <Home />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/job-list"
+          element={
+            <Layout>
+              <JobList />
             </Layout>
           }
         />
@@ -85,6 +73,38 @@ function App() {
             </Layout>
           }
         />
+         <Route
+          exact
+          path="/jobDetails/:id"
+          element={
+            <Layout>
+              <JobDetails />
+            </Layout>
+          }
+        />
+      <Route element={<ProtectedAuths />}>
+        <Route exact path="/forget-password" element={<ForgetPassword />} />
+        <Route
+          exact
+          path="/reset-forget-password"
+          element={<ResetForgetPassword />}
+        />
+        <Route exact path={"/login"} element={<Login />} />
+        <Route exact path="/signup" element={<Signup />} />
+      </Route>
+
+      <Route element={<ProtectedRoutes />}>
+        <Route
+          exact
+          path="/introduction-vidio"
+          element={
+            <Layout>
+              <IntroductionVideo />
+            </Layout>
+          }
+        />
+       
+        
         <Route exact path="/comingsoon" element={<CommingSoon />} />
         <Route exact path="/maintenance" element={<Maintenance />} />
         <Route exact path="/error" element={<Error404 />} />
@@ -128,15 +148,7 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          exact
-          path="/jobDetails/:id"
-          element={
-            <Layout>
-              <JobDetails />
-            </Layout>
-          }
-        />
+       
         <Route exact path="/job-application/:id" element={<JobApplication />} />
         <Route
           exact
@@ -162,15 +174,7 @@ function App() {
           }
         />
         <Route exact path="/job-openings" element={<JobOpenings />} />
-        <Route
-          exact
-          path="/job-list"
-          element={
-            <Layout>
-              <JobList />
-            </Layout>
-          }
-        />
+        
         <Route
           exact
           path="/my-jobs"

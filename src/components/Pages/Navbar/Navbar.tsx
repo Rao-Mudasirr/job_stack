@@ -165,13 +165,20 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
+              {tokenCheck === "false" && (
+                <li>
+                  <Link to="/login" className="sub-menu-item" replace={true}>
+                    Login{" "}
+                  </Link>
+                </li>
+              )}
               {tokenCheck === "true" && (
                 <li
                   onClick={() => {
                     localStorage.clear();
                   }}
                 >
-                  <Link to="/login" className="sub-menu-item" replace={true}>
+                  <Link to="/" replace={true}>
                     Logout
                   </Link>
                 </li>
@@ -273,17 +280,7 @@ const Navbar = () => {
                       }
                     ></span>
                     <ul className="submenu" id="furtherAuth">
-                      {tokenCheck === "false" && (
-                        <li>
-                          <Link
-                            to="/login"
-                            className="sub-menu-item"
-                            replace={true}
-                          >
-                            Login{" "}
-                          </Link>
-                        </li>
-                      )}
+                    
                       {tokenCheck === "false" && (
                         <li>
                           <Link

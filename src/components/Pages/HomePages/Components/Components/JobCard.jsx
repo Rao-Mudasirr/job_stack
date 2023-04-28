@@ -27,7 +27,7 @@ const JobCard = (props) => {
 
           <div className="ml-3 rtl:mr-3">
             <NavLink
-              to={tokenCheck === "true" ? `jobDetails/${slug}` : "login"}
+              to={`jobDetails/${slug}`}
               className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500"
             >
               {companyName}
