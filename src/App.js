@@ -28,23 +28,19 @@ import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
 import { ProtectedAuths } from "./ProtectedAuths.tsx";
 import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
 import { MyJob } from "./components/Pages/MyJob/MyJob";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-
-
 function App() {
   const isToken = localStorage.getItem("token");
-
   const navigate = useNavigate();
+  const [previousRoute, setPreviousRoute] = useState("/");
+
   useEffect(() => {
-    !isToken && navigate("/login");
     if (isToken !== null) {
       const decodedToken = jwt_decode(isToken);
-
-      const expirationTime = decodedToken.exp;
-      // the expiration time is stored in the "exp" claim of the token 
-      // check if the token has expired 
+      const expirationTime = decodedToken.exp; // the expiration time is stored in the "exp" claim of the token
+      // check if the token has expired
       const isTokenExpired = Date.now() >= expirationTime * 1000;
       const refreshData = async () => {
         try {
@@ -57,22 +53,17 @@ function App() {
               },
             }
           );
-
           localStorage.setItem("token", response?.data?.data?.token);
-          // console.log(response?.data?.data?.token);
-          return response
+          return response;
         } catch (error) {
           console.log(error);
         }
-      }
+      };
       if (isTokenExpired) {
-        refreshData()
+        refreshData();
       }
-
     }
-
   }, [isToken]);
-
   return (
     <Routes>
       <Route
@@ -89,7 +80,7 @@ function App() {
         path="/job-list"
         element={
           <Layout>
-            <JobList />
+            <JobList setPreviousRoute={setPreviousRoute} />
           </Layout>
         }
       />
@@ -127,7 +118,16 @@ function App() {
           path="/reset-forget-password"
           element={<ResetForgetPassword />}
         />
-        <Route exact path={"/login"} element={<Login />} />
+        <Route
+          exact
+          path={"/login"}
+          element={
+            <Login
+              previousRoute={previousRoute}
+              setPreviousRoute={setPreviousRoute}
+            />
+          }
+        />
         <Route exact path="/signup" element={<Signup />} />
       </Route>
 
@@ -141,7 +141,6 @@ function App() {
             </Layout>
           }
         />
-
 
         <Route exact path="/comingsoon" element={<CommingSoon />} />
         <Route exact path="/maintenance" element={<Maintenance />} />

@@ -88,13 +88,15 @@ const Navbar = () => {
                 title="Update Profile"
                 className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
               >
-                {userProfile?.image ? <img
-                  src={`${userProfile?.image}`}
-                  className="rounded-full "
-                  alt=""
-                /> :
-                (`${userProfile?.first_name[0]}${userProfile?.last_name[0]}`) 
-                }
+                {userProfile?.image ? (
+                  <img
+                    src={`${userProfile?.image}`}
+                    className="rounded-full "
+                    alt=""
+                  />
+                ) : (
+                  `${userProfile?.first_name[0]}${userProfile?.last_name[0]}`
+                )}
               </Link>
             </li>
           </ul>

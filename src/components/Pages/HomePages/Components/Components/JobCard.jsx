@@ -27,7 +27,13 @@ const JobCard = (props) => {
 
           <div className="ml-3 rtl:mr-3">
             <NavLink
-              to={`jobDetails`}
+              to={
+                localStorage.getItem("token")
+                  ? {
+                      pathname: `/jobDetails`,
+                    }
+                  : { pathname: "/login" }
+              }
               state={slug}
               className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500"
             >
@@ -44,7 +50,14 @@ const JobCard = (props) => {
 
       <div className="mt-6">
         <NavLink
-          to={tokenCheck === "true" ? `jobDetails/${slug}` : "login"}
+          to={
+            localStorage.getItem("token")
+              ? {
+                  pathname: `/jobDetails`,
+                }
+              : { pathname: "/login" }
+          }
+          state={slug}
           className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
         >
           {title}
