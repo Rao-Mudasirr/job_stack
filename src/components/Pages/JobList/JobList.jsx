@@ -53,7 +53,7 @@ export const JobList = (props) => {
         </div>
       </div>
       <section className="relative -mt-[42px] md:pb-24 pb-16">
-        <div className="container z-1">
+        {/* <div className="container z-1">
           <div className="d-flex" id="reserve-form">
             <div className="md:w-5/6 mx-auto">
               <div className="lg:col-span-10">
@@ -122,8 +122,8 @@ export const JobList = (props) => {
               </div>
             </div>
           </div>
-        </div>
-        <div>
+        </div> */}
+        <div className="mt-20">
           <div className="overflow-x-auto">
             <div
               className="min-w-screen min-h-screen flex items-start justify-center font-sans"
