@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import JobForm from "./components/JobForm/JobForm";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AppLoader } from "../../UI/AppLoader/AppLoader";
 import GlobalSnackBar from "../../UI/SnackBar";
@@ -9,8 +9,7 @@ const JobApplication = ({ page }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   const authToken = localStorage.getItem("token");
-
-  const { id } = useParams();
+  const {state} = useLocation();
   const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useState();
   const [loadingJobDetails, setLoadingJobDetails] = useState(false);
@@ -69,7 +68,7 @@ const JobApplication = ({ page }) => {
       setLoadingJobDetails(true);
       try {
         const response = await axios.get(
-          `${REACT_APP_SITE_URL}/api/jobs/${id}`
+          `${REACT_APP_SITE_URL}/api/jobs/${state?.slug}`
         );
         setJobDetails([response?.data?.data]);
         setLoadingJobDetails(false);
@@ -136,7 +135,6 @@ const JobApplication = ({ page }) => {
               <p className="text-gray-600 mt-1">
                 at <i className="uil uil-building text-[18px] text-emerald-600"></i>{" "}{jobDetails?.[0]?.company?.name}
               </p>
-
               <p className="mt-2"><i className="uil uil-map-marker text-[18px] text-emerald-600"></i>{" "}{jobDetails?.[0]?.company?.location}</p>
               <div
                 dangerouslySetInnerHTML={{ __html: jobDetails?.[0]?.description }}
