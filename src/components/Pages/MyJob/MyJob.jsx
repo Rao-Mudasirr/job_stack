@@ -175,7 +175,8 @@ export const MyJob = () => {
                                   </div>
                                   <div>
                                     <Link
-                                      to={`/jobDetails/${item?.job?.slug}`}
+                                      to={`/jobDetails`}
+                                      state={item?.job?.slug}
                                       className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                     >
                                       {item?.job?.title}
