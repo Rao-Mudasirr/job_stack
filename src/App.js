@@ -29,12 +29,50 @@ import { ProtectedAuths } from "./ProtectedAuths.tsx";
 import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
 import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect } from "react";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+
+
 function App() {
   const isToken = localStorage.getItem("token");
+
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   !isToken && navigate("/login");
-  // }, [isToken]);
+  useEffect(() => {
+    !isToken && navigate("/login");
+    if (isToken !== null) {
+      const decodedToken = jwt_decode(isToken);
+
+      const expirationTime = decodedToken.exp;
+      // the expiration time is stored in the "exp" claim of the token 
+      // check if the token has expired 
+      const isTokenExpired = Date.now() >= expirationTime * 1000;
+      const refreshData = async () => {
+        try {
+          const response = await axios.get(
+            "https://jobs.orcaloholding.co.uk/api/refresh",
+            {
+              headers: {
+                Authorization: `Bearer ${isToken}`,
+                "Content-Type": "application/json",
+              },
+            }
+          );
+
+          localStorage.setItem("token", response?.data?.data?.token);
+          // console.log(response?.data?.data?.token);
+          return response
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      if (isTokenExpired) {
+        refreshData()
+      }
+
+    }
+
+  }, [isToken]);
+
   return (
     <Routes>
        <Route
