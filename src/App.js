@@ -28,13 +28,10 @@ import { ProtectedRoutes } from "./ProtectedRoutes.tsx";
 import { ProtectedAuths } from "./ProtectedAuths.tsx";
 import IntroductionVideo from "./components/Pages/Jobs/JobDetails/components/IntroductionVideo/IntroductionVideo.jsx";
 import { MyJob } from "./components/Pages/MyJob/MyJob";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 function App() {
-  const isToken = localStorage.getItem("token");
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   !isToken && navigate("/login");
-  // }, [isToken]);
+  const [previousRoute,setPreviousRoute]=useState("/");
+ 
   return (
     <Routes>
        <Route
@@ -89,7 +86,7 @@ function App() {
           path="/reset-forget-password"
           element={<ResetForgetPassword />}
         />
-        <Route exact path={"/login"} element={<Login />} />
+        <Route exact path="/login" element={<Login previousRoute={previousRoute}/>} />
         <Route exact path="/signup" element={<Signup />} />
       </Route>
 

@@ -10,7 +10,7 @@ import GlobalSnackBar from "../../UI/SnackBar";
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
 ></link>;
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
   let date = new Date().getFullYear();
   const [showPassword, setShowPassword] = useState(false);
@@ -53,7 +53,7 @@ const Login = () => {
         case true:
           localStorage.setItem("token", data?.data?.token);
           localStorage.setItem("user", JSON.stringify(data?.data?.user));
-          navigate("/");
+          navigate(props.previousRoute);
 
         default:
           setErrorMessage(data?.msg);
