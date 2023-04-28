@@ -1,4 +1,4 @@
-import react, { useState, useEffect } from "react";
+import react, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
@@ -10,13 +10,11 @@ import GlobalSnackBar from "../../UI/SnackBar";
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
 ></link>;
 
-const Login = (props) => {
+const Login = () => {
   const navigate = useNavigate();
   let date = new Date().getFullYear();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const access_token = localStorage.getItem('token');
-
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -55,7 +53,7 @@ const Login = (props) => {
         case true:
           localStorage.setItem("token", data?.data?.token);
           localStorage.setItem("user", JSON.stringify(data?.data?.user));
-          navigate(props.previousRoute);
+          navigate("/");
 
         default:
           setErrorMessage(data?.msg);
