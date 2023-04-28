@@ -5,6 +5,7 @@ import PopularJobs from "./Components/PopularJobs";
 // import BestCompanies from './Components/BestCompanies'
 
 const Home = () => {
+  
   return (
     <>
       <Hero />
