@@ -166,7 +166,8 @@ export const JobList = () => {
                                                                 <td className="py-3 px-6 text-center">
                                                                     <div className="flex item-center justify-center">
                                                                         <Link
-                                                                            to="/"
+                                                                            to="/job-application"
+                                                                            state={item}
                                                                             className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                                                         >
                                                                             Apply Now
