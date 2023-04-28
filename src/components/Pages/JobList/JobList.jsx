@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { countryData, jobTypeData } from "../HomePages/Components/Hero";
 import axios from "axios";
 import moment from "moment";
@@ -58,7 +58,7 @@ export const JobList = (props) => {
             <div className="md:w-5/6 mx-auto">
               <div className="lg:col-span-10">
                 <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3">
-                  <form action="#">
+                  <form action="#" >
                     <div className="registration-form text-dark text-start">
                       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 lg:gap-0 gap-6">
                         <div className="filter-search-form relative filter-border flex ">
@@ -214,7 +214,7 @@ export const JobList = (props) => {
 
                                 <td className="py-3 px-6 text-center">
                                   <div className="flex item-center justify-center">
-                                    <Link
+                                    <NavLink
                                       to={
                                         localStorage.getItem("token")
                                           ? {
@@ -222,6 +222,7 @@ export const JobList = (props) => {
                                             }
                                           : { pathname: "/login" }
                                       }
+                                      state={item}
                                       className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                       onClick={() => {
                                         if (!localStorage.getItem("token")) {
@@ -230,7 +231,7 @@ export const JobList = (props) => {
                                       }}
                                     >
                                       Apply Now
-                                    </Link>
+                                    </NavLink>
                                   </div>
                                 </td>
                               </tr>
