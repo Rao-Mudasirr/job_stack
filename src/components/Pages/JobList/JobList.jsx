@@ -6,6 +6,7 @@ import moment from "moment";
 import { AppModal } from '../UI/AppModal/AppModal';
 import { AppLoader } from '../UI/AppLoader/AppLoader';
 
+
 export const JobList = () => {
     const [jobDetails, setJobDetails] = useState();
     const [loading, setLoading] = useState(false);

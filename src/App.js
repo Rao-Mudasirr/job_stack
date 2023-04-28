@@ -37,51 +37,51 @@ function App() {
   // }, [isToken]);
   return (
     <Routes>
-       <Route
-          exact
-          path={"/"}
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
-        <Route
-          exact
-          path="/job-list"
-          element={
-            <Layout>
-              <JobList />
-            </Layout>
-          }
-        />
-        <Route
-          exact
-          path="/terms"
-          element={
-            <Layout>
-              <TermsAndServices />
-            </Layout>
-          }
-        />
-        <Route
-          exact
-          path="/privacy"
-          element={
-            <Layout>
-              <PrivacyPolicy />
-            </Layout>
-          }
-        />
-         <Route
-          exact
-          path="/jobDetails/:id"
-          element={
-            <Layout>
-              <JobDetails />
-            </Layout>
-          }
-        />
+      <Route
+        exact
+        path={"/"}
+        element={
+          <Layout>
+            <Home />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/job-list"
+        element={
+          <Layout>
+            <JobList />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/terms"
+        element={
+          <Layout>
+            <TermsAndServices />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/privacy"
+        element={
+          <Layout>
+            <PrivacyPolicy />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/jobDetails"
+        element={
+          <Layout>
+            <JobDetails />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedAuths />}>
         <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route
@@ -103,8 +103,8 @@ function App() {
             </Layout>
           }
         />
-       
-        
+
+
         <Route exact path="/comingsoon" element={<CommingSoon />} />
         <Route exact path="/maintenance" element={<Maintenance />} />
         <Route exact path="/error" element={<Error404 />} />
@@ -149,7 +149,7 @@ function App() {
           }
         />
        
-        <Route exact path="/job-application/:id" element={<JobApplication />} />
+        <Route exact path="/job-application" element={<JobApplication />} />
         <Route
           exact
           path="/update-profile"
@@ -174,7 +174,7 @@ function App() {
           }
         />
         <Route exact path="/job-openings" element={<JobOpenings />} />
-        
+
         <Route
           exact
           path="/my-jobs"
