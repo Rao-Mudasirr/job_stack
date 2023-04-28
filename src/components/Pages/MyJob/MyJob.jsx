@@ -34,7 +34,7 @@ export const MyJob = () => {
   useEffect(() => {
     fetchMyJobs();
   }, []);
-  
+
   return (
     <div dir="ltr">
       <section className="relative table w-full py-36 bg-top bg-no-repeat bg-cover">
