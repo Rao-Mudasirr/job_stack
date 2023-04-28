@@ -34,8 +34,7 @@ export const MyJob = () => {
   useEffect(() => {
     fetchMyJobs();
   }, []);
-  console.log(myJob, "myJob");
-
+  
   return (
     <div dir="ltr">
       <section className="relative table w-full py-36 bg-top bg-no-repeat bg-cover">
@@ -138,7 +137,7 @@ export const MyJob = () => {
           <div className="min-w-screen min-h-screen flex items-start justify-center font-sans overflow-hidden">
             <div className="w-full lg:w-5/6" style={{ marginInline: "15%" }}>
               <div className="bg-white shadow-md rounded my-6">
-                <table className="min-w-max w-full table-auto overflow-scroll h-96">
+                <table className="min-w-max w-full table-auto overflow-scroll">
                   <thead>
                     <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                       <th className="py-3 px-6 text-left">Job Title</th>

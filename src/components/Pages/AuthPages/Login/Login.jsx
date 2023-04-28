@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signInSchema } from "./schemas/signInSchema";
 import { useFormik } from "formik";
@@ -15,6 +15,8 @@ const Login = () => {
   let date = new Date().getFullYear();
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const access_token = localStorage.getItem('token');
+
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -48,7 +50,6 @@ const Login = () => {
         values
       );
       const { data, status } = response;
-        // console.log(data);
       switch ((status, data?.status)) {
         case true:
           localStorage.setItem("token", data?.data?.token);

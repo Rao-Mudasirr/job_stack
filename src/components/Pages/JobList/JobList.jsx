@@ -23,6 +23,7 @@ export const JobList = () => {
     useEffect(() => {
         fetchJobDetails();
     }, [])
+    // console.log(jobDetails, 'jobDetails');
     return (
         <div dir='ltr'>
             <section className="relative table w-full py-36 bg-top bg-no-repeat bg-cover">
