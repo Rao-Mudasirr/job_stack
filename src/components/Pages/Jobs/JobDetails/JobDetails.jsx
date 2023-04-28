@@ -8,7 +8,7 @@ const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
 
   const location = useLocation();
-  
+
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -64,8 +64,8 @@ const JobDetails = () => {
                     to={
                       localStorage.getItem("token")
                         ? {
-                            pathname: `/job-application`,
-                          }
+                          pathname: `/job-application`,
+                        }
                         : { pathname: "/login" }
                     }
                     state={details}
