@@ -85,7 +85,7 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
       );
       if (response.status === 200) {
         setData({ ...data, user: response?.data?.data?.user })
-        localStorage.setItem("user", JSON.stringify(response?.data?.data?.user));
+        // localStorage.setItem("user", JSON.stringify(response?.data?.data?.user));
         setJobApplicationMsg({
           title: "Your intro video have been updated successfully",
           isToggle: true,
