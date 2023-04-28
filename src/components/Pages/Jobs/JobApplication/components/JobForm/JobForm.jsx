@@ -141,14 +141,13 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     website: data?.user?.website,
     github: data?.user?.github,
     total_experience: data?.user?.total_experience,
-    // operationsCoordinatorExperince: "",
-    gender: data?.data?.user?.gender,
-    disability: data?.data?.user?.disability,
-    veteran_status: data?.data?.user?.veteran_status,
-    education_details: data?.data?.education_details,
-    professionalExperience: data?.data?.experience_details,
-    ethnicity: data?.data?.user?.ethnicity,
-    jobReferences: data?.data?.user?.reference_details,
+    gender: data?.user?.gender,
+    disability: data?.user?.disability,
+    veteran_status: data?.user?.veteran_status,
+    education_details: data?.education_details,
+    professionalExperience: data?.experience_details,
+    ethnicity: data?.user?.ethnicity,
+    jobReferences: data?.user?.reference_details,
   };
  
   return (
