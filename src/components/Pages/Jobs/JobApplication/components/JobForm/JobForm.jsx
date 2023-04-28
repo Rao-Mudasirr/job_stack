@@ -12,7 +12,6 @@ import EducationDetails from "../EducationDetails/EducationDetails";
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
 
 import JobReferences from "../JobReferences/JobReferences";
-import GlobalSnackBar from "../../../../UI/SnackBar";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
@@ -66,7 +65,7 @@ const disabilityOptions = [
   { value: "I don't wish to answer", label: "I don't wish to answer" },
 ];
 
-const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg}) => {
+const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg,setData}) => {
 
   const tokenCheck = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -610,7 +609,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </p>
 
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
-                <IntroductionVideo />
+                <IntroductionVideo setData={setData} data={data} setJobApplicationMsg={setJobApplicationMsg} />
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <div className="flex mt-5">
                   <button
