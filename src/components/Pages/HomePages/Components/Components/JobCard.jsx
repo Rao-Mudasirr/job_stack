@@ -27,7 +27,8 @@ const JobCard = (props) => {
 
           <div className="ml-3 rtl:mr-3">
             <NavLink
-              to={`jobDetails/${slug}`}
+              to={`jobDetails`}
+              state={slug}
               className="block text-[16px] font-semibold hover:text-emerald-600 transition-all duration-500"
             >
               {companyName}
