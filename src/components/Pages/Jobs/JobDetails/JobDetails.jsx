@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
-import { NavLink, useParams } from "react-router-dom";
-import GlobalSnackBar from "../../UI/SnackBar";
+import { NavLink, useLocation } from "react-router-dom";
+
 
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-  const { id } = useParams();
 
+  const location = useLocation();
+  
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(
-          `https://jobs.orcaloholding.co.uk/api/jobs/${id}`
+          `https://jobs.orcaloholding.co.uk/api/jobs/${location?.state}`
         );
 
         setJobDetails([response?.data?.data]);
@@ -27,7 +28,6 @@ const JobDetails = () => {
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
         <div className="container mt-10 mx-auto">
-          
           {jobDetails?.map((details) => (
             <div className="grid md:grid-cols-12 grid-cols-1 gap-[30px]">
               <div className="lg:col-span-8 md:col-span-6">
@@ -54,11 +54,7 @@ const JobDetails = () => {
                     </div>
                   </div>
                 </div>
-                <h5
-                  className="text-lg font-semibold mt-6"
-                >
-                  Job Description:
-                </h5>
+                <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                 <div
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />
@@ -68,7 +64,7 @@ const JobDetails = () => {
                     to={
                       localStorage.getItem("token")
                         ? {
-                            pathname: `/job-application/${details.slug}`,
+                            pathname: `/job-application`,
                           }
                         : { pathname: "/login" }
                     }

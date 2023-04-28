@@ -75,7 +75,7 @@ function App() {
         />
          <Route
           exact
-          path="/jobDetails/:id"
+          path="/jobDetails"
           element={
             <Layout>
               <JobDetails />
