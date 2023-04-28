@@ -19,7 +19,7 @@ const validationSchema = Yup.object().shape({
   last_name: Yup.string().required("Last Name is required"),
   email: Yup.string().email("Invalid email").required("email is required"),
   phone_no: Yup.string().required("phone_no is required"),
-  // resume: Yup.string().required(" resume is Required"),
+  resume: Yup.string().required(" resume is Required"),
   cover_letter: Yup.string().required("Cover Letter is required"),
   linkedin: Yup.string().required("Please enter a valid URL"),
   website: Yup.string().required("Please enter a valid URL"),
@@ -443,7 +443,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     htmlFor="total_experience"
                   >
                     How many years of experience do you have?{" "}
-                    <span className="text-red-500">*</span>
+                    {/* <span className="text-red-500">*</span> */}
                   </label>
                   <Field
                     id="total_experience"
