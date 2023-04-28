@@ -56,13 +56,13 @@ function IntroductionVideo() {
   }
 
   function downloadRecording() {
-    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    const blob = new Blob(recordedChunks, { type: 'video/mp4' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     document.body.appendChild(a);
     a.style = 'display: none';
     a.href = url;
-    a.download = 'introduction-video.webm';
+    a.download = 'introduction-video.mp4';
     a.click();
     URL.revokeObjectURL(url);
   }

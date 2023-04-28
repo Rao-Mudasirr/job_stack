@@ -26,7 +26,6 @@ const validationSchema = Yup.object().shape({
   website: Yup.string().required("Please enter a valid URL"),
   github: Yup.string().required("Please enter a valid URL"),
   gender: Yup.string().required("gender is required"),
-  hispanic: Yup.mixed().required(" hispanic is Required"),
   veteran_status: Yup.mixed().required(" veteran_status status is Required"),
   disability: Yup.string().required(" status is required"),
   ethnicity: Yup.string().required(" Field is required"),
@@ -35,12 +34,6 @@ const validationSchema = Yup.object().shape({
 const genderOptions = [
   { value: "Male", label: "Male" },
   { value: "Female", label: "Female" },
-  { value: "Decline To Self Identify", label: "Decline To Self Identify" },
-];
-
-const hispanicOptions = [
-  { value: "Yes", label: "Yes" },
-  { value: "No", label: "No" },
   { value: "Decline To Self Identify", label: "Decline To Self Identify" },
 ];
 
@@ -150,14 +143,13 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     github: data?.user?.github,
     total_experience: data?.user?.total_experience,
     // operationsCoordinatorExperince: "",
-    gender: data?.user?.gender,
-    disability: data?.user?.disability,
-    hispanic: data?.user?.hispanic,
-    veteran_status: data?.user?.veteran_status,
-    education_details: data?.education_details,
-    professionalExperience: data?.experience_details,
-    ethnicity: data?.user?.ethnicity,
-    jobReferences: data?.user?.reference_details,
+    gender: data?.data?.user?.gender,
+    disability: data?.data?.user?.disability,
+    veteran_status: data?.data?.user?.veteran_status,
+    education_details: data?.data?.education_details,
+    professionalExperience: data?.data?.experience_details,
+    ethnicity: data?.data?.user?.ethnicity,
+    jobReferences: data?.data?.user?.reference_details,
   };
  
   return (
@@ -514,28 +506,6 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         </option>
                       ))}
                     </Field>
-
-                    <label
-                      htmlFor="hispanic"
-                      className="text-gray-700 font-bold"
-                    >
-                      Are you Hispanic/Latino?
-                    </label>
-                    <Field
-                      as="select"
-                      name="hispanic"
-                      className="w-full form-select form-input  mt-1"
-                      placeholder="Select an option"
-                    >
-                      <option value="" disabled>
-                        Select an option
-                      </option>
-                      {hispanicOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </Field>
                   </div>
                 </div>
                 <SelfIdentificationForm />
@@ -559,7 +529,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </div>
                 <div className="w-1/2 mt-5">
                   <label htmlFor="ethnicity" className="block font-bold">
-                  Ethnicity Status
+                  Ethnicity 
                   </label>
                   <Field
                     as="select"
@@ -611,6 +581,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
 
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <IntroductionVideo />
+
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <div className="flex mt-5">
                   <button
