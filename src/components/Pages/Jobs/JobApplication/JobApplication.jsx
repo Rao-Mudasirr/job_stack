@@ -3,21 +3,22 @@ import JobForm from "./components/JobForm/JobForm";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { AppLoader } from "../../UI/AppLoader/AppLoader";
+import GlobalSnackBar from "../../UI/SnackBar";
 
 const JobApplication = ({ page }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   const authToken = localStorage.getItem("token");
-  
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useState();
   const [loadingJobDetails, setLoadingJobDetails] = useState(false);
-  const [loadingImage, setLoadingImage] = useState(false);
+  const [jobApplicationMsg, setJobApplicationMsg] = useState(false);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
   const fetchProfileData = async () => {
     setLoading(true); // Set loading to true before making the API call
     try {
@@ -30,7 +31,7 @@ const JobApplication = ({ page }) => {
           },
         }
       );
-      setData(response?.data);
+      setData(response?.data?.data);
       localStorage.setItem("user", JSON.stringify(response?.data?.data?.user));
       setLoading(false);
     } catch (error) {
@@ -40,9 +41,7 @@ const JobApplication = ({ page }) => {
     }
   };
   const updateProfileImage = async (imageUrl) => {
-    console.log(imageUrl);
     try {
-      setLoadingImage(true);
       const response = await axios.post(
         `${REACT_APP_SITE_URL}/api/update-profile-image`,
         imageUrl,
@@ -51,13 +50,17 @@ const JobApplication = ({ page }) => {
             Authorization: `Bearer ${authToken}`,
           },
         }
-        );
-        if (response.status === 200) {
-          setLoadingImage(false);
-        await fetchProfileData();
+      );
+      if (response.status === 200) {
+       setData({...data,user:response?.data?.data?.user})
+       localStorage.setItem("user", JSON.stringify(response?.data?.data?.user));
+       setJobApplicationMsg({
+        title: "Profile Picture Changed Successfully",
+        isToggle: true,
+        type: "success",
+      })
       }
     } catch (error) {
-      setLoadingImage(false);
       console.error(error);
     }
   };
@@ -86,27 +89,38 @@ const JobApplication = ({ page }) => {
 
   return (
     <div className="container mx-auto mt-10">
+      <GlobalSnackBar isOpenSnack={jobApplicationMsg} setIsOpenSnack={setJobApplicationMsg}/>
       {page ?
         <div className="update-profile">
           <div className="job-description mb-5 flex justify-between items-center">
             <h1 className="text-emerald-600  text-2xl font-bold">
               Update Profile
             </h1>
-            <div className="bg-white rounded-lg text-center relative">
-              <div className="rounded-full shadow-lg">
-                <img className="w-[50px] h-[50px] mx-auto rounded-full object-cover object-center" src={data?.data?.user?.image} alt="Avatar Upload" />
+            <div className="bg-white rounded-lg  text-center relative">
+              {data?.user?.image ? <div className="rounded-full shadow-lg">
+                <img className="w-[50px] h-[50px] mx-auto rounded-full object-cover object-center" src={data?.user?.image} alt="Avatar Upload" />
               </div>
+                : <div class="relative inline-flex shadow-lg items-center justify-center w-[50px] h-[50px] overflow-hidden bg-emerald-600 hover:bg-emerald-700 rounded-full dark:bg-gray-600">
+                  <span class="font-medium text-white dark:text-gray-900 uppercase">{loading ? <AppLoader/> : (`${data?.user?.first_name[0] ?? ""}${data?.user?.last_name[0] ?? ""}`)}</span>
+                </div>}
               <label className="cursor-pointer top-0 left-0 w-[50px] h-[50px] absolute opacity-0">
-                <span className="mt-2 text-base leading-normal px-4 py-2 bg-blue-500 text-white text-sm rounded-full" >Select Avatar</span>
+                <span className="mt-2 text-base leading-normal px-4 py-2 bg-blue-500 text-white rounded-full" >Select Avatar</span>
                 <input type='file' className="hidden" onChange={(e) => {
                   const file = e.target.files[0];
-                  console.log(file);
+                  if(file?.size / 1024 / 1024 >= 2){
+                    setJobApplicationMsg({
+                      title: "File Size Must be Lower than 2 MB",
+                      isToggle: true,
+                      type: "error",
+                    })
+                    return;
+                  }
                   if (file != null) {
                     const formData = new FormData();
                     formData.append('profile_image', file);
                     updateProfileImage(formData);
                   }
-                }} accept="png, gif, jpeg, jpg, svg" />
+                }} accept=".png, .gif, .jpeg, .jpg, .svg" />
               </label>
             </div>
           </div>
@@ -129,7 +143,7 @@ const JobApplication = ({ page }) => {
               />
             </div>}
         </div>}
-      <JobForm jobId={jobDetails?.[0]?.id}  data={data} error={error} fetchProfileData={fetchProfileData} loading={loading} setLoading={setLoading} page={page} />
+      <JobForm jobId={jobDetails?.[0]?.id} data={data} error={error} setJobApplicationMsg={setJobApplicationMsg} fetchProfileData={fetchProfileData} loading={loading} setLoading={setLoading} page={page} setData={setData} />
     </div>
   );
 };

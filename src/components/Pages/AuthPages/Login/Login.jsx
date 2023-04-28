@@ -35,9 +35,9 @@ const Login = () => {
       initialValues,
       validationSchema: signInSchema,
       onSubmit: (values, action) => {
-        console.log(values);
+        // console.log(values);
         postData(values);
-        // action.resetForm();
+        action.resetForm();
       },
     });
 
@@ -48,7 +48,7 @@ const Login = () => {
         values
       );
       const { data, status } = response;
-        console.log(data);
+        // console.log(data);
       switch ((status, data?.status)) {
         case true:
           localStorage.setItem("token", data?.data?.token);
@@ -65,7 +65,7 @@ const Login = () => {
           break;
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

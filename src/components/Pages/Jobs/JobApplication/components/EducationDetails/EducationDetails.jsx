@@ -25,7 +25,7 @@ const initialValuesEducationDetails = {
   gpa: "",
   document: ""
 };
-const EducationDetails = ({ educationDetails, fetchProfileData }) => {
+const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplicationMsg }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,11 @@ const EducationDetails = ({ educationDetails, fetchProfileData }) => {
       setLoading(false);
       setShowModal(false);
       fetchProfileData();
+      setJobApplicationMsg({
+        title: "Education detail Uploaded Successfully",
+        isToggle: true,
+        type: "success",
+      })
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -140,6 +145,14 @@ const EducationDetails = ({ educationDetails, fetchProfileData }) => {
               <InputWrapper error={errors.document} touched={touched.document} label="Attach Document" labelName="document">
                 <input accept=".doc, .docx, .jpg, .png, .pdf" id="document" onChange={(e) => {
                   const file = e.target.files[0];
+                  if(file?.size / 1024 / 1024 >= 2){
+                    setJobApplicationMsg({
+                      title: "File Size Must be Lower than 2 MB",
+                      isToggle: true,
+                      type: "error",
+                    })
+                    return;
+                  }
                   if (file != null) {
                     setFieldValue("document", file)
                   }
