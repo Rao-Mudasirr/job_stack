@@ -143,7 +143,7 @@ const JobApplication = ({ page }) => {
               />
             </div>}
         </div>}
-      <JobForm jobId={jobDetails?.[0]?.id} data={data} error={error} setJobApplicationMsg={setJobApplicationMsg} fetchProfileData={fetchProfileData} loading={loading} setLoading={setLoading} page={page} />
+      <JobForm jobId={jobDetails?.[0]?.id} data={data} error={error} setJobApplicationMsg={setJobApplicationMsg} fetchProfileData={fetchProfileData} loading={loading} setLoading={setLoading} page={page} setData={setData} />
     </div>
   );
 };
