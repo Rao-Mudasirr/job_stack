@@ -88,7 +88,7 @@ const Hero = () => {
             we've helped recruit excellent applicants over the years.
           </p>
 
-          <div className="d-flex" id="reserve-form">
+          {/* <div className="d-flex" id="reserve-form">
             <div className="md:w-5/6 mx-auto">
               <div className="lg:col-span-10 mt-8">
                 <div className="bg-white dark:bg-slate-900 border-0 shadow rounded-md p-3">
@@ -158,7 +158,7 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="mt-4">
             <span className="text-slate-400">

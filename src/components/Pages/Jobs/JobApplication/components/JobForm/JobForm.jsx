@@ -12,7 +12,6 @@ import EducationDetails from "../EducationDetails/EducationDetails";
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
 
 import JobReferences from "../JobReferences/JobReferences";
-import GlobalSnackBar from "../../../../UI/SnackBar";
 import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
@@ -59,7 +58,7 @@ const disabilityOptions = [
   { value: "I don't wish to answer", label: "I don't wish to answer" },
 ];
 
-const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg}) => {
+const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg,setData}) => {
 
   const tokenCheck = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -142,14 +141,13 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     website: data?.user?.website,
     github: data?.user?.github,
     total_experience: data?.user?.total_experience,
-    // operationsCoordinatorExperince: "",
-    gender: data?.data?.user?.gender,
-    disability: data?.data?.user?.disability,
-    veteran_status: data?.data?.user?.veteran_status,
-    education_details: data?.data?.education_details,
-    professionalExperience: data?.data?.experience_details,
-    ethnicity: data?.data?.user?.ethnicity,
-    jobReferences: data?.data?.user?.reference_details,
+    gender: data?.user?.gender,
+    disability: data?.user?.disability,
+    veteran_status: data?.user?.veteran_status,
+    education_details: data?.education_details,
+    professionalExperience: data?.experience_details,
+    ethnicity: data?.user?.ethnicity,
+    jobReferences: data?.user?.reference_details,
   };
  
   return (
@@ -580,23 +578,22 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </p>
 
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
-                <IntroductionVideo />
-
+                <IntroductionVideo setData={setData} data={data} setJobApplicationMsg={setJobApplicationMsg} />
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <div className="flex mt-5">
                   <button
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      if (!values?.jobReferences.length) {
+                      if (!values?.jobReferences?.length) {
                         showError("At least 1 Job Refrence required")
                         return;
                       }
-                      if (!data?.education_details.length) {
+                      if (!data?.education_details?.length) {
                         showError("At least 1 Education Detail required")
                         return;
                       }
-                      if (!data?.experience_details.length) {
+                      if (!data?.experience_details?.length) {
                         showError("At least 1 experience Detail required")
                         return;
                       }
