@@ -586,15 +586,15 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     type="submit"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
-                      if (!values?.jobReferences.length) {
+                      if (!values?.jobReferences?.length) {
                         showError("At least 1 Job Refrence required")
                         return;
                       }
-                      if (!data?.education_details.length) {
+                      if (!data?.education_details?.length) {
                         showError("At least 1 Education Detail required")
                         return;
                       }
-                      if (!data?.experience_details.length) {
+                      if (!data?.experience_details?.length) {
                         showError("At least 1 experience Detail required")
                         return;
                       }
