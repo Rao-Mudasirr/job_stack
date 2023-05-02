@@ -1,8 +1,4 @@
 import React from "react";
-import { Field, Form, Formik } from "formik";
-import VoluntaryDisability from "../VoluntaryDisability/VoluntaryDisability";
-
-
 
 const SelfIdentificationForm = () => {
   return (
@@ -48,11 +44,11 @@ const SelfIdentificationForm = () => {
             Executive Order 12985.
           </p>
         </div>
-       
-        
 
-     
-        
+
+
+
+
       </div>
     </>
   );
