@@ -31,6 +31,7 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import LearningMaterial from "./components/Pages/LearningMaterial/LearningMaterial";
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -221,7 +222,17 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          exact
+          path="/learning-material"
+          element={
+            <Layout>
+              <LearningMaterial />
+            </Layout>
+          }
+        />
       </Route>
+      
 
       <Route path="*" element={<Error404 />} />
     </Routes>
