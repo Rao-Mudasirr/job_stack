@@ -1,22 +1,10 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
-import * as Yup from "yup";
 import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
+import { initialValuesJobReferences } from "../../constants/constants";
+import { validationSchemaJobReferences } from "../../constants/validation-schema";
 
-const validationSchemaJobReferences = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  company: Yup.string().required("Company Name is required"),
-  position: Yup.string().required("Position is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-});
-
-const initialValuesJobReferences = {
-  name: "",
-  company: "",
-  position: "",
-  email: "",
-};
 const JobReferences = ({ jobReferences,setFieldValue }) => {
   const [showModal, setShowModal] = useState(false);
   

@@ -1,34 +1,14 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
-import * as Yup from "yup";
 import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { PreviewModal } from "../PreviewModal/PreviewModal";
 import { DelConfirmationModal } from "../DelConfirmationModal/DelConfirmationModal";
 import axios from "axios";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
 import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
+import { initialValuesProfessionalExperience } from "../../constants/constants";
+import { validationSchemaProfessionalExperience } from "../../constants/validation-schema";
 
-const validationSchemaProfessionalExperience = Yup.object().shape({
-  company: Yup.string().required("Company name is required"),
-  job_title: Yup.string().required("Job title is required"),
-  start_date: Yup.date().required("Start date is required"),
-  currentlyWorking:Yup.boolean(),
-  end_date: Yup.date().when('currentlyWorking', {
-    is: true, 
-    then: ()=>Yup.date(),
-    otherwise: ()=>Yup.date().required('End Date is required')
-    }),
-  document: Yup.string().required("Experience letter is required")
-});
-
-const initialValuesProfessionalExperience = {
-  company: "",
-  job_title: "",
-  start_date: "",
-  end_date: "",
-  document: "",
-  currentlyWorking:false
-};
 const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJobApplicationMsg }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
@@ -59,6 +39,7 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJo
       console.log(error);
     }
   };
+  
   return (
     <>
       <div className="mb-8">
