@@ -31,6 +31,7 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx"
 
 function App() {
   const isToken = localStorage.getItem("token");
@@ -90,6 +91,15 @@ function App() {
         element={
           <Layout>
             <JobList setPreviousRoute={setPreviousRoute} />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/quiz-card"
+        element={
+          <Layout>
+            <QuizFinalCard />
           </Layout>
         }
       />
