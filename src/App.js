@@ -31,6 +31,7 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -42,28 +43,36 @@ function App() {
       const expirationTime = decodedToken.exp; // the expiration time is stored in the "exp" claim of the token
       // check if the token has expired
       const isTokenExpired = Date.now() >= expirationTime * 1000;
-      const refreshData = async () => {
-        try {
-          const response = await axios.get(
-            "https://jobs.orcaloholding.co.uk/api/refresh",
-            {
-              headers: {
-                Authorization: `Bearer ${isToken}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          localStorage.setItem("token", response?.data?.data?.token);
-          return response;
-        } catch (error) {
-          console.log(error);
-        }
-      };
+      console.log({isTokenExpired});
       if (isTokenExpired) {
         refreshData();
       }
     }
   }, [isToken]);
+
+  // Token refresh function
+
+  const refreshData = async () => {
+    try {
+      const response = await axios.get(
+        "https://jobs.orcaloholding.co.uk/api/refresh",
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      localStorage.setItem("token", response?.data?.data?.token);
+    } catch (error) {
+      console.log({error});
+      if (error?.response?.status == 500) {
+        localStorage.clear();
+        navigate('/');
+      }
+    }
+  };
+
   return (
     <Routes>
       <Route
