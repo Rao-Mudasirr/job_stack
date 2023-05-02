@@ -4,17 +4,15 @@ import React from "react";
 const VoluntaryDisability = () => {
   return (
     <div className="mx-auto mt-10">
+      <div className="border-t border-gray-400  mt-5 mb-15"></div>
+      <div className="mt-5 h-full flex flex-col justify-end ">
+        <p className="mb-2">Form CC-305</p>
+        <p className="mb-2">OMB Control Number 1250-0005</p>
+        <p>Expires 05/31/2023</p>
+      </div>
 
-<div className="border-t border-gray-400  mt-5 mb-15"></div>
 
-       <div className="mt-5 h-full flex flex-col justify-end ">
-          <p className="mb-2">Form CC-305</p>
-          <p className="mb-2">OMB Control Number 1250-0005</p>
-          <p>Expires 05/31/2023</p>
-        </div>
-      
-
-     <div className="mt-2 text-center mb-2 "> <a href="#" className="text-blue-400 hover:underline mt-5 underline-offset-1">
+      <div className="mt-2 text-center mb-2 "> <a href="#" className="text-blue-400 hover:underline mt-5 underline-offset-1">
         Voluntary Self-Identification of Disability
       </a></div>
       <p className="text-gray-600 mt-1">
