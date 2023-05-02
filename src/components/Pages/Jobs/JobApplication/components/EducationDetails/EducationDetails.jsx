@@ -1,30 +1,14 @@
 import React, { useState } from "react";
 import { Formik, Field } from "formik";
-import * as Yup from "yup";
 import { AppModal } from "../../../../UI/AppModal/AppModal";
 import { PreviewModal } from "../PreviewModal/PreviewModal";
 import { DelConfirmationModal } from "../DelConfirmationModal/DelConfirmationModal";
 import axios from "axios";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
 import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
+import { degreeArray, disciplineArray, initialValuesEducationDetails } from "../../constants/constants";
+import { validationSchemaEducationDetails } from "../../constants/validation-schema";
 
-const disciplineArray = ["Accounting", "African Studies", "Agriculture", "Anthropology", "Applied Health Services", "Architecture", "Art", "Asian Studies", "Biology", "Business", "Business Administration", "Chemistry", "Classical Languages", "Communications &amp; Film", "Computer Science", "Dentistry", "Developing Nations", "Discipline Unknown", "Earth Sciences", "Economics", "Education", "Electronics", "Engineering", "English Studies", "Environmental Studies", "European Studies", "Fashion", "Finance", "Fine Arts", "General Studies", "Health Services", "History", "Human Resources Management", "Humanities", "Industrial Arts &amp; Carpentry", "Information Systems", "International Relations", "Journalism", "Languages", "Latin American Studies", "Law", "Linguistics", "Manufacturing &amp; Mechanics", "Mathematics", "Medicine", "Middle Eastern Studies", "Naval Science", "North American Studies", "Nuclear Technics", "Operations Research &amp; Strategy", "Organizational Theory", "Philosophy", "Physical Education", "Physical Sciences", "Physics", "Political Science", "Psychology", "Public Policy", "Public Service", "Religious Studies", "Russian &amp; Soviet Studies", "Scandinavian Studies", "Science", "Slavic Studies", "Social Science", "Social Sciences", "Sociology", "Speech", "Statistics &amp; Decision Theory", "Urban Studies", "Veterinary Medicine", "Other"]
-const degreeArray = ["High School", "Associate's Degree", "Bachelor's Degree", "Master's Degree", "Master of Business Administration (M.B.A.)", "Juris Doctor (J.D.)", "Doctor of Medicine (M.D.)", "Doctor of Philosophy (Ph.D.)", "Engineer's Degree", "Other"]
-const validationSchemaEducationDetails = Yup.object().shape({
-  institute: Yup.string().required("School name is required"),
-  degree_title: Yup.string().required("Degree is required"),
-  gpa: Yup.number().required("CGPA is required"),
-  discipline: Yup.string().required("Discipline is required"),
-  document: Yup.string().required("Document is required")
-});
-
-const initialValuesEducationDetails = {
-  institute: "",
-  degree_title: "",
-  discipline: "",
-  gpa: "",
-  document: ""
-};
 const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplicationMsg }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
