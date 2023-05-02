@@ -31,6 +31,7 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { MainTest } from "./components/Pages/MainTest/mainTest.jsx";
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -218,6 +219,15 @@ function App() {
           element={
             <Layout>
               <MyJob />
+            </Layout>
+          }
+        />
+        <Route
+          exact
+          path="/my-test"
+          element={
+            <Layout>
+              <MainTest />
             </Layout>
           }
         />
