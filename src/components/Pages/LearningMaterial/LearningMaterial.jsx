@@ -1,43 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { AccordianItem } from "./AccordianItem/AccordianItem";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
+import { AppLoader } from "../UI/AppLoader/AppLoader";
 
-export const AssessmentMockData = [
-  {
-    title: "What is care Library",
-    content: [
-      {
-        id: "1",
-        name: "U-ID:",
-        created_at: "2023-04-07T05:30:25",
-      },
-      {
-        id: "2",
-        name: "USER:",
-        created_at: "2023-04-07T05:30:25",
-      },
-      {
-        id: "3",
-        name: "NI Number:",
-        created_at: "2023-04-07T05:30:25",
-      },
-      {
-        id: "4",
-        name: "A-ID:",
-        created_at: "2023-04-07T05:30:25",
-      },
-    ],
-  },
-];
-
-export function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
-  divToBeClickedOn.classList.toggle("open");
-  var isOpen = theDIvToBeShown;
-  if (isOpen.style.display === "none") {
-    isOpen.style.display = "block";
-  } else {
-    isOpen.style.display = "none";
-  }
-}
 const LearningMaterial = () => {
+  const authToken = localStorage.getItem("token");
+  const { REACT_APP_SITE_URL } = process.env;
+  const [learningMaterial, setlearningMaterial] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const {state} = useLocation();
+  const fetchLearningMaterialData = async () => {
+    setLoading(true); 
+    try {
+      const response = await axios.get(
+        `${REACT_APP_SITE_URL}/api/my-jobs/${state?.id}/learning-materials`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setlearningMaterial(response?.data?.data?.learning_materials);
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    fetchLearningMaterialData();
+  }, []);
   return (
     <div dir="ltr">
       <section className="relative table w-full py-36">
@@ -72,12 +68,12 @@ const LearningMaterial = () => {
               <div className="flex justify-between items-center w-full text-left">
                 <h5 className="text-2xl font-bold mb-4">Learning Material</h5>
                 <div className="mb-6 mt-2 justify-end">
-                  <a
+                  <Link
                     href="#"
                     className="btn bg-emerald-600 hover:bg-emerald-700 text-white rounded-md justify-end"
                   >
                     Attempt Test
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="p-6 bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
@@ -86,154 +82,12 @@ const LearningMaterial = () => {
                   data-accordion="collapse"
                   className="mt-6"
                 >
-                  {AssessmentMockData.map((data) => {
+                  {loading ? <div className="h-60 flex justify-center items-center"><AppLoader color="rgb(6 78 59 / 0.9)" /></div> : !!learningMaterial?.length ? learningMaterial?.map((accordianItemData) => {
                     return (
-                      <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
-                        <h2
-                          className="text-base font-medium"
-                          id="accordion-collapse-heading-2"
-                        >
-                          <button
-                            type="button"
-                            className="flex justify-between items-center p-5 w-full font-medium text-left"
-                            data-accordion-target="#accordion-collapse-body-2"
-                            aria-expanded="false"
-                            aria-controls="accordion-collapse-body-1"
-                            id="firstAccordion"
-                            onClick={() =>
-                              jobMenuFunction(
-                                document.getElementById("firstAccordion"),
-                                document.getElementById(
-                                  "accordion-collapse-body-1"
-                                )
-                              )
-                            }
-                          >
-                            <div className="flex items-center w-full text-lg text-left">
-                              <div
-                                className="mr-2"
-                                style={{
-                                  padding: "12px 10px",
-                                  backgroundColor: "#D9D9D9",
-                                  borderRadius: "50px",
-                                }}
-                              >
-                                <img
-                                  src="assets/images//assessment//assessmentvector.png"
-                                  className=""
-                                  alt=""
-                                  style={{ height: "20px", width: "25px" }}
-                                />
-                              </div>
-                              <spin>{data.title}</spin>
-                            </div>
-                            <svg
-                              data-accordion-icon
-                              className="w-4 h-4 shrink-0"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd"
-                              ></path>
-                            </svg>
-                          </button>
-                        </h2>
-                        {data.content.map((content) => (
-                          <div
-                            id="accordion-collapse-body-1"
-                            style={{ display: "none" }}
-                            aria-labelledby="accordion-collapse-heading-1"
-                          >
-                            <div className="p-5">
-                              <p className="text-slate-400 dark:text-gray-400">
-                                {content.name}
-                              </p>
-                              <p className="text-slate-400 dark:text-gray-400">
-                                {content.created_at}
-                              </p>
-                              {/* <div dangerouslySetInnerHTML={{ __html: content.c }} /> */}
-
-                              <p className="text-slate-400 dark:text-gray-400">
-                                There are many variations of passages of Lorem
-                                Ipsum available, but the majority have suffered
-                                alteration in some form.
-                              </p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
+                      <AccordianItem key={accordianItemData?.id} accordianItemData={accordianItemData}  />
                     );
-                  })}
-                  <div className="relative shadow dark:shadow-gray-700 rounded-md overflow-hidden mt-4">
-                    <h2
-                      className="text-base font-medium"
-                      id="accordion-collapse-heading-2"
-                    >
-                      <button
-                        type="button"
-                        className="flex justify-between items-center p-5 w-full font-medium text-left"
-                        data-accordion-target="#accordion-collapse-body-2"
-                        aria-expanded="false"
-                        aria-controls="accordion-collapse-body-2"
-                        id="2ndAccordion"
-                        onClick={() =>
-                          jobMenuFunction(
-                            document.getElementById("2ndAccordion"),
-                            document.getElementById("accordion-collapse-body-2")
-                          )
-                        }
-                      >
-                        <div className="flex items-center w-full text-lg text-left">
-                          <div
-                            className="mr-2"
-                            style={{
-                              padding: "12px 10px",
-                              backgroundColor: "#D9D9D9",
-                              borderRadius: "50px",
-                            }}
-                          >
-                            <img
-                              src="assets/images//assessment//assessmentvector.png"
-                              className=""
-                              alt=""
-                              style={{ height: "20px", width: "25px" }}
-                            />
-                          </div>
-                          <spin>What is care Library</spin>
-                        </div>
-                        <svg
-                          data-accordion-icon
-                          className="w-4 h-4 shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clipRule="evenodd"
-                          ></path>
-                        </svg>
-                      </button>
-                    </h2>
-                    <div
-                      id="accordion-collapse-body-2"
-                      style={{ display: "none" }}
-                      aria-labelledby="accordion-collapse-heading-2"
-                    >
-                      <div className="p-5">
-                        <p className="text-slate-400 dark:text-gray-400">
-                          There are many variations of passages of Lorem Ipsum
-                          available, but the majority have suffered alteration
-                          in some form.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+                  }) : <div className="h-60 flex justify-center items-center"><div className="text-red-700">{error}</div></div>}
+                 
                 </div>
               </div>
             </div>
