@@ -232,7 +232,8 @@ export const MyJob = () => {
                                     Learning Material
                                   </button> :
                                     <Link
-                                      to="/"
+                                      state={item}
+                                      to="/learning-material"
                                       className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                     >
                                       Learning Material
