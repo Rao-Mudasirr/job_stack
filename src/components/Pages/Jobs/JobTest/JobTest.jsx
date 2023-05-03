@@ -7,35 +7,80 @@ function JobTest() {
     const authToken = localStorage.getItem("token");
   const { REACT_APP_SITE_URL } = process.env;
   const [jobQuiz, setjobQuiz] = useState();
+  const [data, setData] = useState();
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const {state} = useLocation();
-    const fetchJobTestData = async () => {
-        setLoading(true); 
-        try {
-          const response = await axios.get(
-            `https://jobs.orcaloholding.co.uk/api/my-jobs/${state?.id}/test`,
-            {
-              headers: {
-                Authorization: `Bearer ${authToken}`,
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          setjobQuiz(response?.data?.data?.test);
-        //   console.log(response?.data?.data?.test);
-        //   console.log(response.name);
-          setLoading(false);
-        } catch (error) {
-          setError(error.message);
-          setLoading(false);
-          console.error(error);
+  const fetchJobTestData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://jobs.orcaloholding.co.uk/api/my-jobs/${state?.id}/test`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
         }
-      };
-      useEffect(() => {
-        fetchJobTestData();
-      }, []);
+      );
+      setjobQuiz(response?.data?.data?.test);
+      setData(response?.data?.data);
 
+      // Call attempt API
+    //   const attemptResponse = await axios.post(
+    //     `https://jobs.orcaloholding.co.uk/api/test/start`,
+    //     {
+    //         job_application_id:state?.id,
+    //       test_id: data?.test?.id,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${authToken}`,
+    //         "Content-Type": "application/json",
+    //       },
+    //     }
+    //   );
+    //   console.log(attemptResponse?.data?.data,'res');
+
+      setLoading(false);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchJobTestData();
+  }, []);
+
+
+  const startTest = async () => {
+    try {
+      const attemptResponse = await axios.post(
+        `https://jobs.orcaloholding.co.uk/api/test/start`,
+        {
+          job_application_id: state?.id,
+          test_id: data?.test?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(attemptResponse?.data?.data, "res");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+      useEffect(() => {
+        console.log(data, "state");
+      }, [data]);
+    
       
 
       return (
@@ -86,7 +131,11 @@ function JobTest() {
                                 Description
                               </dt>
                               <dd className="text-sm text-emerald-600">
-                                {jobQuiz.description}
+                               
+                              <div
+                  dangerouslySetInnerHTML={{ __html:jobQuiz.description }}
+                /> 
+              
                               </dd>
                             </div>
                             <div>
@@ -111,13 +160,15 @@ function JobTest() {
                     </div>
                   </div>
                   <div className="mt-6">
-                    <Link
-                      to="/"
-                      className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                      replace={true}
-                    >
-                      Start Test
-                    </Link>
+                  <Link
+                    to={`/main-quiz`}
+                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                    replace={true}
+                    state={data}
+                    onClick={startTest}
+                  >
+                    Start Test
+                  </Link>
                   </div>
                 </div>
               </div>
