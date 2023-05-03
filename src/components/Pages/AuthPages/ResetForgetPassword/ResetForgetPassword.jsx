@@ -193,6 +193,14 @@ const ResetForgetPassword = () => {
                           Sign in
                         </Link>
                       </div>
+                      <div className="text-center mt-2">
+                        <Link
+                          to="/"
+                          className="text-black dark:text-white font-bold"
+                        >
+                          Back to Home
+                        </Link>
+                      </div>
                     </div>
                   </form>
                 </div>

@@ -88,13 +88,15 @@ const Navbar = () => {
                 title="Update Profile"
                 className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
               >
-                {userProfile?.image ? <img
-                  src={`${userProfile?.image}`}
-                  className="rounded-full "
-                  alt=""
-                /> :
-                (`${userProfile?.first_name[0]}${userProfile?.last_name[0]}`) 
-                }
+                {userProfile?.image ? (
+                  <img
+                    src={`${userProfile?.image}`}
+                    className="rounded-full "
+                    alt=""
+                  />
+                ) : (
+                  `${userProfile?.first_name[0]}${userProfile?.last_name[0]}`
+                )}
               </Link>
             </li>
           </ul>
@@ -165,13 +167,20 @@ const Navbar = () => {
                   </li>
                 </ul>
               </li>
+              {tokenCheck === "false" && (
+                <li>
+                  <Link to="/login" className="sub-menu-item" replace={true}>
+                    Login{" "}
+                  </Link>
+                </li>
+              )}
               {tokenCheck === "true" && (
                 <li
                   onClick={() => {
                     localStorage.clear();
                   }}
                 >
-                  <Link to="/login" className="sub-menu-item" replace={true}>
+                  <Link to="/" replace={true}>
                     Logout
                   </Link>
                 </li>
@@ -273,17 +282,7 @@ const Navbar = () => {
                       }
                     ></span>
                     <ul className="submenu" id="furtherAuth">
-                      {tokenCheck === "false" && (
-                        <li>
-                          <Link
-                            to="/login"
-                            className="sub-menu-item"
-                            replace={true}
-                          >
-                            Login{" "}
-                          </Link>
-                        </li>
-                      )}
+                    
                       {tokenCheck === "false" && (
                         <li>
                           <Link

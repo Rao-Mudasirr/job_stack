@@ -1,62 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
 import SelfIdentificationForm from "../SelfIdentificationForm/SelfIdentificationForm";
 import IntroductionVideo from "../../../JobDetails/components/IntroductionVideo/IntroductionVideo";
 import VoluntaryDisability from "../VoluntaryDisability/VoluntaryDisability";
 import axios from "axios";
 import { InputWrapper } from "../InputWrapper/InputWrapper";
-
 import EducationDetails from "../EducationDetails/EducationDetails";
-
 import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperience";
-
 import JobReferences from "../JobReferences/JobReferences";
 import { useNavigate } from "react-router-dom";
-
-const validationSchema = Yup.object().shape({
-  first_name: Yup.string().required("First Name is required"),
-  last_name: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email").required("email is required"),
-  phone_no: Yup.string().required("phone_no is required"),
-  resume: Yup.string().required(" resume is Required"),
-  cover_letter: Yup.string().required("Cover Letter is required"),
-  linkedin: Yup.string().required("Please enter a valid URL"),
-  website: Yup.string().required("Please enter a valid URL"),
-  github: Yup.string().required("Please enter a valid URL"),
-  gender: Yup.string().required("gender is required"),
-  veteran_status: Yup.mixed().required(" veteran_status status is Required"),
-  disability: Yup.string().required(" status is required"),
-  ethnicity: Yup.string().required(" Field is required"),
-});
-
-const genderOptions = [
-  { value: "Male", label: "Male" },
-  { value: "Female", label: "Female" },
-  { value: "Decline To Self Identify", label: "Decline To Self Identify" },
-];
-
-const veteran_statusOptions = [
-  { value: "Yes", label: "Yes" },
-  { value: "No", label: "No" },
-  { value: "I don't wish to answer", label: "I don't wish to answer" },
-
-];
-
-
-const ethnicity_statusOptions = [
-  { value: "Asian", label: "Asian" },
-  { value: "American Indian or Alaska Native", label: "American Indian or Alaska Native" },
-  { value: "Black or African America", label: "Black or African America" },
-  { value: "Native Hawaiian or Other Pacific Islander", label: "Native Hawaiian or Other Pacific Islander" },
-  { value: "White", label: "White" },
-
-];
-const disabilityOptions = [
-  { value: "Yes", label: "Disabled" },
-  { value: "No", label: "Not disabled" },
-  { value: "I don't wish to answer", label: "I don't wish to answer" },
-];
+import { validationSchemaJobForm } from "../../constants/validation-schema";
+import { disabilityOptions, ethnicity_statusOptions, genderOptions, veteran_statusOptions } from "../../constants/constants";
 
 const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg,setData}) => {
 
@@ -164,7 +118,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
         <div>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
+            validationSchema={validationSchemaJobForm}
             onSubmit={() => {}}
           >
             {({

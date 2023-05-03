@@ -269,22 +269,27 @@ const Signup = () => {
                           htmlFor="AcceptT&C"
                           id="AcceptT&C"
                         >
-                          I Accept
+                          I Accept{" "}
                           <Link to="/" className="text-emerald-600">
                             Terms And Condition
                           </Link>
                         </label>
                       </div>
                     </div>
+
                     <button
                       type="submit"
-                      className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                      className={`btn ${
+                        !isButtonDisabled ? "bg-emerald-600" : "bg-slate-200"
+                      }  hover:border-emerald-700  ${
+                        !isButtonDisabled ? "text-white" : "text-slate-400"
+                      } rounded-md w-full`}
                       value="Register"
                       disabled={isButtonDisabled}
                     >
                       Register
                     </button>
-                    <div className="text-center">
+                    <div className="text-center mt-2">
                       <span className="text-slate-400 me-2">
                         Already have an account ?
                       </span>
@@ -293,6 +298,11 @@ const Signup = () => {
                         className="text-black dark:text-white font-bold"
                       >
                         Sign in
+                      </Link>
+                    </div>
+                    <div className="text-center mt-2">
+                      <Link to="/" className="text-slate-400  ">
+                        Back to Home
                       </Link>
                     </div>
                   </div>

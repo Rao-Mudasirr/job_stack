@@ -70,10 +70,6 @@ const CommingSoon = () => {
           </div>
         </div>
       </section>
-     
-      <script src="assets/libs/feather-icons/feather.min.js"></script>
-      <script src="assets/js/plugins.init.js"></script>
-      <script src="assets/js/app.js"></script>
     </div>
   );
 };

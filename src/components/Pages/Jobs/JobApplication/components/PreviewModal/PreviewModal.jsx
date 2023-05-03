@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { AppModal } from '../../../../UI/AppModal/AppModal';
+import { iFrameDocs } from '../../constants/constants';
 
 const getExtension = (filename) => {
     return filename.split('.').pop()
 }
-const iFrameDocs = ['png', 'jpg', 'jpeg', 'bmp', 'webp', 'psd'];
 
 export const PreviewModal = ({ imgUrl }) => {
     const [openPreview, setOpenPreview] = useState(false);
