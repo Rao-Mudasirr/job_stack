@@ -33,7 +33,6 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx"
 import LearningMaterial from "./components/Pages/LearningMaterial/LearningMaterial";
-
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
