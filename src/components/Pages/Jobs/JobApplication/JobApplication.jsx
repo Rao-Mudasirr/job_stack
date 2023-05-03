@@ -137,6 +137,7 @@ const JobApplication = ({ page }) => {
               </p>
               <p className="mt-2"><i className="uil uil-map-marker text-[18px] text-emerald-600"></i>{" "}{jobDetails?.[0]?.company?.location}</p>
               <div
+               className="[&>ul]:list-disc [&>ul]:my-2 [&>ul]:ml-8"
                 dangerouslySetInnerHTML={{ __html: jobDetails?.[0]?.description }}
               />
             </div>}

@@ -31,7 +31,8 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import { MainTest } from "./components/Pages/MainTest/mainTest.jsx";
+import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx"
+import LearningMaterial from "./components/Pages/LearningMaterial/LearningMaterial";
 
 function App() {
   const isToken = localStorage.getItem("token");
@@ -91,6 +92,15 @@ function App() {
         element={
           <Layout>
             <JobList setPreviousRoute={setPreviousRoute} />
+          </Layout>
+        }
+      />
+      <Route
+        exact
+        path="/quiz-card"
+        element={
+          <Layout>
+            <QuizFinalCard />
           </Layout>
         }
       />
@@ -233,14 +243,15 @@ function App() {
         />
         <Route
           exact
-          path="/my-test"
+          path="/learning-material"
           element={
             <Layout>
-              <MainTest />
+              <LearningMaterial />
             </Layout>
           }
         />
       </Route>
+      
 
       <Route path="*" element={<Error404 />} />
     </Routes>
