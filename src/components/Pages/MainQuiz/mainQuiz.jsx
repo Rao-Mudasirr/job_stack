@@ -104,7 +104,7 @@ export const MainQuiz = () => {
     setOption(e.target.value);
     setQuestionId(questionsId);
   };
-
+  const isToken = localStorage.getItem("token");
   const nextQuestion = async () => {
     // Will move to next index only if option state is not empty
     if (option !== "") {
@@ -112,15 +112,21 @@ export const MainQuiz = () => {
         const response = await axios.post(
           "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
           {
-            attempt_id: "RzZayXL2Klw7g9mP3GJ6bxOB1W",
+            attempt_id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
             question_id: questionId,
             option_id: option,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${isToken}`,
+              "Content-Type": "application/json",
+            },
           }
         );
         const { data } = response;
         console.log(data);
         setSnackbar({
-          title: data?.message,
+          title: data?.msg,
           isToggle: true,
           type: "success",
         });
