@@ -3,7 +3,7 @@ import { AppModal } from '../../../../UI/AppModal/AppModal'
 import axios from 'axios';
 import { AppLoader } from '../../../../UI/AppLoader/AppLoader';
 
-export const DelConfirmationModal = ({ deletionId, apiRoute, fetchProfileData }) => {
+export const DelConfirmationModal = ({ deletionId, apiRoute, setFieldValue, deletionArray,showSnackbar }) => {
     const [openDel, setOpenDel] = useState(false);
     const [loading, setLoading] = useState(false);
     const { REACT_APP_SITE_URL } = process.env;
@@ -17,9 +17,14 @@ export const DelConfirmationModal = ({ deletionId, apiRoute, fetchProfileData })
             },
             data: { id: deletionId }
         },).then(res => {
-            fetchProfileData();
+            setFieldValue(apiRoute === "experience-details" ? "experience_details" : "education_details", deletionArray.filter((item) => item?.id !== deletionId));
             setLoading(false);
             setOpenDel(false);
+            showSnackbar({
+                title: res?.data?.msg,
+                isToggle: true,
+                type: res?.data?.status ? "success" : "error",
+              })
         }).catch(error => {
             console.log({ error });
         })

@@ -18,7 +18,6 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
   const navigate = useNavigate();
   const { REACT_APP_SITE_URL } = process.env;
   const [status, setStatus] = useState(false);
-  const [_applyJobLoading, setApplyJobLoading] = useState(false);
   
   const showError = (msg)=>{
     setJobApplicationMsg({
@@ -57,7 +56,6 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
   };
   const applyForJob = async () => {
     try {
-      setApplyJobLoading(true);
       const response = await axios.post(
         `${REACT_APP_SITE_URL}/api/apply-for-job`,
         {job_id:jobId},
@@ -76,7 +74,6 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
           navigate("/")
         }, 3000);
     } catch (error) {
-      setApplyJobLoading(false);
       console.error(error);
     }
   };
@@ -99,11 +96,11 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     disability: data?.user?.disability,
     veteran_status: data?.user?.veteran_status,
     education_details: data?.education_details,
-    professionalExperience: data?.experience_details,
+    experience_details: data?.experience_details,
     ethnicity: data?.user?.ethnicity,
     jobReferences: data?.user?.reference_details,
   };
- 
+ console.log(initialValues);
   return (
     <>
       {loading ? (
@@ -311,19 +308,18 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </div>
 
                 <EducationDetails
-                  educationDetails={data?.education_details}
-                  fetchProfileData={fetchProfileData}
+                  educationDetails={values?.education_details}
+                  setFieldValue={setFieldValue}
                   setJobApplicationMsg={setJobApplicationMsg}
                 />
 
                 <ProfessionalExperience
-                  professionalExperience={data?.experience_details}
-                  fetchProfileData={fetchProfileData}
+                  professionalExperience={values?.experience_details}
+                  setFieldValue={setFieldValue}
                   setJobApplicationMsg={setJobApplicationMsg}
                 />
                 <JobReferences
                   jobReferences={values?.jobReferences}
-                  fetchProfileData={fetchProfileData}
                   setFieldValue={setFieldValue}
                 />
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
