@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import GlobalSnackBar from "../UI/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 const questionsArray = [
   {
     id: "V48gNWJqOY17rn7y5b6rQEepzx",
@@ -88,10 +89,13 @@ const questionsArray = [
   },
 ];
 export const MainQuiz = () => {
-  const [jobTest, setJobTest] = useState(questionsArray);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [jobTest, setJobTest] = useState(location?.state?.testData?.questions);
   const [index, setIndex] = useState(0);
   const [option, setOption] = useState("");
   const [questionId, setQuestionId] = useState("");
+  console.log(location);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -113,7 +117,7 @@ export const MainQuiz = () => {
         const response = await axios.post(
           "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
           {
-            attempt_id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
+            attempt_id: location?.state?.attemptData?.attempt?.id,
             question_id: questionId,
             option_id: option,
           },
@@ -161,7 +165,7 @@ export const MainQuiz = () => {
       const response = await axios.post(
         "https://jobs.orcaloholding.co.uk/api/test/end",
         {
-          attempt_id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
+          attempt_id: location?.state?.attemptData?.attempt?.id,
         },
         {
           headers: {
@@ -170,6 +174,9 @@ export const MainQuiz = () => {
           },
         }
       );
+      navigate("/quiz-card", {
+        state: response?.data,
+      });
     } catch (error) {
       console.log(error);
     }
