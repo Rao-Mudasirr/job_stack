@@ -81,7 +81,6 @@ const Footer = () => {
                   <Link
                     to="/"
                     replace={true}
-                    target="_blank"
                     className="text-reset"
                   >
                     Orcalo Holding
