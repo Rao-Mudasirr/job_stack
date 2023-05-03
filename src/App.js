@@ -33,6 +33,8 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx"
 import LearningMaterial from "./components/Pages/LearningMaterial/LearningMaterial";
+import JobTest from "./components/Pages/Jobs/JobTest/JobTest.jsx";
+
 function App() {
   const isToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -130,6 +132,7 @@ function App() {
           </Layout>
         }
       />
+        <Route exact path="/job-test" element={<Layout><JobTest /></Layout>} />
       <Route element={<ProtectedAuths />}>
         <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route
