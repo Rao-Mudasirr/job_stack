@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import GlobalSnackBar from "../UI/SnackBar";
+import { useLocation, useNavigate } from "react-router-dom";
 const questionsArray = [
   {
     id: "V48gNWJqOY17rn7y5b6rQEepzx",
@@ -88,10 +89,13 @@ const questionsArray = [
   },
 ];
 export const MainQuiz = () => {
-  const [jobTest, setJobTest] = useState(questionsArray);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [jobTest, setJobTest] = useState(location?.state?.testData?.questions);
   const [index, setIndex] = useState(0);
   const [option, setOption] = useState("");
   const [questionId, setQuestionId] = useState("");
+  console.log(location);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -104,6 +108,7 @@ export const MainQuiz = () => {
     setOption(e.target.value);
     setQuestionId(questionsId);
   };
+  const isToken = localStorage.getItem("token");
 
   const nextQuestion = async () => {
     // Will move to next index only if option state is not empty
@@ -112,15 +117,21 @@ export const MainQuiz = () => {
         const response = await axios.post(
           "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
           {
-            attempt_id: "RzZayXL2Klw7g9mP3GJ6bxOB1W",
+            attempt_id: location?.state?.attemptData?.attempt?.id,
             question_id: questionId,
             option_id: option,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${isToken}`,
+              "Content-Type": "application/json",
+            },
           }
         );
         const { data } = response;
         console.log(data);
         setSnackbar({
-          title: data?.message,
+          title: data?.msg,
           isToggle: true,
           type: "success",
         });
@@ -143,11 +154,33 @@ export const MainQuiz = () => {
       });
     setOption("");
   };
+
   const prevQuestion = () => {
     index !== 0 && setIndex(index - 1);
     setOption("");
   };
-  console.log(jobTest[jobTest.length - 1] !== undefined);
+
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/test/end",
+        {
+          attempt_id: location?.state?.attemptData?.attempt?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate("/quiz-card", {
+        state: response?.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
@@ -209,7 +242,10 @@ export const MainQuiz = () => {
           </div>
           <div className="flex justify-end">
             {index >= jobTest?.length - 1 && (
-              <button className="btn bg-emerald-600 text-white rounded-md">
+              <button
+                className="btn bg-emerald-600 text-white rounded-md"
+                onClick={endTestHandler}
+              >
                 End Test
               </button>
             )}
