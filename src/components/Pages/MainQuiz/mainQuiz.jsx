@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import GlobalSnackBar from "../UI/SnackBar";
 const questionsArray = [
   {
     id: "V48gNWJqOY17rn7y5b6rQEepzx",
@@ -88,28 +89,69 @@ const questionsArray = [
 ];
 export const MainQuiz = () => {
   const [jobTest, setJobTest] = useState(questionsArray);
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
   const [option, setOption] = useState("");
   const [questionId, setQuestionId] = useState("");
-
-  console.log(questionId, "questionId");
-  console.log(option, "option");
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
+  // console.log(questionId, "questionId");
+  // console.log(option, "option");
 
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
   };
 
-  const nextQuestion = () => {
-    setIndex(index + 1);
+  const nextQuestion = async () => {
+    // Will move to next index only if option state is not empty
+    if (option !== "") {
+      try {
+        const response = await axios.post(
+          "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
+          {
+            attempt_id: "RzZayXL2Klw7g9mP3GJ6bxOB1W",
+            question_id: questionId,
+            option_id: option,
+          }
+        );
+        const { data } = response;
+        console.log(data);
+        setSnackbar({
+          title: data?.message,
+          isToggle: true,
+          type: "success",
+        });
+      } catch (error) {
+        console.log(error);
+        setSnackbar({
+          title: error?.message,
+          isToggle: true,
+          type: "error",
+        });
+      }
+
+      setIndex(index + 1);
+    }
+    option === "" &&
+      setSnackbar({
+        title: "Please Select One Answer",
+        isToggle: true,
+        type: "error",
+      });
+    setOption("");
   };
   const prevQuestion = () => {
     index !== 0 && setIndex(index - 1);
+    setOption("");
   };
-  
+  console.log(jobTest[jobTest.length - 1] !== undefined);
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
         <div className="container mt-10 mx-auto">
           <div className="flex text-2xl font-bold">
             Total Question {`${index + 1} / ${jobTest?.length}`}
@@ -128,7 +170,7 @@ export const MainQuiz = () => {
                   name="radio-group"
                   key={opt?.option}
                   id={opt?.option}
-                  value={opt?.option}
+                  value={opt?.id}
                   type="radio"
                   onChange={(e) => handleChange(e, jobTest[index]?.id)}
                 />
@@ -164,6 +206,13 @@ export const MainQuiz = () => {
             >
               Next
             </button>
+          </div>
+          <div className="flex justify-end">
+            {index >= jobTest?.length - 1 && (
+              <button className="btn bg-emerald-600 text-white rounded-md">
+                End Test
+              </button>
+            )}
           </div>
         </div>
       </section>
