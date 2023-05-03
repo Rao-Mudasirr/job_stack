@@ -397,7 +397,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     htmlFor="total_experience"
                   >
                     How many years of experience do you have?{" "}
-                    <span className="text-red-500">*</span>
+                    {/* <span className="text-red-500">*</span> */}
                   </label>
                   <Field
                     id="total_experience"
