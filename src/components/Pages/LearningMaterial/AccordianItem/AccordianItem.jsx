@@ -36,7 +36,7 @@ export const AccordianItem = ({ accordianItemData }) => {
                                     style={{ height: "20px", width: "25px" }}
                                 />
                             </div>
-                            <spin>{accordianItemData?.title}</spin>
+                            <span>{accordianItemData?.title}</span>
                         </div>
                         <svg
                             data-accordion-icon
