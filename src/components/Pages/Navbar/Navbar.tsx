@@ -87,6 +87,7 @@ const Navbar = () => {
                 to="/update-profile"
                 title="Update Profile"
                 className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
+                replace={true}
               >
                 {userProfile?.image ? (
                   <img
@@ -122,7 +123,10 @@ const Navbar = () => {
                     : ""
                 }`}
               >
-                <Link to=""> Jobs </Link>
+                <Link to="" replace={true}>
+                  {" "}
+                  Jobs{" "}
+                </Link>
                 <span
                   className="menu-arrow"
                   id="jobMenu"

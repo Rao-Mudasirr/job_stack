@@ -15,6 +15,7 @@ const Footer = () => {
                     <Link
                       to="/"
                       className="flex justify-center md:justify-start focus:outline-none"
+                      replace={true}
                     >
                       <img
                         src="assets/images/logo-light.png"
@@ -78,9 +79,8 @@ const Footer = () => {
                   © {moment().year()} Orcalo. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
                   <Link
-                    to="https://shreethemes.in/"
+                    to="/"
                     replace={true}
-                    target="_blank"
                     className="text-reset"
                   >
                     Orcalo Holding
