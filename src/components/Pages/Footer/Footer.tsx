@@ -78,7 +78,7 @@ const Footer = () => {
                   © {moment().year()} Orcalo. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
                   <Link
-                    to="https://shreethemes.in/"
+                    to="/"
                     replace={true}
                     target="_blank"
                     className="text-reset"

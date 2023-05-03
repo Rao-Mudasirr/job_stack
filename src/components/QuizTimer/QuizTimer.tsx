@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const QuizTimer = ({ initialTime, onTimeUp }) => {
-  const [timeLeft, setTimeLeft] = useState(initialTime);
+  const [timeLeft, setTimeLeft] = useState(initialTime*60);
 
   useEffect(() => {
     let interval = null;
