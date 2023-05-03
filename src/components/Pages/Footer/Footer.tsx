@@ -15,6 +15,7 @@ const Footer = () => {
                     <Link
                       to="/"
                       className="flex justify-center md:justify-start focus:outline-none"
+                      replace={true}
                     >
                       <img
                         src="assets/images/logo-light.png"
