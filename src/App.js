@@ -31,8 +31,9 @@ import { MyJob } from "./components/Pages/MyJob/MyJob";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx"
+import QuizFinalCard from "./components/Pages/QuizFinalCard/QuizFinalCard.tsx";
 import LearningMaterial from "./components/Pages/LearningMaterial/LearningMaterial";
+import { MainQuiz } from "./components/Pages/MainQuiz/mainQuiz.jsx";
 import JobTest from "./components/Pages/Jobs/JobTest/JobTest.jsx";
 
 function App() {
@@ -46,7 +47,7 @@ function App() {
       const expirationTime = decodedToken.exp; // the expiration time is stored in the "exp" claim of the token
       // check if the token has expired
       const isTokenExpired = Date.now() >= expirationTime * 1000;
-      console.log({isTokenExpired});
+      console.log({ isTokenExpired });
       if (isTokenExpired) {
         refreshData();
       }
@@ -68,10 +69,10 @@ function App() {
       );
       localStorage.setItem("token", response?.data?.data?.token);
     } catch (error) {
-      console.log({error});
+      console.log({ error });
       if (error?.response?.status == 500) {
         localStorage.clear();
-        navigate('/');
+        navigate("/");
       }
     }
   };
@@ -252,8 +253,16 @@ function App() {
             </Layout>
           }
         />
+        <Route
+          exact
+          path="/main-quiz"
+          element={
+            <Layout>
+              <MainQuiz />
+            </Layout>
+          }
+        />
       </Route>
-      
 
       <Route path="*" element={<Error404 />} />
     </Routes>
