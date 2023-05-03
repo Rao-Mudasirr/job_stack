@@ -105,7 +105,7 @@ const Login = (props) => {
                         autoComplete="off"
                         name="email"
                         id="email"
-                        placeholder="Email"
+                        placeholder="email"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -126,7 +126,7 @@ const Login = (props) => {
                           autoComplete="off"
                           name="password"
                           id="password"
-                          placeholder="Password"
+                          placeholder="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
