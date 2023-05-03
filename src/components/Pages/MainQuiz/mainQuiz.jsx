@@ -105,6 +105,7 @@ export const MainQuiz = () => {
     setQuestionId(questionsId);
   };
   const isToken = localStorage.getItem("token");
+
   const nextQuestion = async () => {
     // Will move to next index only if option state is not empty
     if (option !== "") {
@@ -149,11 +150,30 @@ export const MainQuiz = () => {
       });
     setOption("");
   };
+
   const prevQuestion = () => {
     index !== 0 && setIndex(index - 1);
     setOption("");
   };
-  console.log(jobTest[jobTest.length - 1] !== undefined);
+
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/test/end",
+        {
+          attempt_id: "Nd6OgKVR5MQkOeAw4jPz0LWDXG",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
@@ -215,7 +235,10 @@ export const MainQuiz = () => {
           </div>
           <div className="flex justify-end">
             {index >= jobTest?.length - 1 && (
-              <button className="btn bg-emerald-600 text-white rounded-md">
+              <button
+                className="btn bg-emerald-600 text-white rounded-md"
+                onClick={endTestHandler}
+              >
                 End Test
               </button>
             )}

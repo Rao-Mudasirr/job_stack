@@ -3,8 +3,6 @@ import React, { useState } from "react";
 import Pagination from "react-js-pagination";
 
 export const CommonPagination = (props) => {
-  console.log(props?.postsPerPage);
-
   const [currentPage, setCurrentPage] = useState(1);
   // total records per page to display
   const recordPerPage = props.postsPerPage;
