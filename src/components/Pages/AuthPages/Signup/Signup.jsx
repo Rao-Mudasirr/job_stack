@@ -52,7 +52,7 @@ const Signup = () => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
   const timer = setTimeout(() => {

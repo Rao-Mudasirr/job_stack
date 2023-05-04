@@ -37,7 +37,7 @@ const Login = (props) => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
 
