@@ -78,19 +78,19 @@ const Footer = () => {
                 <p className="mb-0 text-gray-300 font-medium">
                   © {moment().year()} Orcalo. Design with{" "}
                   <i className="mdi mdi-heart text-red-600"></i> by{" "}
-                  <Link
+                  {/* <Link
                     to="/"
                     replace={true}
                     className="text-reset"
-                  >
+                  > */}
                     Orcalo Holding
-                  </Link>
+                  {/* </Link> */}
                   .
                 </p>
               </div>
 
               <ul className="list-none ltr:md:text-right rtl:md:text-left text-center">
-                <li className="inline">
+                {/* <li className="inline">
                   <Link
                     to=""
                     replace={true}
@@ -125,12 +125,12 @@ const Footer = () => {
                   >
                     <i className="uil uil-behance" title="Behance"></i>
                   </Link>
-                </li>
+                </li> */}
                 <li className="inline">
                   <Link
                     to=""
                     replace={true}
-                    target="_blank"
+                    // target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i className="uil uil-linkedin" title="Linkedin"></i>
@@ -140,7 +140,7 @@ const Footer = () => {
                   <Link
                     to=""
                     replace={true}
-                    target="_blank"
+                    // target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
@@ -153,7 +153,7 @@ const Footer = () => {
                   <Link
                     to=""
                     replace={true}
-                    target="_blank"
+                    // target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
@@ -166,7 +166,7 @@ const Footer = () => {
                   <Link
                     to=""
                     replace={true}
-                    target="_blank"
+                    // target="_blank"
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
@@ -178,7 +178,7 @@ const Footer = () => {
                 <li className="inline">
                   <Link
                     to=""
-                    replace={true}
+                    // replace={true}
                     className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i

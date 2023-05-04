@@ -110,7 +110,7 @@ const Signup = () => {
                   },
                 }}
               >
-                <Link to="">
+                <Link to="/">
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
