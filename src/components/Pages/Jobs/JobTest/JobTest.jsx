@@ -26,6 +26,10 @@ function JobTest() {
       );
       setjobQuiz(response?.data?.data?.test);
       setData(response?.data?.data);
+      localStorage.setItem(
+        "timer",
+        response?.data?.data?.test?.total_duration_min * 60
+      );
 
       // Call attempt API
       //   const attemptResponse = await axios.post(
