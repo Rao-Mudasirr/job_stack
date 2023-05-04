@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
@@ -15,6 +15,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
+  const [isOpenSnack, setIsOpenSnack] = useState(false);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -54,7 +55,9 @@ const Signup = () => {
         action.resetForm();
       },
     });
-
+  const timer = setTimeout(() => {
+    setIsOpenSnack({ title: "", isToggle: false, type: "" });
+  });
   const postData = async (values) => {
     try {
       const response = await axios.post(
@@ -70,7 +73,11 @@ const Signup = () => {
             isToggle: true,
             type: "success",
           });
-        // navigate("/login");
+          const timer = setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+
+          break;
         default:
           // setErrorMessage();
           setSnackbar({
@@ -89,6 +96,9 @@ const Signup = () => {
       // console.log(error);
     }
   };
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, [isOpenSnack.isToggle]);
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">

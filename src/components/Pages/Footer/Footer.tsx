@@ -83,9 +83,8 @@ const Footer = () => {
                     replace={true}
                     className="text-reset"
                   > */}
-                    Orcalo Holding
-                  {/* </Link> */}
-                  .
+                  Orcalo Holding
+                  {/* </Link> */}.
                 </p>
               </div>
 
@@ -131,7 +130,7 @@ const Footer = () => {
                     to=""
                     replace={true}
                     // target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
+                    className="mx-2 btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i className="uil uil-linkedin" title="Linkedin"></i>
                   </Link>
@@ -141,7 +140,7 @@ const Footer = () => {
                     to=""
                     replace={true}
                     // target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
+                    className="mx-2 btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
                       className="uil uil-facebook-f align-middle"
@@ -154,7 +153,7 @@ const Footer = () => {
                     to=""
                     replace={true}
                     // target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
+                    className="mx-2 btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
                       className="uil uil-instagram align-middle"
@@ -167,7 +166,7 @@ const Footer = () => {
                     to=""
                     replace={true}
                     // target="_blank"
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
+                    className="mx-2 btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
                       className="uil uil-twitter align-middle"
@@ -179,7 +178,7 @@ const Footer = () => {
                   <Link
                     to=""
                     // replace={true}
-                    className="btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
+                    className="mx-2 btn btn-icon btn-sm border-2 border-gray-800 dark:border-gray-700 rounded-md hover:border-emerald-600 dark:hover:border-emerald-600 hover:bg-emerald-600 dark:hover:bg-emerald-600 text-white"
                   >
                     <i
                       className="uil uil-envelope align-middle"
