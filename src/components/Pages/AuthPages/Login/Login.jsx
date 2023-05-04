@@ -55,7 +55,12 @@ const Login = (props) => {
           localStorage.setItem("user", JSON.stringify(data?.data?.user));
           navigate(props.previousRoute);
           props.setPreviousRoute("/");
-
+          setSnackbar({
+            title: "Successfully registered!",
+            isToggle: true,
+            type: "success",
+          });
+          break;
         default:
           setErrorMessage(data?.msg);
           setSnackbar({

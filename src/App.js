@@ -213,7 +213,7 @@ function App() {
         <Route
           exact
           path="/update-profile"
-          element={<JobApplication page="update-profile" />}
+          element={<Layout><JobApplication page="update-profile" /></Layout>}
         />
         <Route
           exact

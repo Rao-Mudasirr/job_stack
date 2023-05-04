@@ -10,7 +10,7 @@ import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperi
 import JobReferences from "../JobReferences/JobReferences";
 import { useNavigate } from "react-router-dom";
 import { validationSchemaJobForm } from "../../constants/validation-schema";
-import { disabilityOptions, ethnicity_statusOptions, genderOptions, veteran_statusOptions } from "../../constants/constants";
+import { acceptedFiles, disabilityOptions, ethnicity_statusOptions, genderOptions, veteran_statusOptions } from "../../constants/constants";
 
 const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg,setData}) => {
 
@@ -100,7 +100,6 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     ethnicity: data?.user?.ethnicity,
     jobReferences: data?.user?.reference_details,
   };
- console.log(initialValues);
   return (
     <>
       {loading ? (
@@ -234,35 +233,48 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                       resume/CV <span className="text-red-500"> *</span>
                     </label> */}
                     <InputWrapper
-                      error={errors.document}
-                      touched={touched.document}
+                      error={errors.resume}
+                      touched={touched.resume}
                       label="Resume"
-                      labelName="document"
+                      labelName="resume"
                     >
                       <input
-                        accept=".doc, .docx, .jpg, .png, .pdf"
-                        id="document"
+                        accept=".doc, .docx, .pdf"
+                        id="resume"
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file != null) {
+                            if(file?.size / 1024 / 1024 >= 2){
+                              setJobApplicationMsg({
+                                title: "File Size Must be Lower than 2 MB",
+                                isToggle: true,
+                                type: "error",
+                              })
+                              setFieldValue("resume", "");
+                              return;
+                            }
+                            if(!acceptedFiles.exec(file?.name)){
+                              setJobApplicationMsg({
+                                title: " The document must be a file of type: pdf, docx, doc",
+                                isToggle: true,
+                                type: "error",
+                              })
+                              setFieldValue("resume", "");
+                              return;
+                            }
                             setFieldValue("resume", file);
                           }
                         }}
                         onBlur={handleBlur}
-                        name="document"
+                        name="resume"
                         type="file"
-                        className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                          errors.document &&
-                          touched.document &&
+                        className={`appearance-none border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                          errors.resume &&
+                          touched.resume &&
                           "border-red-500"
                         }`}
                       />
                     </InputWrapper>
-                    {errors.resume && touched.resume && (
-                      <p className="text-red-500 text-xs italic">
-                        {errors.resume}
-                      </p>
-                    )}
                   </div>
 
 
@@ -275,35 +287,46 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                       Cover Letter<span className="text-red-500"> *</span>
                     </label> */}
                     <InputWrapper
-                      error={errors.document}
-                      touched={touched.document}
+                      error={errors.cover_letter}
+                      touched={touched.cover_letter}
                       label="Cover Letter"
-                      labelName="document"
+                      labelName="cover_letter"
                     >
                       <input
-                        accept=".doc, .docx, .jpg, .png, .pdf"
-                        id="document"
+                        accept=".doc, .docx, .pdf"
+                        id="cover_letter"
                         onChange={(e) => {
                           const file = e.target.files[0];
+                          if(file?.size / 1024 / 1024 >= 2){
+                            setJobApplicationMsg({
+                              title: "File Size Must be Lower than 2 MB",
+                              isToggle: true,
+                              type: "error",
+                            })
+                            return;
+                          }
+                          if(!acceptedFiles.exec(file?.name)){
+                            setJobApplicationMsg({
+                              title: " The document must be a file of type: pdf, docx, doc",
+                              isToggle: true,
+                              type: "error",
+                            })
+                            return;
+                          }
                           if (file != null) {
                             setFieldValue("cover_letter", file);
                           }
                         }}
                         onBlur={handleBlur}
-                        name="document"
+                        name="cover_letter"
                         type="file"
-                        className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                          errors.document &&
-                          touched.document &&
+                        className={`appearance-none border bg-white rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                          errors.cover_letter &&
+                          touched.cover_letter &&
                           "border-red-500"
                         }`}
                       />
                     </InputWrapper>
-                    {errors.cover_letter && touched.cover_letter && (
-                      <p className="text-red-500 text-xs italic">
-                        {errors.cover_letter}
-                      </p>
-                    )}
                   </div>
                 </div>
 
@@ -442,14 +465,14 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     <Field
                       as="select"
                       name="gender"
-                      className="w-full form-select form-input  mt-1"
+                      className="w-full form-select form-input bg-white  mt-1"
                       placeholder="Select gender"
                     >
                       <option value="" disabled>
                         Select gender
                       </option>
                       {genderOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
+                        <option  key={option.value} value={option.value}>
                           {option.label}
                         </option>
                       ))}
@@ -464,7 +487,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                   <Field
                     as="select"
                     name="veteran_status"
-                    className="w-full form-select form-input mt-1"
+                    className="w-full bg-white form-select form-input mt-1"
                     placeholder="Select an option"
                   >
                     <option value="">Select an option</option>
@@ -482,7 +505,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                   <Field
                     as="select"
                     name="ethnicity"
-                    className="w-full form-select form-input mt-1"
+                    className="w-full bg-white form-select form-input mt-1"
                     placeholder="Select an option"
                   >
                     <option value="">Select an option</option>
@@ -507,7 +530,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                   <Field
                     as="select"
                     name="disability"
-                    className="w-full form-select form-input mt-1"
+                    className="w-full bg-white form-select form-input mt-1"
                   >
                     <option value="" disabled>
                       Please select
