@@ -136,7 +136,7 @@ const Signup = () => {
                         name="first_name"
                         id="first_name"
                         className="form-input mt-3 rounded-md"
-                        placeholder="Harry"
+                        placeholder="first name"
                         value={values.first_name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -156,7 +156,7 @@ const Signup = () => {
                         name="last_name"
                         id="last_name"
                         className="form-input mt-3 rounded-md"
-                        placeholder="Harry"
+                        placeholder="last name"
                         value={values.last_name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -176,7 +176,7 @@ const Signup = () => {
                         autoComplete="off"
                         name="email"
                         id="email"
-                        placeholder="Email"
+                        placeholder="email"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -197,7 +197,7 @@ const Signup = () => {
                           autoComplete="off"
                           name="password"
                           id="password"
-                          placeholder="Password"
+                          placeholder="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -232,7 +232,7 @@ const Signup = () => {
                           autoComplete="off"
                           name="password_confirmation"
                           id="password_confirmation"
-                          placeholder="Confirm Password"
+                          placeholder="confirm password"
                           value={values.password_confirmation}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -270,8 +270,8 @@ const Signup = () => {
                           id="AcceptT&C"
                         >
                           I Accept{" "}
-                          <Link to="/" className="text-emerald-600">
-                            Terms And Condition
+                          <Link to="/terms" className="text-emerald-600">
+                            Terms and Services
                           </Link>
                         </label>
                       </div>

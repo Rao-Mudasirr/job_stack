@@ -10,9 +10,9 @@ const LearningMaterial = () => {
   const [learningMaterial, setlearningMaterial] = useState();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const {state} = useLocation();
+  const { state } = useLocation();
   const fetchLearningMaterialData = async () => {
-    setLoading(true); 
+    setLoading(true);
     try {
       const response = await axios.get(
         `${REACT_APP_SITE_URL}/api/my-jobs/${state?.id}/learning-materials`,
@@ -83,12 +83,24 @@ const LearningMaterial = () => {
                   data-accordion="collapse"
                   className="mt-6"
                 >
-                  {loading ? <div className="h-60 flex justify-center items-center"><AppLoader color="rgb(6 78 59 / 0.9)" /></div> : !!learningMaterial?.length ? learningMaterial?.map((accordianItemData) => {
-                    return (
-                      <AccordianItem key={accordianItemData?.id} accordianItemData={accordianItemData}  />
-                    );
-                  }) : <div className="h-60 flex justify-center items-center"><div className="text-red-700">{error}</div></div>}
-                 
+                  {loading ? (
+                    <div className="h-60 flex justify-center items-center">
+                      <AppLoader color="rgb(6 78 59 / 0.9)" />
+                    </div>
+                  ) : !!learningMaterial?.length ? (
+                    learningMaterial?.map((accordianItemData) => {
+                      return (
+                        <AccordianItem
+                          key={accordianItemData?.id}
+                          accordianItemData={accordianItemData}
+                        />
+                      );
+                    })
+                  ) : (
+                    <div className="h-60 flex justify-center items-center">
+                      <div className="text-red-700">{error}</div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
