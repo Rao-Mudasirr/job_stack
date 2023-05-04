@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const QuizTimer = ({ initialTime, onTimeUp }) => {
-  const [timeLeft, setTimeLeft] = useState(initialTime*60);
-
+const QuizTimer = ({ setTimeLeft, timeLeft, onTimeUp }) => {
   useEffect(() => {
     let interval = null;
 
@@ -13,6 +11,9 @@ const QuizTimer = ({ initialTime, onTimeUp }) => {
     if (timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+        localStorage.setItem("timer", timeLeft);
+        // const getTiming = localStorage.getItem("timer");
+        // setTimeLeft(Number(getTiming));
       }, 1000);
     }
 
@@ -22,7 +23,7 @@ const QuizTimer = ({ initialTime, onTimeUp }) => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return <div>{formatTime(timeLeft)}</div>;
