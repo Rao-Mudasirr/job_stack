@@ -7,7 +7,7 @@ export const InputWrapper = ({ error, touched,label,labelName,children }) => {
                 </label>
                 {children}
                 {error && touched && (
-                    <p className="text-red-500 text-xs italic">
+                    <p className="text-red-500 text-xs italic capitalize">
                         {error}
                     </p>
                 )}

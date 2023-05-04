@@ -8,17 +8,18 @@ import { InputWrapper } from "../InputWrapper/InputWrapper";
 import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
 import { initialValuesProfessionalExperience } from "../../constants/constants";
 import { validationSchemaProfessionalExperience } from "../../constants/validation-schema";
+import moment from "moment/moment";
 
-const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJobApplicationMsg }) => {
+const ProfessionalExperience = ({ professionalExperience, setJobApplicationMsg, setFieldValue }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
   const tokenCheck = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
-  
+
   const postData = async (values) => {
     setLoading(true)
     try {
-       await axios.post(
+      const res = await axios.post(
         `${REACT_APP_SITE_URL}/api/experience-details`, values,
         {
           headers: {
@@ -26,20 +27,22 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJo
           },
         }
       );
-      setLoading(false);
-      setShowModal(false);
-      fetchProfileData();
+      if (res?.data?.status) {
+        setShowModal(false);
+        setFieldValue('experience_details', professionalExperience?.length ? [res?.data?.data?.experience_detail, ...professionalExperience] : [res?.data?.data?.experience_detail]);
+      }
       setJobApplicationMsg({
-        title: "Professional Experience Uploaded Successfully",
+        title: res?.data?.msg,
         isToggle: true,
-        type: "success",
+        type: res?.data?.status ? "success" : "error",
       })
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.log(error);
     }
   };
-  
+
   return (
     <>
       <div className="mb-8">
@@ -72,24 +75,24 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJo
               </thead>
               <tbody>
                 {
-                 !!professionalExperience?.length ? professionalExperience?.map(item => <tr key={item?.id} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  !!professionalExperience?.length ? professionalExperience?.map(item => <tr key={item?.id} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                     {
                       [item?.company, item?.job_title, item?.start_date, item?.end_date, item?.document, item?.id].map((item, index) =>
                         <td key={index} className="px-6 py-4">
                           {
-                            index === 5 ? <DelConfirmationModal deletionId={item} apiRoute="experience-details" fetchProfileData={fetchProfileData} /> : index === 4 ? <PreviewModal imgUrl={item} /> : index === 3 && item === null ? 'Currently Working' : item
+                            index === 5 ? <DelConfirmationModal showSnackbar={setJobApplicationMsg} deletionArray={professionalExperience} deletionId={item} apiRoute="experience-details" setFieldValue={setFieldValue} /> : index === 4 ? <PreviewModal imgUrl={item} /> : index === 3 && item === null ? 'Currently Working' : item
                           }
                         </td>)
                     }
                   </tr>) :
-                  <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  {
-                    ["","No"," Details ", "Found", "",""].map((item, index) =>
-                      <td key={index} className="px-6 py-4 text-right">
-                        {item}
-                      </td>)
-                  }
-                </tr>
+                    <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      {
+                        ["", "No", " Details ", "Found", "", ""].map((item, index) =>
+                          <td key={index} className="px-6 py-4 text-right">
+                            {item}
+                          </td>)
+                      }
+                    </tr>
                 }
               </tbody>
             </table>
@@ -112,11 +115,11 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJo
                 <Field id={`job_title`} name={`job_title`} type="text" className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.job_title && touched.job_title && "border-red-500"}`} />
               </InputWrapper>
               <InputWrapper error={errors.start_date} touched={touched.start_date} label="Start Date" labelName="start_date">
-                <Field type="date" id={`start_date`} name={`start_date`} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.start_date && touched.start_date && "border-red-500"}`} />
+                <Field type="date" id={`start_date`} max={`${moment(new Date()).format("YYYY-MM-DD")}`} name={`start_date`} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.start_date && touched.start_date && "border-red-500"}`} />
               </InputWrapper>
               <div class="mb-[0.125rem] flex items-center">
                 <Field
-                class="w-4 h-4 ease-soft cursor-pointer mr-2 accent-emerald-600"
+                  class="w-4 h-4 ease-soft cursor-pointer mr-2 accent-emerald-600"
                   type="checkbox"
                   id={`currentlyWorking`} name={`currentlyWorking`} />
                 <label
@@ -126,12 +129,12 @@ const ProfessionalExperience = ({ professionalExperience, fetchProfileData,setJo
                 </label>
               </div>
               {!values.currentlyWorking && <InputWrapper error={errors.end_date} touched={touched.end_date} label="End Date" labelName="end_date">
-                <Field type="date" id={`end_date`} name={`end_date`} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.end_date && touched.end_date && "border-red-500"}`} />
+                <Field type="date" id={`end_date`} name={`end_date`} min={values.start_date} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.end_date && touched.end_date && "border-red-500"}`} />
               </InputWrapper>}
               <InputWrapper error={errors.document} touched={touched.document} label="Experience Letter" labelName="document">
                 <input accept=".doc, .docx, .jpg, .png, .pdf" id={`document`} onChange={(e) => {
                   const file = e.target.files[0];
-                  if(file?.size / 1024 / 1024 >= 2){
+                  if (file?.size / 1024 / 1024 >= 2) {
                     setJobApplicationMsg({
                       title: "File Size Must be Lower than 2 MB",
                       isToggle: true,
