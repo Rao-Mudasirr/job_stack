@@ -51,6 +51,7 @@ export const MainQuiz = () => {
         const { data } = response;
 
         localStorage.setItem("questionIndex", JSON.stringify(index));
+        localStorage.setItem("disabledIndex", JSON.stringify(disabled));
 
         setSnackbar({
           title: data?.msg,
@@ -70,6 +71,7 @@ export const MainQuiz = () => {
       // Move to the next question if not at the last question
       if (!isLastQuestion) {
         setIndex(index + 1);
+        setDisabled(disabled + 1);
         setOption("");
         setQuestionId("");
       }
@@ -125,11 +127,15 @@ export const MainQuiz = () => {
 
   useEffect(() => {
     const getIndex = localStorage.getItem("questionIndex");
+    const getDisabledIndex = localStorage.getItem("disabledIndex");
     const timers = localStorage.getItem("timer");
     setTimeLeft(timers);
     console.log(timers * 60);
     setIndex(Number(getIndex));
+    setDisabled(Number(getDisabledIndex));
   }, []);
+
+  console.log(jobTest?.length + 1 === index + 1);
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
@@ -137,9 +143,11 @@ export const MainQuiz = () => {
         {timeUp ? (
           <div>Time's up!</div>
         ) : (
-          <div className="container mt-10 mx-auto">
-            <div className="flex text-2xl font-bold justify-between align-center">
-              <h1>Total Question {`${index + 1} / ${jobTest?.length}`}</h1>
+          <div className="container mt-10 mx-auto rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
+            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
+
+            <div className="flex text-2xl font-bold justify-between align-center mb-10">
+              <h1>Total Question : {` ${jobTest?.length}`}</h1>
               <QuizTimer
                 timeLeft={timeLeft}
                 setTimeLeft={setTimeLeft}
@@ -149,8 +157,8 @@ export const MainQuiz = () => {
                 onTimeUp={handleTimeUp}
               />
             </div>
-            <div className="flex text-2xl font-bold">
-              Q.
+            <div className="flex text-2xl font-bold mb-10">
+              Q.{`${index + 1}`}
               <h1
                 className="text-xl ml-3"
                 dangerouslySetInnerHTML={{ __html: jobTest[index]?.question }}
@@ -173,7 +181,7 @@ export const MainQuiz = () => {
                 </div>
               ))}
             </form>
-            <div className="mt-4">
+            <div className="mt-20 flex justify-between">
               {/* <button
               disabled={index >= jobTest?.length + 1}
               onClick={prevQuestion}
@@ -186,7 +194,7 @@ export const MainQuiz = () => {
               Previous
             </button> */}
               <button
-                disabled={disabled > jobTest?.length}
+                disabled={disabled >= jobTest?.length}
                 onClick={nextQuestion}
                 className={` ml-2 btn ${
                   disabled > jobTest?.length ? "bg-gray-600" : "bg-emerald-600"
@@ -194,15 +202,13 @@ export const MainQuiz = () => {
                   disabled > jobTest?.length
                     ? "hover:bg-gray-600"
                     : "hover:bg-emerald-700"
-                }  text-white rounded-md`}
+                }  btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full`}
               >
                 Next
               </button>
-            </div>
-            <div className="flex justify-end">
-              {disabled > jobTest?.length && (
+              {disabled >= jobTest?.length && (
                 <button
-                  className="btn bg-emerald-600 text-white rounded-md"
+                  className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
                   onClick={endTestHandler}
                 >
                   End Test
