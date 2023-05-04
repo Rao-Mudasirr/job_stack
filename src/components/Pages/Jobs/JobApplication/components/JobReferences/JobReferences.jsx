@@ -89,7 +89,7 @@ const JobReferences = ({ jobReferences,setFieldValue }) => {
                   handleSubmit();
                   let allGood = true;
                   for (var key in values) {
-                    if (values[key] === "") {
+                    if (values[key] === "" || values[key]?.length > 80) {
                       allGood = false
                     }
                   }

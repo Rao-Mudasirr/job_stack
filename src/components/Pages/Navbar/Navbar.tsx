@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
@@ -13,8 +13,11 @@ function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
 const Navbar = () => {
   const location = useLocation();
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
-  const userProfile = JSON.parse(localStorage.getItem("user"));
-  console.log(location.pathname);
+  const [userProfile, setUserProfile] = useState(JSON.parse(localStorage.getItem("user")));
+  window.addEventListener('storage', () => {
+    setUserProfile(JSON.parse(localStorage.getItem("user")))
+  })
+
   return (
     <div dir="ltr">
       <nav id="topnav" className={`defaultscroll is-sticky bg-white`}>
@@ -105,9 +108,8 @@ const Navbar = () => {
           <div id="navigation">
             <ul className="navigation-menu justify-end nav-dark">
               <li
-                className={`has-submenu parent-menu-item ${
-                  location.pathname === "/" ? "active" : ""
-                }`}
+                className={`has-submenu parent-menu-item ${location.pathname === "/" ? "active" : ""
+                  }`}
               >
                 <Link to="/" replace={true}>
                   Home
@@ -115,13 +117,12 @@ const Navbar = () => {
               </li>
 
               <li
-                className={`has-submenu parent-parent-menu-item ${
-                  location.pathname === "/my-jobs"
+                className={`has-submenu parent-parent-menu-item ${location.pathname === "/my-jobs"
                     ? "active"
                     : location.pathname === "/job-list"
-                    ? "active"
-                    : ""
-                }`}
+                      ? "active"
+                      : ""
+                  }`}
               >
                 <Link to="" replace={true}>
                   {" "}
@@ -148,18 +149,16 @@ const Navbar = () => {
                     </Link>
                   </li> */}
                   <li
-                    className={`has-submenu parent-menu-item ${
-                      location.pathname === "/my-jobs" ? "active" : ""
-                    }`}
+                    className={`has-submenu parent-menu-item ${location.pathname === "/my-jobs" ? "active" : ""
+                      }`}
                   >
                     <Link to="/my-jobs" replace={true}>
                       My Jobs
                     </Link>
                   </li>
                   <li
-                    className={`has-submenu parent-menu-item ${
-                      location.pathname === "/job-list" ? "active" : ""
-                    }`}
+                    className={`has-submenu parent-menu-item ${location.pathname === "/job-list" ? "active" : ""
+                      }`}
                   >
                     <Link
                       to="/job-list"

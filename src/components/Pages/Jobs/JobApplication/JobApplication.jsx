@@ -58,6 +58,7 @@ const JobApplication = ({ page }) => {
         isToggle: true,
         type: "success",
       })
+      window.dispatchEvent(new Event("storage"));
       }
     } catch (error) {
       console.error(error);
@@ -87,7 +88,7 @@ const JobApplication = ({ page }) => {
   }, [navigate, tokenCheck]);
 
   return (
-    <div className="container mx-auto mt-10">
+    <div className="container mx-auto my-32">
       <GlobalSnackBar isOpenSnack={jobApplicationMsg} setIsOpenSnack={setJobApplicationMsg}/>
       {page ?
         <div className="update-profile">
