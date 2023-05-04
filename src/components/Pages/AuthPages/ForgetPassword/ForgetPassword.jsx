@@ -53,7 +53,7 @@ const ForgetPassword = () => {
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
-                <Link to="/login">
+                <Link to="/">
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
