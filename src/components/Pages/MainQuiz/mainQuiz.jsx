@@ -47,15 +47,13 @@ export const MainQuiz = () => {
           }
         );
         const { data } = response;
-if(index < jobTest.length - 1 ) {
-  localStorage.setItem("questionIndex", JSON.stringify(index + 1));
-  localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
-}else {
-
-  localStorage.setItem("questionIndex", JSON.stringify(index));
-  localStorage.setItem("disabledIndex", JSON.stringify(disabled+ 1));
-  
-}
+        if (index < jobTest.length - 1) {
+          localStorage.setItem("questionIndex", JSON.stringify(index + 1));
+          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+        } else {
+          localStorage.setItem("questionIndex", JSON.stringify(index));
+          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+        }
         setSnackbar({
           title: data?.msg,
           isToggle: true,
@@ -90,6 +88,12 @@ if(index < jobTest.length - 1 ) {
 
   const handleTimeUp = () => {
     setTimeUp(true);
+    localStorage.removeItem("timer");
+    localStorage.removeItem("questionIndex");
+    localStorage.removeItem("disabledIndex");
+    setTimeout(() => {
+      navigate("/my-jobs");
+    }, 2000);
   };
   // const prevQuestion = () => {
   //   index !== 0 && setIndex(index - 1);
@@ -132,7 +136,7 @@ if(index < jobTest.length - 1 ) {
     const getIndex = localStorage.getItem("questionIndex");
     const getDisabledIndex = localStorage.getItem("disabledIndex");
     const timers = localStorage.getItem("timer");
-    
+
     setTimeLeft(timers);
     setIndex(Number(getIndex));
     setDisabled(Number(getDisabledIndex));
@@ -142,86 +146,89 @@ if(index < jobTest.length - 1 ) {
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
         <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
-        {timeUp ? (
-          <div>Time's up!</div>
-        ) : (
-          <div className="container mt-10 mx-auto rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
-            <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
-
-            <div className="flex text-2xl font-bold justify-between align-center mb-10">
-              <h1>Total Question : {` ${jobTest?.length}`}</h1>
-              <QuizTimer
-                timeLeft={timeLeft}
-                setTimeLeft={setTimeLeft}
-                // initialTime={
-
-                // }
-                onTimeUp={handleTimeUp}
-              />
-            </div>
-            <div className="flex text-2xl font-bold mb-10">
-              Q.{`${index + 1}`}
-              <h1
-                className="text-xl ml-3"
-                dangerouslySetInnerHTML={{ __html: jobTest[index]?.question }}
-              />
-            </div>
-            <form>
-              {jobTest[index]?.options?.map((opt) => (
-                <div key={opt?.id} className="mt-2 flex items-center">
-                  <input
-                    name="radio-group"
-                    key={opt?.option}
-                    id={opt?.option}
-                    value={opt?.id || option}
-                    type="radio"
-                    onChange={(e) => handleChange(e, jobTest[index]?.id)}
-                    className=" h-5 w-5  accent-emerald-800	"
-                    disabled={disabled >= jobTest?.length}
-                  />
-                  <label htmlFor={opt?.option} className="ml-2   text-gray-700">
-                    {opt?.option}
-                  </label>
-                </div>
-              ))}
-            </form>
-            <div className="mt-20 flex justify-between">
-              {/* <button
-              disabled={index >= jobTest?.length + 1}
-              onClick={prevQuestion}
-              className={`btn ${
-                index === 0 ? "bg-gray-600" : "bg-emerald-600"
-              } ${
-                index === 0 ? "hover:bg-gray-600" : "hover:bg-emerald-700"
-              } hover:border-emerald-700 text-white rounded-md`}
-            >
-              Previous
-            </button> */}
-              <button
-                disabled={disabled >= jobTest?.length}
-                onClick={nextQuestion}
-                className={` ml-2 btn ${
-                  disabled >= jobTest?.length ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray" : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
-                } rounded-full`}
-              >
-                Next
-              </button>
-              {disabled >= jobTest?.length && (
+        <div className="container mt-10 mx-auto rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
+          {timeUp ? (
+            <div className="text-center">Time's up!</div>
+          ) : (
+            <>
+              <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
+              <div className="flex text-2xl font-bold justify-between align-center mb-10">
+                <h1>Total Question : {` ${jobTest?.length}`}</h1>
+                <QuizTimer
+                  timeLeft={timeLeft}
+                  setTimeLeft={setTimeLeft}
+                  onTimeUp={handleTimeUp}
+                />
+              </div>
+              <div className="flex text-2xl font-bold mb-10">
+                Q.{`${index + 1}`}
+                <h1
+                  className="text-xl ml-3"
+                  dangerouslySetInnerHTML={{ __html: jobTest[index]?.question }}
+                />
+              </div>
+              <form>
+                {jobTest[index]?.options?.map((opt) => (
+                  <div key={opt?.id} className="mt-2 flex items-center">
+                    <input
+                      name="radio-group"
+                      key={opt?.option}
+                      id={opt?.option}
+                      value={opt?.id || option}
+                      type="radio"
+                      onChange={(e) => handleChange(e, jobTest[index]?.id)}
+                      className=" h-5 w-5  accent-emerald-800	"
+                      disabled={disabled >= jobTest?.length}
+                    />
+                    <label
+                      htmlFor={opt?.option}
+                      className="ml-2   text-gray-700"
+                    >
+                      {opt?.option}
+                    </label>
+                  </div>
+                ))}
+              </form>
+              <div className="mt-20 flex justify-between">
+                {/* <button
+    disabled={index >= jobTest?.length + 1}
+    onClick={prevQuestion}
+    className={`btn ${
+      index === 0 ? "bg-gray-600" : "bg-emerald-600"
+    } ${
+      index === 0 ? "hover:bg-gray-600" : "hover:bg-emerald-700"
+    } hover:border-emerald-700 text-white rounded-md`}
+  >
+    Previous
+  </button> */}
                 <button
-                  className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                  onClick={() => {
-                    endTestHandler();
-                    localStorage.removeItem("timer");
-                    localStorage.removeItem("questionIndex");
-                    localStorage.removeItem("disabledIndex");
-                  }}
+                  disabled={disabled >= jobTest?.length}
+                  onClick={nextQuestion}
+                  className={` ml-2 btn ${
+                    disabled >= jobTest?.length
+                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+                  } rounded-full`}
                 >
-                  End Test
+                  Next
                 </button>
-              )}
-            </div>
-          </div>
-        )}
+                {disabled >= jobTest?.length && (
+                  <button
+                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                    onClick={() => {
+                      endTestHandler();
+                      localStorage.removeItem("timer");
+                      localStorage.removeItem("questionIndex");
+                      localStorage.removeItem("disabledIndex");
+                    }}
+                  >
+                    End Test
+                  </button>
+                )}
+              </div>
+            </>
+          )}
+        </div>
       </section>
     </div>
   );
