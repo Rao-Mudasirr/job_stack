@@ -81,14 +81,13 @@ function JobTest() {
           attemptData: attemptResponse?.data?.data,
         },
       });
-      console.log(attemptResponse?.data?.data, "res");
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    console.log(data, "state");
+    // console.log(data, "state");
   }, [data]);
 
   return (

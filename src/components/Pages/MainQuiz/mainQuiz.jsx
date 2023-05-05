@@ -12,11 +12,9 @@ export const MainQuiz = () => {
   const [option, setOption] = useState("");
   const [questionId, setQuestionId] = useState("");
   const [timeUp, setTimeUp] = useState(false);
-  // const [timer, setTimer] = useState(null);
   const [timeLeft, setTimeLeft] = useState(
     location?.state?.testData?.test?.total_duration_min * 60
   );
-  console.log(location);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -49,10 +47,15 @@ export const MainQuiz = () => {
           }
         );
         const { data } = response;
+if(index < jobTest.length - 1 ) {
+  localStorage.setItem("questionIndex", JSON.stringify(index + 1));
+  localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+}else {
 
-        localStorage.setItem("questionIndex", JSON.stringify(index));
-        localStorage.setItem("disabledIndex", JSON.stringify(disabled));
-
+  localStorage.setItem("questionIndex", JSON.stringify(index));
+  localStorage.setItem("disabledIndex", JSON.stringify(disabled+ 1));
+  
+}
         setSnackbar({
           title: data?.msg,
           isToggle: true,
@@ -71,10 +74,10 @@ export const MainQuiz = () => {
       // Move to the next question if not at the last question
       if (!isLastQuestion) {
         setIndex(index + 1);
-        setDisabled(disabled + 1);
-        setOption("");
-        setQuestionId("");
       }
+      setDisabled(disabled + 1);
+      setOption("");
+      setQuestionId("");
     }
     option === "" &&
       setSnackbar({
@@ -129,13 +132,12 @@ export const MainQuiz = () => {
     const getIndex = localStorage.getItem("questionIndex");
     const getDisabledIndex = localStorage.getItem("disabledIndex");
     const timers = localStorage.getItem("timer");
+    
     setTimeLeft(timers);
-    console.log(timers * 60);
     setIndex(Number(getIndex));
     setDisabled(Number(getDisabledIndex));
   }, []);
 
-  console.log(jobTest?.length + 1 === index + 1);
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
@@ -166,7 +168,7 @@ export const MainQuiz = () => {
             </div>
             <form>
               {jobTest[index]?.options?.map((opt) => (
-                <div key={opt?.id} className="mt-2 ">
+                <div key={opt?.id} className="mt-2 flex items-center">
                   <input
                     name="radio-group"
                     key={opt?.option}
@@ -175,6 +177,7 @@ export const MainQuiz = () => {
                     type="radio"
                     onChange={(e) => handleChange(e, jobTest[index]?.id)}
                     className=" h-5 w-5  accent-emerald-800	"
+                    disabled={disabled >= jobTest?.length}
                   />
                   <label htmlFor={opt?.option} className="ml-2   text-gray-700">
                     {opt?.option}
@@ -198,12 +201,8 @@ export const MainQuiz = () => {
                 disabled={disabled >= jobTest?.length}
                 onClick={nextQuestion}
                 className={` ml-2 btn ${
-                  disabled > jobTest?.length ? "bg-gray-600" : "bg-emerald-600"
-                } ${
-                  disabled > jobTest?.length
-                    ? "hover:bg-gray-600"
-                    : "hover:bg-emerald-700"
-                }  btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full`}
+                  disabled >= jobTest?.length ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray" : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+                } rounded-full`}
               >
                 Next
               </button>
