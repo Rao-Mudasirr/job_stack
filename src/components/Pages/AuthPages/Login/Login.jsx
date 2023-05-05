@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import "../Signup.css";
 import axios from "axios";
 import GlobalSnackBar from "../../UI/SnackBar";
+import { AppLoader } from "../../UI/AppLoader/AppLoader";
 <link
   rel="stylesheet"
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
@@ -14,6 +15,7 @@ const Login = (props) => {
   const navigate = useNavigate();
   let date = new Date().getFullYear();
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [snackbar, setSnackbar] = useState({
     title: "",
@@ -31,12 +33,14 @@ const Login = (props) => {
   };
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } =
+    // setIsLoading(true);
     useFormik({
       initialValues,
       validationSchema: signInSchema,
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
+        setIsLoading(true);
         // action.resetForm();
       },
     });
@@ -161,12 +165,13 @@ const Login = (props) => {
                       </p>
                     </div>
 
-                    <div className="mb-4">
+                    <div className="mb-4 flex ">
                       <button
                         type="submit"
-                        className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                        className="flex justify-center py-2 center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                       >
-                        Login
+                        {/* {isLoading ? "Submitting..." : "Login"} */}
+                        Login {isLoading && <AppLoader />}
                       </button>
                     </div>
                     <div className="text-center">
@@ -185,17 +190,6 @@ const Login = (props) => {
                         Back to Home
                       </Link>
                     </div>
-                    {/* <div className="mt-4">
-                      <Link to="/">
-                        <button
-                          type="submit"
-                          // className="btn bg-green-200 border-emerald-600 hover:bg-green-200 text-dark rounded-md w-full"
-                          className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
-                        >
-                          Back to Home
-                        </button>
-                      </Link>
-                    </div> */}
                   </div>
                 </form>
               </div>
