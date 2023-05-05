@@ -166,7 +166,7 @@ export const MainQuiz = () => {
             </div>
             <form>
               {jobTest[index]?.options?.map((opt) => (
-                <div key={opt?.id} className="mt-2">
+                <div key={opt?.id} className="mt-2 ">
                   <input
                     name="radio-group"
                     key={opt?.option}
@@ -174,8 +174,9 @@ export const MainQuiz = () => {
                     value={opt?.id || option}
                     type="radio"
                     onChange={(e) => handleChange(e, jobTest[index]?.id)}
+                    className=" h-5 w-5  accent-emerald-800	"
                   />
-                  <label htmlFor={opt?.option} className="ml-2">
+                  <label htmlFor={opt?.option} className="ml-2   text-gray-700">
                     {opt?.option}
                   </label>
                 </div>
@@ -209,7 +210,12 @@ export const MainQuiz = () => {
               {disabled >= jobTest?.length && (
                 <button
                   className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                  onClick={endTestHandler}
+                  onClick={() => {
+                    endTestHandler();
+                    localStorage.removeItem("timer");
+                    localStorage.removeItem("questionIndex");
+                    localStorage.removeItem("disabledIndex");
+                  }}
                 >
                   End Test
                 </button>
