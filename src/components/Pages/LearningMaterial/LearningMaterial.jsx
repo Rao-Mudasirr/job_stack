@@ -28,7 +28,7 @@ const LearningMaterial = () => {
     } catch (error) {
       setError(error.message);
       setLoading(false);
-      console.error(error);
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -69,8 +69,9 @@ const LearningMaterial = () => {
                 <h5 className="text-2xl font-bold mb-4">Learning Material</h5>
                 <div className="mb-6 mt-2 justify-end">
                   <Link
-                   state={state}
-                   to={`/job-test`}
+                    replace={true}
+                    state={state}
+                    to={`/job-test`}
                     className="btn bg-emerald-600 hover:bg-emerald-700 text-white rounded-md justify-end"
                   >
                     Attempt Test

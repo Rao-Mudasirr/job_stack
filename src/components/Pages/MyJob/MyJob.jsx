@@ -158,13 +158,15 @@ export const MyJob = () => {
                               className="border-b border-gray-200 hover:bg-gray-100"
                             >
                               <td className="py-3 px-6 text-left whitespace-nowrap relative overflow-hidden">
-                                {!!item?.job?.is_remote && (<span
-                                  title="Remote Job 👨‍💻"
-                                  className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
-                                  style={{ left: '-20px' }}
-                                >
-                                  <i className="uil uil-star"></i>
-                                </span>)}
+                                {!!item?.job?.is_remote && (
+                                  <span
+                                    title="Remote Job 👨‍💻"
+                                    className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
+                                    style={{ left: "-20px" }}
+                                  >
+                                    <i className="uil uil-star"></i>
+                                  </span>
+                                )}
                                 <div className="flex items-center z-10">
                                   <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
                                     <img
@@ -175,6 +177,7 @@ export const MyJob = () => {
                                   </div>
                                   <div>
                                     <Link
+                                      replace={true}
                                       to={`/jobDetails`}
                                       state={item?.job?.slug}
                                       className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
@@ -185,7 +188,6 @@ export const MyJob = () => {
                                       {item?.job?.role?.name}
                                     </span>
                                   </div>
-
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
@@ -201,7 +203,9 @@ export const MyJob = () => {
                               </td>
                               <td className="py-3 px-6 text-center">
                                 <div className="flex item-center justify-center">
-                                  {moment(item?.created_at).format("DD-MM-YYYY")}
+                                  {moment(item?.created_at).format(
+                                    "DD-MM-YYYY"
+                                  )}
                                 </div>
                               </td>
                               <td className="py-3 px-6 text-center">
@@ -226,18 +230,23 @@ export const MyJob = () => {
 
                               <td className="py-3 px-6 text-center">
                                 <div className="flex item-center justify-center">
-                                  {item?.status === 'In Review' ? <button disabled={true}
-                                    className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
-                                  >
-                                    Learning Material
-                                  </button> :
+                                  {item?.status === "In Review" ? (
+                                    <button
+                                      disabled={true}
+                                      className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                                    >
+                                      Learning Material
+                                    </button>
+                                  ) : (
                                     <Link
+                                      replace={true}
                                       state={item}
                                       to="/learning-material"
                                       className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                     >
                                       Learning Material
-                                    </Link>}
+                                    </Link>
+                                  )}
                                 </div>
                               </td>
                             </tr>
