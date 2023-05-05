@@ -58,7 +58,7 @@ function JobTest() {
   useEffect(() => {
     fetchJobTestData();
   }, []);
-
+  console.log(data);
   const startTest = async () => {
     try {
       const attemptResponse = await axios.post(
@@ -81,14 +81,13 @@ function JobTest() {
           attemptData: attemptResponse?.data?.data,
         },
       });
-      console.log(attemptResponse?.data?.data, "res");
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    console.log(data, "state");
+    // console.log(data, "state");
   }, [data]);
 
   return (
@@ -107,74 +106,91 @@ function JobTest() {
             <div className="grid grid-cols-1">
               <div className="title-heading  my-auto">
                 <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
-                  <div>
-                    <div>
-                      <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
-                      <div className="flex justify-center"></div>
-                      <div className="flex justify-center mt-4">
-                        <p className="max-w-[40ch] text-lg font-bold">
-                          Quiz Test
-                        </p>
-                      </div>
-                      {jobQuiz && (
-                        <div className="grid grid-cols-1 gap-4 mt-6 m-8">
-                          <div>
-                            <dt className="text-lg font-medium text-gray-600">
-                              Name
-                            </dt>
-                            <dd className="text-sm text-gray-500">
-                              {jobQuiz.name}
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="text-lg font-medium text-gray-600">
-                              Quiz created Time
-                            </dt>
-                            <dd className="text-sm text-gray-500">
-                              {jobQuiz.created_at}
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="text-lg font-medium text-gray-600">
-                              Description
-                            </dt>
-                            <dd className="text-sm text-emerald-600">
-                              <div
-                                dangerouslySetInnerHTML={{
-                                  __html: jobQuiz.description,
-                                }}
-                              />
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="text-lg font-medium text-gray-600">
-                              Total Duration
-                            </dt>
-                            <dd className="text-sm text-gray-500">
-                              {jobQuiz.total_duration_min} min
-                            </dd>
-                          </div>
-                          <div>
-                            <dt className="text-lg font-medium text-gray-600">
-                              Total score
-                            </dt>
-                            <dd className="text-sm text-gray-500">
-                              {jobQuiz.total_score}
-                            </dd>
-                          </div>
-                        </div>
-                      )}
+                  <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
+                  {data?.attempt?.status === "Ended" ? (
+                    <div className="text-center">
+                      <p className=" text-2xl font-bold">
+                        You have already attempted the test
+                      </p>
+                      <Link
+                        to={"/my-jobs"}
+                        className="mt-10  btn bg-emerald-600/10 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                        replace={true}
+                      >
+                        Go Back
+                      </Link>
                     </div>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  <Link
-                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                    replace={true}
-                    onClick={startTest}
-                  >
-                    Start Test
-                  </Link>
+                  ) : (
+                    <>
+                      <div>
+                        <div>
+                          <div className="flex justify-center"></div>
+                          <div className="flex justify-center mt-4">
+                            <p className="max-w-[40ch] text-lg font-bold">
+                              Quiz Test
+                            </p>
+                          </div>
+                          {jobQuiz && (
+                            <div className="grid grid-cols-1 gap-4 mt-6 m-8">
+                              <div>
+                                <dt className="text-lg font-medium text-gray-600">
+                                  Name
+                                </dt>
+                                <dd className="text-sm text-gray-500">
+                                  {jobQuiz.name}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-lg font-medium text-gray-600">
+                                  Quiz created Time
+                                </dt>
+                                <dd className="text-sm text-gray-500">
+                                  {jobQuiz.created_at}
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-lg font-medium text-gray-600">
+                                  Description
+                                </dt>
+                                <dd className="text-sm text-emerald-600">
+                                  <div
+                                    dangerouslySetInnerHTML={{
+                                      __html: jobQuiz.description,
+                                    }}
+                                  />
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-lg font-medium text-gray-600">
+                                  Total Duration
+                                </dt>
+                                <dd className="text-sm text-gray-500">
+                                  {jobQuiz.total_duration_min} min
+                                </dd>
+                              </div>
+                              <div>
+                                <dt className="text-lg font-medium text-gray-600">
+                                  Total score
+                                </dt>
+                                <dd className="text-sm text-gray-500">
+                                  {jobQuiz.total_score}
+                                </dd>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div className="mt-6 text-center">
+                        <Link
+                          className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                          replace={true}
+                          onClick={startTest}
+                        >
+                          Start Test
+                        </Link>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </div>
