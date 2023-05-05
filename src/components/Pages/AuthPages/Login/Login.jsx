@@ -40,13 +40,13 @@ const Login = (props) => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        setIsLoading(true);
         // action.resetForm();
       },
     });
 
   const postData = async (values) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         "https://jobs.orcaloholding.co.uk/api/login",
         values
@@ -64,6 +64,7 @@ const Login = (props) => {
             isToggle: true,
             type: "success",
           });
+
           break;
         default:
           setErrorMessage(data?.msg);
@@ -72,6 +73,7 @@ const Login = (props) => {
             isToggle: true,
             type: "error",
           });
+          setIsLoading(false);
           break;
       }
     } catch (error) {
@@ -88,7 +90,7 @@ const Login = (props) => {
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
               <div className="p-6">
-                <Link to="/">
+                <Link to="/" replace={true}>
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
@@ -159,13 +161,17 @@ const Login = (props) => {
 
                     <div className="flex justify-end mb-4">
                       <p className="text-slate-400 mb-0">
-                        <Link to="/forget-password" className="text-slate-400">
+                        <Link
+                          to="/forget-password"
+                          replace={true}
+                          className="text-slate-400"
+                        >
                           Forgot password ?
                         </Link>
                       </p>
                     </div>
 
-                    <div className="mb-4 flex ">
+                    <div className="mb-4">
                       <button
                         type="submit"
                         className="flex justify-center py-2 center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
@@ -180,13 +186,14 @@ const Login = (props) => {
                       </span>{" "}
                       <Link
                         to="/signup"
+                        replace={true}
                         className="text-black dark:text-white font-bold"
                       >
                         Sign Up
                       </Link>
                     </div>
                     <div className="text-center mt-2">
-                      <Link to="/" className="text-slate-400 ">
+                      <Link to="/" replace={true} className="text-slate-400 ">
                         Back to Home
                       </Link>
                     </div>
@@ -197,7 +204,7 @@ const Login = (props) => {
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
                   © {date} Designed by{" "}
-                  <Link to="/" className="text-reset">
+                  <Link to="/" replace={true} className="text-reset">
                     Orcalo Holding
                   </Link>
                   .
