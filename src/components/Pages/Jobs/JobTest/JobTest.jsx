@@ -4,7 +4,7 @@ import axios from "axios";
 
 function JobTest() {
   const authToken = localStorage.getItem("token");
-  const location = useLocation()
+  const location = useLocation();
   const { REACT_APP_SITE_URL } = process.env;
   const [jobQuiz, setjobQuiz] = useState();
   const [data, setData] = useState();
@@ -86,7 +86,7 @@ function JobTest() {
       console.error(error);
     }
   };
- 
+
   const endTestHandler = async () => {
     try {
       const response = await axios.post(
@@ -101,19 +101,18 @@ function JobTest() {
           },
         }
       );
-      navigate(
-        "/my-jobs",
-        // (replace = true
-      );
+      navigate("/my-jobs");
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
     // console.log(data, "state");
-    if(data?.attempt?.status === "Started")
-    {
-      endTestHandler()
+    if (data?.attempt?.status === "Started") {
+      endTestHandler();
+      localStorage.removeItem("timer");
+      localStorage.removeItem("questionIndex");
+      localStorage.removeItem("disabledIndex");
     }
   }, [data]);
 
