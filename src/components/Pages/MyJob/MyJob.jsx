@@ -132,135 +132,136 @@ export const MyJob = () => {
           </div>
         </div>
       </section> */}
-      <div>
-        <div className="overflow-x-auto">
-          <div className="min-w-screen min-h-screen flex items-start justify-center font-sans overflow-hidden">
-            <div className="w-full lg:w-5/6" style={{ marginInline: "15%" }}>
-              <div className="bg-white shadow-md rounded my-6">
-                <table className="min-w-max w-full table-auto overflow-scroll">
-                  <thead>
-                    <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                      <th className="py-3 px-6 text-left">Job Title</th>
-                      <th className="py-3 px-6 text-center">Type</th>
-                      <th className="py-3 px-6 text-center">Created At</th>
-                      <th className="py-3 px-6 text-center">Status</th>
-                      <th className="py-3 px-6 text-left">Location</th>
-                      <th className="py-3 px-6 text-center">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="text-gray-600 text-sm font-light">
-                    {!loading ? (
-                      <>
-                        {!!myJob &&
-                          myJob?.map((item) => (
-                            <tr
-                              key={item?.id}
-                              className="border-b border-gray-200 hover:bg-gray-100"
+      <div className=" sm:mx-16 md:mx-32 lg:mx-40">
+
+
+        <div className=" overflow-auto my-6 ">
+
+          <div className="font-sans min-w-[800px] max-h-[400px] bg-white rounded ">
+
+            <table className=" w-full whitespace-nowrap  relative">
+              <thead>
+                <tr>
+                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">Job Title</th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Type</th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Created At</th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Status</th>
+                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Location</th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Actions</th>
+                </tr>
+
+              </thead>
+              <tbody className="text-gray-600 text-sm font-light divide-y">
+                {!loading ? (
+                  <>
+                    {!!myJob &&
+                      myJob?.map((item) => (
+                        <tr
+                          key={item?.id}
+                          className="border-b border-gray-200 hover:bg-gray-100"
+                        >
+                          <td className="py-3 px-2 text-left whitespace-nowrap relative overflow-hidden">
+                            {!!item?.job?.is_remote && (<span
+                              title="Remote Job 👨‍💻"
+                              className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
+                              style={{ left: '-20px' }}
                             >
-                              <td className="py-3 px-6 text-left whitespace-nowrap relative overflow-hidden">
-                                {!!item?.job?.is_remote && (<span
-                                  title="Remote Job 👨‍💻"
-                                  className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
-                                  style={{ left: '-20px' }}
+                              <i className="uil uil-star"></i>
+                            </span>)}
+                            <div className="flex items-center z-10">
+                              <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
+                                <img
+                                  src={item?.job?.company?.logo}
+                                  className="h-8 w-8"
+                                  alt=""
+                                />
+                              </div>
+                              <div>
+                                <Link
+                                  to={`/jobDetails`}
+                                  state={item?.job?.slug}
+                                  replace={true}
+                                  className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                 >
-                                  <i className="uil uil-star"></i>
-                                </span>)}
-                                <div className="flex items-center z-10">
-                                  <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
-                                    <img
-                                      src={item?.job?.company?.logo}
-                                      className="h-8 w-8"
-                                      alt=""
-                                    />
-                                  </div>
-                                  <div>
-                                    <Link
-                                      to={`/jobDetails`}
-                                      state={item?.job?.slug}
-                                      className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
-                                    >
-                                      {item?.job?.title}
-                                    </Link>
-                                    <span className="block text-sm text-slate-400 pl-3">
-                                      {item?.job?.role?.name}
-                                    </span>
-                                  </div>
-
-                                </div>
-                              </td>
-                              <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
-                                <span className="block">
-                                  <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
-                                    {item?.job?.type}
-                                  </span>
+                                  {item?.job?.title}
+                                </Link>
+                                <span className="block text-sm text-slate-400 pl-3">
+                                  {item?.job?.role?.name}
                                 </span>
-                                <span className="block text-slate-400 text-sm md:mt-1 mt-0">
-                                  <i className="uil uil-clock"></i>
-                                  {item?.job?.deadline}
-                                </span>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div className="flex item-center justify-center">
-                                  {moment(item?.created_at).format("DD-MM-YYYY")}
-                                </div>
-                              </td>
-                              <td className="py-3 px-6 text-center">
-                                <div className="flex item-center justify-center">
-                                  <span className="block font-semibold md:mt-1 mt-0">
-                                    {item?.status}
-                                  </span>
-                                </div>
-                              </td>
+                              </div>
 
-                              <td className="py-3 px-6 text-left">
-                                <div className="flex items-center md:block justify-between md:mt-0 mt-2">
-                                  <span className="text-slate-400">
-                                    <i className="uil uil-map-marker"></i>{" "}
-                                    {item?.job?.location}
-                                  </span>
-                                  <span className="block font-semibold md:mt-1 mt-0">
-                                    {item?.job?.salary}
-                                  </span>
-                                </div>
-                              </td>
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center md:block flex justify-between md:mt-0 mt-4">
 
-                              <td className="py-3 px-6 text-center">
-                                <div className="flex item-center justify-center">
-                                  {item?.status === 'In Review' ? <button disabled={true}
-                                    className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
-                                  >
-                                    Learning Material
-                                  </button> :
-                                    <Link
-                                      state={item}
-                                      to="/learning-material"
-                                      className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
-                                    >
-                                      Learning Material
-                                    </Link>}
-                                </div>
-                              </td>
-                            </tr>
-                          ))}
-                        {!myJob && (
-                          <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                            No Data Found!
-                          </span>
-                        )}
-                      </>
-                    ) : (
+                              <span className="block bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
+                                {item?.job?.type}
+                              </span>
+                            <span className="block text-slate-400 text-sm md:mt-1 mt-0">
+                              <i className="uil uil-clock"></i>
+                              {item?.job?.deadline}
+                            </span>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex item-center justify-center">
+                              {moment(item?.created_at).format("DD-MM-YYYY")}
+                            </div>
+                          </td>
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex item-center justify-center">
+                              <span className="block font-semibold md:mt-1 mt-0">
+                                {item?.status}
+                              </span>
+                            </div>
+                          </td>
+
+                          <td className="py-3 px-2 text-left">
+                            <div className="flex items-center md:block justify-between md:mt-0 mt-2">
+                              <span className="text-slate-400">
+                                <i className="uil uil-map-marker"></i>{" "}
+                                {item?.job?.location}
+                              </span>
+                              <span className="block font-semibold md:mt-1 mt-0">
+                                {item?.job?.salary}
+                              </span>
+                            </div>
+                          </td>
+
+                          <td className="py-3 px-2 text-center">
+                            <div className="flex item-center justify-center">
+                              {item?.status === 'In Review' ? <button disabled={true}
+                                className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                              >
+                                Learning Material
+                              </button> :
+                                <Link
+                                  state={item}
+                                  to="/learning-material"
+                                  replace={true}
+                                  className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                                >
+                                  Learning Material
+                                </Link>}
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    {!myJob && (
                       <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                        <AppLoader />
+                        No Data Found!
                       </span>
                     )}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+                  </>
+                ) : (
+                  <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                    <AppLoader />
+                  </span>
+                )}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-
       <AppModal />
     </div>
   );

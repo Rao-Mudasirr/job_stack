@@ -124,33 +124,35 @@ export const JobList = (props) => {
           </div>
         </div> */}
         <div className="mt-20">
-          <div className="overflow-x-auto">
-            <div
-              className="min-w-screen min-h-screen flex items-start justify-center font-sans"
-              style={{ marginInline: "15%" }}
-            >
-              <div className="w-full lg:w-5/6">
-                <div className="bg-white shadow-md rounded my-6">
-                  <table className="min-w-max w-full table-auto">
+        <div className=" sm:mx-16 md:mx-32 lg:mx-40">
+
+ 
+<div className=" overflow-auto my-6 ">
+ 
+  <div className="font-sans min-w-[800px] max-h-[400px] bg-white rounded ">
+    
+                  <table className="w-full whitespace-nowrap  relative">
                     <thead>
-                      <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                        <th className="py-3 px-6 text-left">Job Title</th>
-                        <th className="py-3 px-6 text-center">Type</th>
-                        <th className="py-3 px-6 text-center">Created At</th>
-                        <th className="py-3 px-6 text-left">Location</th>
-                        <th className="py-3 px-6 text-center">Actions</th>
-                      </tr>
-                    </thead>
-                    {!loading ? (
+                    <tr>
+                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">Job Title</th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Type</th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Created At</th>
+                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Location</th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Actions</th>
+                    </tr>
+                    
+                  </thead>
+                    
                       <tbody className="text-gray-600 text-sm font-light">
+                      {!loading ? (
                         <>
                           {!!jobDetails &&
                             jobDetails?.map((item) => (
                               <tr
                                 key={item?.id}
-                                className="border-b border-gray-200 hover:bg-gray-100"
+                                className="border-b border-gray-200 hover:bg-gray-100" 
                               >
-                                <td className="py-3 px-6 text-left whitespace-nowrap relative overflow-hidden">
+                                <td className="py-3 px-2 text-left whitespace-nowrap relative overflow-hidden">
                                   {!!item?.is_remote && (
                                     <span
                                       title="Remote Job 👨‍💻"
@@ -172,6 +174,7 @@ export const JobList = (props) => {
                                       <Link
                                         to={`/jobDetails`}
                                         state={item?.slug}
+                                        replace={true}
                                         className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                       >
                                         {item?.title}
@@ -182,7 +185,7 @@ export const JobList = (props) => {
                                     </div>
                                   </div>
                                 </td>
-                                <td className="py-3 px-6 text-center md:block flex justify-between md:mt-0 mt-4">
+                                <td className="py-3 px-2 text-center md:block flex justify-between md:mt-0 mt-4">
                                   <span className="block">
                                     <span className="bg-emerald-600/10 inline-block text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
                                       {item?.type}
@@ -193,14 +196,14 @@ export const JobList = (props) => {
                                     {item?.deadline}
                                   </span>
                                 </td>
-                                <td className="py-3 px-6 text-center">
+                                <td className="py-3 px-2 text-center">
                                   <div className="flex item-center justify-center">
                                     {moment(item?.created_at).format(
                                       "DD-MM-YYYY"
                                     )}
                                   </div>
                                 </td>
-                                <td className="py-3 px-6 text-left">
+                                <td className="py-3 px-2 text-left">
                                   <div className="flex items-center md:block justify-between md:mt-0 mt-2">
                                     <span className="text-slate-400">
                                       <i className="uil uil-map-marker"></i>{" "}
@@ -212,7 +215,7 @@ export const JobList = (props) => {
                                   </div>
                                 </td>
 
-                                <td className="py-3 px-6 text-center">
+                                <td className="py-3 px-2 text-center">
                                   <div className="flex item-center justify-center">
                                     <NavLink
                                       to={
@@ -242,18 +245,18 @@ export const JobList = (props) => {
                             </span>
                           )}
                         </>
+                          ) : (
+                            <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
+                              <AppLoader />
+                            </span>
+                          )}
                       </tbody>
-                    ) : (
-                      <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
-                        <AppLoader />
-                      </span>
-                    )}
+                  
                   </table>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </section>
       <AppModal />
     </div>
