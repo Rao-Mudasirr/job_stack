@@ -64,7 +64,7 @@ const Login = (props) => {
             isToggle: true,
             type: "success",
           });
-
+          setIsLoading(false);
           break;
         default:
           setErrorMessage(data?.msg);

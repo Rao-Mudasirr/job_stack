@@ -54,7 +54,6 @@ const Signup = () => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        setIsLoading(true);
         // action.resetForm();
       },
     });
@@ -79,8 +78,9 @@ const Signup = () => {
           });
           const timer = setTimeout(() => {
             // navigate("/login");
-            navigate("/login", (replace = true));
+            navigate("/login");
           }, 2000);
+          setIsLoading(false);
 
           break;
         default:
