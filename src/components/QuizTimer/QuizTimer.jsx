@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const QuizTimer = ({ setTimeLeft, timeLeft, onTimeUp }) => {
   useEffect(() => {
@@ -12,8 +12,6 @@ const QuizTimer = ({ setTimeLeft, timeLeft, onTimeUp }) => {
       interval = setInterval(() => {
         setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
         localStorage.setItem("timer", timeLeft);
-        // const getTiming = localStorage.getItem("timer");
-        // setTimeLeft(Number(getTiming));
       }, 1000);
     }
 
