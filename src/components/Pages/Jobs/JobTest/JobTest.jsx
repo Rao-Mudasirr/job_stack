@@ -31,8 +31,6 @@ function JobTest() {
         response?.data?.data?.test?.total_duration_min * 60
       );
 
-      
-
       setLoading(false);
     } catch (error) {
       setError(error.message);
