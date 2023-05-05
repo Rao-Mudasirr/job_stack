@@ -9,7 +9,7 @@ import { AppLoader } from "../../../../UI/AppLoader/AppLoader";
 import { degreeArray, disciplineArray, initialValuesEducationDetails } from "../../constants/constants";
 import { validationSchemaEducationDetails } from "../../constants/validation-schema";
 
-const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplicationMsg }) => {
+const EducationDetails = ({ educationDetails,setJobApplicationMsg,setFieldValue }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplication
   const postData = async (values) => {
     try {
       setLoading(true)
-      await axios.post(
+     const res = await axios.post(
         `${REACT_APP_SITE_URL}/api/education-details`, values,
         {
           headers: {
@@ -26,14 +26,16 @@ const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplication
           },
         }
       );
-      setLoading(false);
-      setShowModal(false);
-      fetchProfileData();
+      if(res?.data?.status){
+        setShowModal(false);
+        setFieldValue('education_details',educationDetails?.length ? [res?.data?.data?.education_detail,...educationDetails] : [res?.data?.data?.education_detail]);
+    }
       setJobApplicationMsg({
-        title: "Education detail Uploaded Successfully",
+        title: res?.data?.msg,
         isToggle: true,
-        type: "success",
+        type: res?.data?.status ? "success" : "error",
       })
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error(error);
@@ -76,7 +78,7 @@ const EducationDetails = ({ educationDetails, fetchProfileData,setJobApplication
                       [item?.institute, item?.degree_title, item?.discipline, item?.gpa, item?.document, item?.id].map((item, index) =>
                         <td key={index} className="px-6 py-4">
                           {
-                            index === 5 ? <DelConfirmationModal fetchProfileData={fetchProfileData} deletionId={item} apiRoute="education-details" /> : index === 4 ? <PreviewModal imgUrl={item} /> : item
+                            index === 5 ? <DelConfirmationModal showSnackbar={setJobApplicationMsg} deletionArray={educationDetails} setFieldValue={setFieldValue} deletionId={item} apiRoute="education-details" /> : index === 4 ? <PreviewModal imgUrl={item} /> : item
                           }
                         </td>)
                     }

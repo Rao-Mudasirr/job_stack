@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
    divToBeClickedOn.classList.toggle("open");
@@ -25,7 +26,7 @@ const TermsAndServices = () => {
         <div className="absolute text-center z-10 bottom-5 right-0 left-0 mx-3">
           <ul className="breadcrumb tracking-[0.5px] breadcrumb-light mb-0 inline-block">
             <li className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white/50 hover:text-white">
-              <a href="index.html">Jobstack</a>
+              <Link to="/" replace={true}>Jobstack</Link>
             </li>
             <li
               className="inline breadcrumb-item text-[15px] font-semibold duration-500 ease-in-out text-white"

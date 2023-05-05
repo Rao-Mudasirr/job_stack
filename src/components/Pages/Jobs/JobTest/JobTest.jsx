@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function JobTest() {
@@ -11,6 +11,7 @@ function JobTest() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
+  const navigate = useNavigate();
   const fetchJobTestData = async () => {
     setLoading(true);
     try {
@@ -25,6 +26,12 @@ function JobTest() {
       );
       setjobQuiz(response?.data?.data?.test);
       setData(response?.data?.data);
+      localStorage.setItem(
+        "timer",
+        response?.data?.data?.test?.total_duration_min * 60
+      );
+
+      
 
       setLoading(false);
     } catch (error) {
@@ -53,6 +60,13 @@ function JobTest() {
           },
         }
       );
+
+      navigate("/main-quiz", {
+        state: {
+          testData: data,
+          attemptData: attemptResponse?.data?.data,
+        },
+      });
       console.log(attemptResponse?.data?.data, "res");
     } catch (error) {
       console.error(error);
@@ -141,10 +155,8 @@ function JobTest() {
                 </div>
                 <div className="mt-6">
                   <Link
-                    to={`/main-quiz`}
                     className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600/10 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
                     replace={true}
-                    state={data}
                     onClick={startTest}
                   >
                     Start Test

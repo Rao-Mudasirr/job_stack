@@ -37,7 +37,7 @@ const Login = (props) => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
 
@@ -55,7 +55,12 @@ const Login = (props) => {
           localStorage.setItem("user", JSON.stringify(data?.data?.user));
           navigate(props.previousRoute);
           props.setPreviousRoute("/");
-
+          setSnackbar({
+            title: "Successfully registered!",
+            isToggle: true,
+            type: "success",
+          });
+          break;
         default:
           setErrorMessage(data?.msg);
           setSnackbar({
@@ -105,7 +110,7 @@ const Login = (props) => {
                         autoComplete="off"
                         name="email"
                         id="email"
-                        placeholder="Email"
+                        placeholder="email"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -126,7 +131,7 @@ const Login = (props) => {
                           autoComplete="off"
                           name="password"
                           id="password"
-                          placeholder="Password"
+                          placeholder="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}

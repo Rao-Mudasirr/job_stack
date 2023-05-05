@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
@@ -15,6 +15,7 @@ const Signup = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
+  const [isOpenSnack, setIsOpenSnack] = useState(false);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -51,10 +52,12 @@ const Signup = () => {
       onSubmit: (values, action) => {
         // console.log(values);
         postData(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
-
+  const timer = setTimeout(() => {
+    setIsOpenSnack({ title: "", isToggle: false, type: "" });
+  });
   const postData = async (values) => {
     try {
       const response = await axios.post(
@@ -70,7 +73,11 @@ const Signup = () => {
             isToggle: true,
             type: "success",
           });
-        // navigate("/login");
+          const timer = setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+
+          break;
         default:
           // setErrorMessage();
           setSnackbar({
@@ -89,6 +96,9 @@ const Signup = () => {
       // console.log(error);
     }
   };
+  useEffect(() => {
+    return () => clearTimeout(timer);
+  }, [isOpenSnack.isToggle]);
 
   return (
     <div className="dark:bg-slate-900" dir="ltr">
@@ -110,7 +120,7 @@ const Signup = () => {
                   },
                 }}
               >
-                <Link to="">
+                <Link to="/">
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
@@ -136,7 +146,7 @@ const Signup = () => {
                         name="first_name"
                         id="first_name"
                         className="form-input mt-3 rounded-md"
-                        placeholder="Harry"
+                        placeholder="first name"
                         value={values.first_name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -156,7 +166,7 @@ const Signup = () => {
                         name="last_name"
                         id="last_name"
                         className="form-input mt-3 rounded-md"
-                        placeholder="Harry"
+                        placeholder="last name"
                         value={values.last_name}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -176,7 +186,7 @@ const Signup = () => {
                         autoComplete="off"
                         name="email"
                         id="email"
-                        placeholder="Email"
+                        placeholder="email"
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -197,7 +207,7 @@ const Signup = () => {
                           autoComplete="off"
                           name="password"
                           id="password"
-                          placeholder="Password"
+                          placeholder="password"
                           value={values.password}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -232,7 +242,7 @@ const Signup = () => {
                           autoComplete="off"
                           name="password_confirmation"
                           id="password_confirmation"
-                          placeholder="Confirm Password"
+                          placeholder="confirm password"
                           value={values.password_confirmation}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -270,8 +280,8 @@ const Signup = () => {
                           id="AcceptT&C"
                         >
                           I Accept{" "}
-                          <Link to="/" className="text-emerald-600">
-                            Terms And Condition
+                          <Link to="/terms" className="text-emerald-600">
+                            Terms and Services
                           </Link>
                         </label>
                       </div>
