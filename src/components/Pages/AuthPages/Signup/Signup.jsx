@@ -1,10 +1,11 @@
-import { useFormik } from "formik";
+import { replace, useFormik } from "formik";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpSchema } from "./schemas/signUpSchema";
 import "../Signup.css";
 import axios from "axios";
 import GlobalSnackBar from "../../UI/SnackBar";
+import { AppLoader } from "../../UI/AppLoader/AppLoader";
 <link
   rel="stylesheet"
   href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"
@@ -16,6 +17,7 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
   const [isOpenSnack, setIsOpenSnack] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     title: "",
     isToggle: false,
@@ -60,6 +62,7 @@ const Signup = () => {
   });
   const postData = async (values) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         "https://jobs.orcaloholding.co.uk/api/signup",
         values
@@ -74,8 +77,10 @@ const Signup = () => {
             type: "success",
           });
           const timer = setTimeout(() => {
+            // navigate("/login");
             navigate("/login");
           }, 2000);
+          setIsLoading(false);
 
           break;
         default:
@@ -85,6 +90,7 @@ const Signup = () => {
             isToggle: true,
             type: "error",
           });
+          setIsLoading(false);
           break;
       }
     } catch (error) {
@@ -120,7 +126,7 @@ const Signup = () => {
                   },
                 }}
               >
-                <Link to="/">
+                <Link to="/" replace={true}>
                   <img
                     src="assets/images/logo-dark.png"
                     className="mx-auto block dark:hidden"
@@ -280,7 +286,11 @@ const Signup = () => {
                           id="AcceptT&C"
                         >
                           I Accept{" "}
-                          <Link to="/terms" className="text-emerald-600">
+                          <Link
+                            to="/terms"
+                            replace={true}
+                            className="text-emerald-600"
+                          >
                             Terms and Services
                           </Link>
                         </label>
@@ -293,17 +303,18 @@ const Signup = () => {
                         !isButtonDisabled ? "bg-emerald-600" : "bg-slate-200"
                       }  hover:border-emerald-700  ${
                         !isButtonDisabled ? "text-white" : "text-slate-400"
-                      } rounded-md w-full`}
+                      } flex justify-center center py-2 rounded-md w-full`}
                       value="Register"
                       disabled={isButtonDisabled}
                     >
-                      Register
+                      Register{isLoading && <AppLoader />}
                     </button>
                     <div className="text-center mt-2">
                       <span className="text-slate-400 me-2">
                         Already have an account ?
                       </span>
                       <Link
+                        replace={true}
                         to="/login"
                         className="text-black dark:text-white font-bold"
                       >
@@ -311,7 +322,7 @@ const Signup = () => {
                       </Link>
                     </div>
                     <div className="text-center mt-2">
-                      <Link to="/" className="text-slate-400  ">
+                      <Link to="/" replace={true} className="text-slate-400  ">
                         Back to Home
                       </Link>
                     </div>
@@ -322,7 +333,7 @@ const Signup = () => {
               <div className="px-6 py-2 bg-slate-50 dark:bg-slate-800 text-center">
                 <p className="mb-0 text-gray-400 font-medium">
                   © {date} Designed by{" "}
-                  <Link to="/" className="text-reset">
+                  <Link to="/" replace={true} className="text-reset">
                     Orcalo Holding
                   </Link>
                   .
