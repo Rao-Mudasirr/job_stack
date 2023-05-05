@@ -60,17 +60,18 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
 
   function downloadRecording() {
     const blob = new Blob(recordedChunks, { type: 'video/webm' });
+    console.log(blob);
     const formData = new FormData();
     formData.append('intro_video', blob);
     updateIntroVideo(formData);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    document.body.appendChild(a);
-    a.style = 'display: none';
-    a.href = url;
-    a.download = 'introduction-video.webm';
-    a.click();
-    URL.revokeObjectURL(url);
+    // const url = URL.createObjectURL(blob);
+    // const a = document.createElement('a');
+    // document.body.appendChild(a);
+    // a.style = 'display: none';
+    // a.href = url;
+    // a.download = 'introduction-video.webm';
+    // a.click();
+    // URL.revokeObjectURL(url);
   }
   const updateIntroVideo = async (video) => {
     try {
@@ -84,12 +85,14 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
         }
       );
       if (response.status === 200) {
-        setData({ ...data, user: response?.data?.data?.user })
+        if (response?.data?.status){
+          setData({ ...data, user: response?.data?.data?.user })
+        }
         // localStorage.setItem("user", JSON.stringify(response?.data?.data?.user));
         setJobApplicationMsg({
-          title: "Your intro video have been updated successfully",
+          title: response?.data?.msg,
           isToggle: true,
-          type: "success",
+          type: response?.data?.status ? "success" : "error",
         })
       }
     } catch (error) {
