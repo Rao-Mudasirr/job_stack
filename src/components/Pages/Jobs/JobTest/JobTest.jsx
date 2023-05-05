@@ -108,9 +108,18 @@ function JobTest() {
                 <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
                   <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
                   {data?.attempt?.status === "Ended" ? (
-                    <p className="text-center text-2xl font-bold">
-                      You have already attempted the test
-                    </p>
+                    <div className="text-center">
+                      <p className=" text-2xl font-bold">
+                        You have already attempted the test
+                      </p>
+                      <Link
+                        to={"/my-jobs"}
+                        className="mt-10  btn bg-emerald-600/10 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                        replace={true}
+                      >
+                        Go Back
+                      </Link>
+                    </div>
                   ) : (
                     <>
                       <div>

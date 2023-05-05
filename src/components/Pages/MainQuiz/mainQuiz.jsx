@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import GlobalSnackBar from "../UI/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import QuizTimer from "../../QuizTimer/QuizTimer";
+import { replace } from "feather-icons";
 export const MainQuiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -92,7 +93,7 @@ export const MainQuiz = () => {
     localStorage.removeItem("questionIndex");
     localStorage.removeItem("disabledIndex");
     setTimeout(() => {
-      navigate("/my-jobs");
+      navigate("/my-jobs", (replace = true));
     }, 2000);
   };
   // const prevQuestion = () => {
@@ -124,9 +125,13 @@ export const MainQuiz = () => {
           },
         }
       );
-      navigate("/quiz-card", {
-        state: response?.data,
-      });
+      navigate(
+        "/quiz-card",
+        {
+          state: response?.data,
+        },
+        (replace = true)
+      );
     } catch (error) {
       console.log(error);
     }
