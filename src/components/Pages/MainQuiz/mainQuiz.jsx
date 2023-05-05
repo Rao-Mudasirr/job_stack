@@ -22,6 +22,13 @@ export const MainQuiz = () => {
     type: "",
   });
 
+  // const handleVisibilityChange = () => {
+  //   if (document.hidden) {
+  //     console.log("end Test");
+  //   }
+  // };
+  // document.addEventListener("visibilitychange", handleVisibilityChange);
+
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
@@ -145,6 +152,13 @@ export const MainQuiz = () => {
     setTimeLeft(timers);
     setIndex(Number(getIndex));
     setDisabled(Number(getDisabledIndex));
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        /* end the test */
+        endTestHandler()
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   return (

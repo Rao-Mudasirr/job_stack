@@ -4,10 +4,11 @@ import axios from "axios";
 
 function JobTest() {
   const authToken = localStorage.getItem("token");
+  const location = useLocation()
   const { REACT_APP_SITE_URL } = process.env;
   const [jobQuiz, setjobQuiz] = useState();
   const [data, setData] = useState();
-
+  const isToken = localStorage.getItem("token");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
@@ -85,9 +86,35 @@ function JobTest() {
       console.error(error);
     }
   };
-
+ 
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/test/end",
+        {
+          attempt_id: data?.attempt?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate(
+        "/my-jobs",
+        // (replace = true
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     // console.log(data, "state");
+    if(data?.attempt?.status === "Started")
+    {
+      endTestHandler()
+    }
   }, [data]);
 
   return (
