@@ -65,7 +65,7 @@ const Navbar = () => {
 
           <div className="menu-extras">
             <div className="menu-item">
-              <a
+              <div
                 className="navbar-toggle"
                 id="isToggle"
                 onClick={() =>
@@ -80,11 +80,11 @@ const Navbar = () => {
                   <span></span>
                   <span></span>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
 
-          <ul className="buy-button list-none mb-0 ">
+          {localStorage.getItem("token") && <ul className="buy-button list-none mb-0 ">
             <li className="inline-block pl-1 mb-0 ">
               <Link
                 to="/update-profile"
@@ -103,7 +103,7 @@ const Navbar = () => {
                 )}
               </Link>
             </li>
-          </ul>
+          </ul>}
 
           <div id="navigation">
             <ul className="navigation-menu justify-end nav-dark">
@@ -118,10 +118,10 @@ const Navbar = () => {
 
               <li
                 className={`has-submenu parent-parent-menu-item ${location.pathname === "/my-jobs"
+                  ? "active"
+                  : location.pathname === "/job-list"
                     ? "active"
-                    : location.pathname === "/job-list"
-                      ? "active"
-                      : ""
+                    : ""
                   }`}
               >
                 <Link to="" replace={true}>
@@ -172,8 +172,10 @@ const Navbar = () => {
               </li>
               {tokenCheck === "false" && (
                 <li>
-                  <Link to="/login" className="sub-menu-item" replace={true}>
-                    Login{" "}
+                  <Link to="/login" className="p-[1.10rem!important]" replace={true}>
+                    <button className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
+                      Login
+                    </button>
                   </Link>
                 </li>
               )}
@@ -183,7 +185,7 @@ const Navbar = () => {
                     localStorage.clear();
                   }}
                 >
-                  <Link to="/" replace={true}>
+                  <Link to="/" className="sub-menu-item" replace={true}>
                     Logout
                   </Link>
                 </li>

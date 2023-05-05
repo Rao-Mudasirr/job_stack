@@ -103,7 +103,7 @@ const JobApplication = ({ page }) => {
                 : <div class="relative inline-flex shadow-lg items-center justify-center w-[50px] h-[50px] overflow-hidden bg-emerald-600 hover:bg-emerald-700 rounded-full dark:bg-gray-600">
                   <span class="font-medium text-white dark:text-gray-900 uppercase">{loading ? <AppLoader/> : (`${data?.user?.first_name[0] ?? ""}${data?.user?.last_name[0] ?? ""}`)}</span>
                 </div>}
-              <label className="cursor-pointer top-0 left-0 w-[50px] h-[50px] absolute opacity-0">
+              <label title="Click to Upload Profile Photo" className="cursor-pointer top-0 left-0 w-[50px] h-[50px] absolute opacity-0">
                 <span className="mt-2 text-base leading-normal px-4 py-2 bg-blue-500 text-white rounded-full" >Select Avatar</span>
                 <input type='file' className="hidden" onChange={(e) => {
                   const file = e.target.files[0];
