@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -26,12 +26,14 @@ function JobTest() {
           },
         }
       );
-      setjobQuiz(response?.data?.data?.test);
-      setData(response?.data?.data);
-      localStorage.setItem(
-        "timer",
-        response?.data?.data?.test?.total_duration_min * 60
-      );
+      if (response) {
+        setjobQuiz(response?.data?.data?.test);
+        setData(response?.data?.data);
+        localStorage.setItem(
+          "timer",
+          response?.data?.data?.test?.total_duration_min * 60
+        );
+      }
 
       // Call attempt API
       //   const attemptResponse = await axios.post(
@@ -57,10 +59,6 @@ function JobTest() {
     }
   };
 
-  useEffect(() => {
-    fetchJobTestData();
-  }, []);
-  console.log(data);
   const startTest = async () => {
     try {
       const attemptResponse = await axios.post(
@@ -102,11 +100,10 @@ function JobTest() {
           },
         }
       );
-
-        navigate(
+      navigate(
         "/quiz-card",
         {
-          state: response?.data,
+          state: data,
         },
         (replace = true)
       );
@@ -114,16 +111,20 @@ function JobTest() {
       console.log(error);
     }
   };
+  useLayoutEffect(() => {
+    fetchJobTestData();
+  }, [data]);
   useEffect(() => {
-    // console.log(data, "state");
+    console.log("Data Outer", data);
+
     if (data?.attempt?.status === "Started") {
-      endTestHandler();
+      console.log("Data Inner", data);
+      // endTestHandler();
       localStorage.removeItem("timer");
       localStorage.removeItem("questionIndex");
       localStorage.removeItem("disabledIndex");
-
     }
-  }, [data]);
+  }, []);
 
   return (
     <div dir="ltr">
@@ -138,6 +139,19 @@ function JobTest() {
       ) : (
         <section className="relative h-screen flex items-center justify-center  bg-gray-50 dark:bg-slate-800">
           <div className="container relative">
+            <div className="flex justify-left mt-4 mb-2">
+              <p className=" text-md font-bold text-rose-600">
+                Warning :
+                <span className="text-sm text-slate-600">
+                  After starting the test you have to stay on the same test
+                  screen until you have completed the test and submit it. If you
+                  switch the browser tabs or visit any other page of the website
+                  then your test will be marked as
+                  <span className=" text-lg font-bolder">"Ended"</span>
+                  automatically.
+                </span>
+              </p>
+            </div>
             <div className="grid grid-cols-1">
               <div className="title-heading  my-auto">
                 <div className="relative block overflow-hidden rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
