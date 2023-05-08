@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -101,7 +102,14 @@ function JobTest() {
           },
         }
       );
-      navigate("/my-jobs");
+
+        navigate(
+        "/quiz-card",
+        {
+          state: response?.data,
+        },
+        (replace = true)
+      );
     } catch (error) {
       console.log(error);
     }
@@ -113,6 +121,7 @@ function JobTest() {
       localStorage.removeItem("timer");
       localStorage.removeItem("questionIndex");
       localStorage.removeItem("disabledIndex");
+
     }
   }, [data]);
 
