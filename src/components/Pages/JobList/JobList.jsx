@@ -129,7 +129,7 @@ export const JobList = (props) => {
 
             <div className=" overflow-auto my-6 ">
 
-              <div className="font-sans min-w-[800px] max-h-[400px] bg-white rounded ">
+              <div className="font-sans min-w-[800px]  bg-white rounded ">
 
                 <table className="w-full whitespace-nowrap  relative">
                   <thead>
