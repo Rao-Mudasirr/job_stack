@@ -144,22 +144,22 @@ export const MainQuiz = () => {
     }
   };
 
-  useEffect(() => {
-    const getIndex = localStorage.getItem("questionIndex");
-    const getDisabledIndex = localStorage.getItem("disabledIndex");
-    const timers = localStorage.getItem("timer");
+  // useEffect(() => {
+  //   const getIndex = localStorage.getItem("questionIndex");
+  //   const getDisabledIndex = localStorage.getItem("disabledIndex");
+  //   const timers = localStorage.getItem("timer");
 
-    setTimeLeft(timers);
-    setIndex(Number(getIndex));
-    setDisabled(Number(getDisabledIndex));
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        /* end the test */
-        endTestHandler()
-      }
-    };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
+  //   setTimeLeft(timers);
+  //   setIndex(Number(getIndex));
+  //   setDisabled(Number(getDisabledIndex));
+  //   const handleVisibilityChange = () => {
+  //     if (document.hidden) {
+  //       /* end the test */
+  //       endTestHandler()
+  //     }
+  //   };
+  //   document.addEventListener("visibilitychange", handleVisibilityChange);
+  // }, []);
 
   return (
     <div dir="ltr">

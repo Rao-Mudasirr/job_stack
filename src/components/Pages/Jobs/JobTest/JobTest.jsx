@@ -30,10 +30,10 @@ function JobTest() {
           },
         }
       );
-      setData(response?.data)
       navigate("/quiz-card", {
         state: response?.data,
       });
+      setData(response?.data)
     } catch (error) {
       console.log(error);
     } finally {
