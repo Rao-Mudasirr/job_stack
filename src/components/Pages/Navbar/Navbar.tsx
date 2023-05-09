@@ -87,8 +87,8 @@ const Navbar = () => {
           </div>
 
           {localStorage.getItem("token") && (
-            <ul className="buy-button list-none mb-0 ">
-              <li className="inline-block pl-1 mb-0 ">
+            <ul className="buy-button ml-[0px !important] list-none mb-0 ">
+              <li className="inline-block mb-0 ">
                 <Link
                   to="/update-profile"
                   title="Update Profile"
@@ -197,7 +197,7 @@ const Navbar = () => {
                     localStorage.clear();
                   }}
                 >
-                  <Link to="/" className="sub-menu-item" replace={true}>
+                  <Link to="/" className="p-[1.10rem!important]" replace={true}>
                     <button className=" btn rounded-3xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
                       Logout
                     </button>
