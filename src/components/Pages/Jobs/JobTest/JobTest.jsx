@@ -109,22 +109,20 @@ function JobTest() {
       );
     } catch (error) {
       console.log(error);
-    }
-  };
-  useLayoutEffect(() => {
-    fetchJobTestData();
-  }, [data]);
-  useEffect(() => {
-    console.log("Data Outer", data);
-
-    if (data?.attempt?.status === "Started") {
-      console.log("Data Inner", data);
-      // endTestHandler();
+    } finally {
       localStorage.removeItem("timer");
       localStorage.removeItem("questionIndex");
       localStorage.removeItem("disabledIndex");
+      fetchJobTestData();
     }
+  };
+  useEffect(() => {
+    fetchJobTestData();
   }, []);
+  
+  useEffect(() => {
+    endTestHandler();
+  }, [data?.attempt?.status === "Started"]);
 
   return (
     <div dir="ltr">
