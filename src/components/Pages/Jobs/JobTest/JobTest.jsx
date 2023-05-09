@@ -2,6 +2,7 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { replace } from "feather-icons";
 
 function JobTest() {
   const authToken = localStorage.getItem("token");
@@ -14,6 +15,35 @@ function JobTest() {
   const [error, setError] = useState(null);
   const { state } = useLocation();
   const navigate = useNavigate();
+
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/test/end",
+        {
+          attempt_id: data?.attempt?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate("/quiz-card", {
+        state: response?.data,
+      });
+      setData(response?.data)
+    } catch (error) {
+      console.log(error);
+    } finally {
+      localStorage.removeItem("timer");
+      localStorage.removeItem("questionIndex");
+      localStorage.removeItem("disabledIndex");
+      // fetchJobTestData();
+    }
+  };
+
   const fetchJobTestData = async () => {
     setLoading(true);
     try {
@@ -26,14 +56,13 @@ function JobTest() {
           },
         }
       );
-      if (response) {
-        setjobQuiz(response?.data?.data?.test);
-        setData(response?.data?.data);
-        localStorage.setItem(
-          "timer",
-          response?.data?.data?.test?.total_duration_min * 60
-        );
-      }
+
+      setjobQuiz(response?.data?.data?.test);
+      setData(response?.data?.data);
+      localStorage.setItem(
+        "timer",
+        response?.data?.data?.test?.total_duration_min * 60
+      );
 
       // Call attempt API
       //   const attemptResponse = await axios.post(
@@ -86,43 +115,16 @@ function JobTest() {
     }
   };
 
-  const endTestHandler = async () => {
-    try {
-      const response = await axios.post(
-        "https://jobs.orcaloholding.co.uk/api/test/end",
-        {
-          attempt_id: data?.attempt?.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${isToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      navigate(
-        "/quiz-card",
-        {
-          state: data,
-        },
-        (replace = true)
-      );
-    } catch (error) {
-      console.log(error);
-    } finally {
-      localStorage.removeItem("timer");
-      localStorage.removeItem("questionIndex");
-      localStorage.removeItem("disabledIndex");
-      fetchJobTestData();
-    }
-  };
   useEffect(() => {
     fetchJobTestData();
   }, []);
-  
+
   useEffect(() => {
-    endTestHandler();
-  }, [data?.attempt?.status === "Started"]);
+    if (data?.attempt?.status === "Started") {
+      endTestHandler();
+      
+    }
+  }, [data]);
 
   return (
     <div dir="ltr">
