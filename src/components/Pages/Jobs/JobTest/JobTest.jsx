@@ -30,7 +30,7 @@ function JobTest() {
           },
         }
       );
-      setData("")
+      setData(response?.data)
       navigate("/quiz-card", {
         state: response?.data,
       });
