@@ -126,7 +126,7 @@ const EducationDetails = ({ educationDetails,setJobApplicationMsg,setFieldValue 
                 </Field>
               </InputWrapper>
               <InputWrapper error={errors.gpa} touched={touched.gpa} label="CGPA" labelName="gpa">
-                <Field id={`gpa`} name={`gpa`} type="number" step="0.01" className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.gpa && touched.gpa && "border-red-500"}`} />
+                <Field id={`gpa`} name={`gpa`} type="number" step="0.01" min={0} max={9} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.gpa && touched.gpa && "border-red-500"}`} />
               </InputWrapper>
               <InputWrapper error={errors.document} touched={touched.document} label="Attach Document" labelName="document">
                 <input accept=".doc, .docx, .jpg, .png, .pdf" id="document" onChange={(e) => {
