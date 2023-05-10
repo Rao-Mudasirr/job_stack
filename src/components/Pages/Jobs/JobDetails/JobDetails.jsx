@@ -63,6 +63,7 @@ const JobDetails = () => {
                 </div>
                 <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                 <div
+                  className="[&>ul]:list-disc [&>ul]:my-2 [&>ul]:ml-8"
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />
 
