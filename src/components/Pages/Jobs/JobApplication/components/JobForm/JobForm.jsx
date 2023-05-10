@@ -562,11 +562,11 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         showError("At least 1 Job Refrence required")
                         return;
                       }
-                      if (!data?.education_details?.length) {
+                      if (!values?.education_details?.length) {
                         showError("At least 1 Education Detail required")
                         return;
                       }
-                      if (!data?.experience_details?.length) {
+                      if (!values?.experience_details?.length) {
                         showError("At least 1 experience Detail required")
                         return;
                       }

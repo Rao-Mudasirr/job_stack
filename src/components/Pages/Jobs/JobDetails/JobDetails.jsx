@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useMatches } from "react-router-dom";
 
 
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-
   const location = useLocation();
+  const navigate = useNavigate()
 
   useEffect(() => {
+
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(
@@ -22,7 +24,12 @@ const JobDetails = () => {
       }
     };
     fetchJobDetails();
-  }, []);
+    console.log(location);
+    if(    location?.pathname !== '/jobDetails') {
+      // eslint-disable-next-line no-undef
+      navigate('/job-list')
+    }
+  }, [location?.pathname]);
 
   return (
     <div dir="ltr">
@@ -56,6 +63,7 @@ const JobDetails = () => {
                 </div>
                 <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                 <div
+                  className="[&>ul]:list-disc [&>ul]:my-2 [&>ul]:ml-8"
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />
 

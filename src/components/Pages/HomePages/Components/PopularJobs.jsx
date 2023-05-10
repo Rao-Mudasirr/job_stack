@@ -75,6 +75,7 @@ const PopularJobs = () => {
                   title={item.title}
                   location={item.location}
                   isRemote={item?.is_remote}
+                  created_at={item?.created_at}
                 />
               </div>
             );

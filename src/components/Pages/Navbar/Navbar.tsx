@@ -13,10 +13,12 @@ function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
 const Navbar = () => {
   const location = useLocation();
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
-  const [userProfile, setUserProfile] = useState(JSON.parse(localStorage.getItem("user")));
-  window.addEventListener('storage', () => {
-    setUserProfile(JSON.parse(localStorage.getItem("user")))
-  })
+  const [userProfile, setUserProfile] = useState(
+    JSON.parse(localStorage.getItem("user"))
+  );
+  window.addEventListener("storage", () => {
+    setUserProfile(JSON.parse(localStorage.getItem("user")));
+  });
 
   return (
     <div dir="ltr">
@@ -65,7 +67,7 @@ const Navbar = () => {
 
           <div className="menu-extras">
             <div className="menu-item">
-              <a
+              <div
                 className="navbar-toggle"
                 id="isToggle"
                 onClick={() =>
@@ -80,36 +82,39 @@ const Navbar = () => {
                   <span></span>
                   <span></span>
                 </div>
-              </a>
+              </div>
             </div>
           </div>
 
-          <ul className="buy-button list-none mb-0 ">
-            <li className="inline-block pl-1 mb-0 ">
-              <Link
-                to="/update-profile"
-                title="Update Profile"
-                className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
-                replace={true}
-              >
-                {userProfile?.image ? (
-                  <img
-                    src={`${userProfile?.image}`}
-                    className="rounded-full "
-                    alt=""
-                  />
-                ) : (
-                  `${userProfile?.first_name[0]}${userProfile?.last_name[0]}`
-                )}
-              </Link>
-            </li>
-          </ul>
+          {localStorage.getItem("token") && (
+            <ul className="buy-button ml-[0px !important] list-none mb-0 ">
+              <li className="inline-block mb-0 ">
+                <Link
+                  to="/update-profile"
+                  title="Update Profile"
+                  className="btn btn-icon rounded-full uppercase bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white"
+                  replace={true}
+                >
+                  {userProfile?.image ? (
+                    <img
+                      src={`${userProfile?.image}`}
+                      className="rounded-full "
+                      alt=""
+                    />
+                  ) : (
+                    `${userProfile?.first_name[0]}${userProfile?.last_name[0]}`
+                  )}
+                </Link>
+              </li>
+            </ul>
+          )}
 
           <div id="navigation">
             <ul className="navigation-menu justify-end nav-dark">
               <li
-                className={`has-submenu parent-menu-item ${location.pathname === "/" ? "active" : ""
-                  }`}
+                className={`has-submenu parent-menu-item ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
               >
                 <Link to="/" replace={true}>
                   Home
@@ -117,12 +122,13 @@ const Navbar = () => {
               </li>
 
               <li
-                className={`has-submenu parent-parent-menu-item ${location.pathname === "/my-jobs"
+                className={`has-submenu parent-parent-menu-item ${
+                  location.pathname === "/my-jobs"
                     ? "active"
                     : location.pathname === "/job-list"
-                      ? "active"
-                      : ""
-                  }`}
+                    ? "active"
+                    : ""
+                }`}
               >
                 <Link to="" replace={true}>
                   {" "}
@@ -149,16 +155,18 @@ const Navbar = () => {
                     </Link>
                   </li> */}
                   <li
-                    className={`has-submenu parent-menu-item ${location.pathname === "/my-jobs" ? "active" : ""
-                      }`}
+                    className={`has-submenu parent-menu-item ${
+                      location.pathname === "/my-jobs" ? "active" : ""
+                    }`}
                   >
                     <Link to="/my-jobs" replace={true}>
                       My Jobs
                     </Link>
                   </li>
                   <li
-                    className={`has-submenu parent-menu-item ${location.pathname === "/job-list" ? "active" : ""
-                      }`}
+                    className={`has-submenu parent-menu-item ${
+                      location.pathname === "/job-list" ? "active" : ""
+                    }`}
                   >
                     <Link
                       to="/job-list"
@@ -172,8 +180,14 @@ const Navbar = () => {
               </li>
               {tokenCheck === "false" && (
                 <li>
-                  <Link to="/login" className="sub-menu-item" replace={true}>
-                    Login{" "}
+                  <Link
+                    to="/login"
+                    className="p-[1.10rem!important]"
+                    replace={true}
+                  >
+                    <button className="btn rounded-3xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
+                      Login
+                    </button>
                   </Link>
                 </li>
               )}
@@ -183,8 +197,10 @@ const Navbar = () => {
                     localStorage.clear();
                   }}
                 >
-                  <Link to="/" replace={true}>
-                    Logout
+                  <Link to="/" className="p-[1.10rem!important]" replace={true}>
+                    <button className=" btn rounded-3xl bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white">
+                      Logout
+                    </button>
                   </Link>
                 </li>
               )}
