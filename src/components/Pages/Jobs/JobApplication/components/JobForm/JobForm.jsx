@@ -535,9 +535,7 @@ const JobForm = ({
                     name="disability"
                     className="w-full bg-white form-select form-input mt-1"
                   >
-                    <option value="" disabled>
-                      Please select
-                    </option>
+                    <option value="">Select status</option>
                     {disabilityOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
