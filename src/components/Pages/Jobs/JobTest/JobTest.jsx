@@ -64,22 +64,6 @@ function JobTest() {
         response?.data?.data?.test?.total_duration_min * 60
       );
 
-      // Call attempt API
-      //   const attemptResponse = await axios.post(
-      //     `https://jobs.orcaloholding.co.uk/api/test/start`,
-      //     {
-      //         job_application_id:state?.id,
-      //       test_id: data?.test?.id,
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${authToken}`,
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   );
-      //   console.log(attemptResponse?.data?.data,'res');
-
       setLoading(false);
     } catch (error) {
       setError(error.message);
