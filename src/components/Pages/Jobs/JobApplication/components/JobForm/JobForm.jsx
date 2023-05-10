@@ -10,23 +10,38 @@ import ProfessionalExperience from "../ProfessionalExperience/ProfessionalExperi
 import JobReferences from "../JobReferences/JobReferences";
 import { useNavigate } from "react-router-dom";
 import { validationSchemaJobForm } from "../../constants/validation-schema";
-import { acceptedFiles, disabilityOptions, ethnicity_statusOptions, genderOptions, veteran_statusOptions } from "../../constants/constants";
+import {
+  acceptedFiles,
+  disabilityOptions,
+  ethnicity_statusOptions,
+  genderOptions,
+  veteran_statusOptions,
+} from "../../constants/constants";
 
-const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,setJobApplicationMsg,setData}) => {
-
+const JobForm = ({
+  jobId,
+  data,
+  loading,
+  error,
+  fetchProfileData,
+  setLoading,
+  page,
+  setJobApplicationMsg,
+  setData,
+}) => {
   const tokenCheck = localStorage.getItem("token");
   const navigate = useNavigate();
   const { REACT_APP_SITE_URL } = process.env;
   const [status, setStatus] = useState(false);
-  
-  const showError = (msg)=>{
+
+  const showError = (msg) => {
     setJobApplicationMsg({
       title: msg,
       isToggle: true,
       type: "error",
-    })
-  }
-  
+    });
+  };
+
   const postData = async (values) => {
     try {
       setLoading(true);
@@ -38,16 +53,17 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
             Authorization: `Bearer ${tokenCheck}`,
           },
         }
-        );
-        if (response.status === 200) {
-          setStatus(response.data.status);
-          setLoading(false);
+      );
+      if (response.status === 200) {
+        setStatus(response.data.status);
+        setLoading(false);
         await fetchProfileData();
-        page && setJobApplicationMsg({
-          title: "Your Profile Updated Successfully",
-          isToggle: true,
-          type: "success",
-        })
+        page &&
+          setJobApplicationMsg({
+            title: "Your Profile Updated Successfully",
+            isToggle: true,
+            type: "success",
+          });
       }
     } catch (error) {
       setLoading(false);
@@ -58,27 +74,28 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
     try {
       const response = await axios.post(
         `${REACT_APP_SITE_URL}/api/apply-for-job`,
-        {job_id:jobId},
+        { job_id: jobId },
         {
           headers: {
             Authorization: `Bearer ${tokenCheck}`,
           },
         }
-        );
-        setJobApplicationMsg({
-          title: response?.data?.msg,
-          isToggle: true,
-          type: response?.data?.status ? "success" : "error",
-        });
-        response?.data?.status && setTimeout(() => {
-          navigate("/")
+      );
+      setJobApplicationMsg({
+        title: response?.data?.msg,
+        isToggle: true,
+        type: response?.data?.status ? "success" : "error",
+      });
+      response?.data?.status &&
+        setTimeout(() => {
+          navigate("/");
         }, 3000);
     } catch (error) {
       console.error(error);
     }
   };
   useEffect(() => {
-    (status && !!!page) && applyForJob();
+    status && !!!page && applyForJob();
   }, [status]);
 
   let initialValues = {
@@ -126,10 +143,14 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
               handleBlur,
             }) => (
               <Form className="bg-gray-100 p-7 ">
-                <div className={`py-5 mb-2 flex ${!!!page ? 'justify-between' : 'justify-end'}`}>
+                <div
+                  className={`py-5 mb-2 flex ${
+                    !!!page ? "justify-between" : "justify-end"
+                  }`}
+                >
                   {" "}
-                 {!!!page && <h4>Apply for this Job</h4>}
-                  <p >
+                  {!!!page && <h4>Apply for this Job</h4>}
+                  <p>
                     <span className="text-red-500"> *</span> Required
                   </p>
                 </div>
@@ -244,21 +265,22 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         onChange={(e) => {
                           const file = e.target.files[0];
                           if (file != null) {
-                            if(file?.size / 1024 / 1024 >= 2){
+                            if (file?.size / 1024 / 1024 >= 2) {
                               setJobApplicationMsg({
                                 title: "File Size Must be Lower than 2 MB",
                                 isToggle: true,
                                 type: "error",
-                              })
+                              });
                               setFieldValue("resume", "");
                               return;
                             }
-                            if(!acceptedFiles.exec(file?.name)){
+                            if (!acceptedFiles.exec(file?.name)) {
                               setJobApplicationMsg({
-                                title: " The document must be a file of type: pdf, docx, doc",
+                                title:
+                                  " The document must be a file of type: pdf, docx, doc",
                                 isToggle: true,
                                 type: "error",
-                              })
+                              });
                               setFieldValue("resume", "");
                               return;
                             }
@@ -269,23 +291,13 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         name="resume"
                         type="file"
                         className={`appearance-none border rounded w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                          errors.resume &&
-                          touched.resume &&
-                          "border-red-500"
+                          errors.resume && touched.resume && "border-red-500"
                         }`}
                       />
                     </InputWrapper>
                   </div>
 
-
-
                   <div className="mb-4">
-                    {/* <label
-                      className="block  font-semibold  mb-2"
-                      htmlFor="cover_letter"
-                    >
-                      Cover Letter<span className="text-red-500"> *</span>
-                    </label> */}
                     <InputWrapper
                       error={errors.cover_letter}
                       touched={touched.cover_letter}
@@ -297,20 +309,21 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         id="cover_letter"
                         onChange={(e) => {
                           const file = e.target.files[0];
-                          if(file?.size / 1024 / 1024 >= 2){
+                          if (file?.size / 1024 / 1024 >= 2) {
                             setJobApplicationMsg({
                               title: "File Size Must be Lower than 2 MB",
                               isToggle: true,
                               type: "error",
-                            })
+                            });
                             return;
                           }
-                          if(!acceptedFiles.exec(file?.name)){
+                          if (!acceptedFiles.exec(file?.name)) {
                             setJobApplicationMsg({
-                              title: " The document must be a file of type: pdf, docx, doc",
+                              title:
+                                " The document must be a file of type: pdf, docx, doc",
                               isToggle: true,
                               type: "error",
-                            })
+                            });
                             return;
                           }
                           if (file != null) {
@@ -353,7 +366,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     className="block  font-semibold  mb-2 mt-2"
                   >
                     {" "}
-                    LinkedIn Profile
+                    LinkedIn Profile <span className="text-red-500"> *</span>
                   </label>
 
                   <Field
@@ -373,7 +386,10 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                   )}
                 </div>
                 <div>
-                  <label htmlFor="website" className=" font-semibold  mb-5 mt-5">
+                  <label
+                    htmlFor="website"
+                    className=" font-semibold  mb-5 mt-5"
+                  >
                     website
                   </label>
 
@@ -381,15 +397,9 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     id="website"
                     name="website"
                     type="url"
-                    className={`appearance-none border rounded w-full py-2 px-3 mt-2 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      errors.website && touched.website && "border-red-500"
+                    className={`appearance-none border rounded w-full py-2 px-3 mt-2 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline 
                     }`}
                   />
-                  {errors.website && touched.website && (
-                    <p className="text-red-500 text-xs italic">
-                      {errors.website}
-                    </p>
-                  )}
                 </div>
                 <div>
                   <label htmlFor="github" className=" font-semibold  mb-2 mt-2">
@@ -400,15 +410,9 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     id="github"
                     name="github"
                     type="url"
-                    className={`appearance-none border mt-2 mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                      errors.github && touched.github && "border-red-500"
+                    className={`appearance-none border mt-2 mb-2 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline  
                     }`}
                   />
-                  {errors.github && touched.github && (
-                    <p className="text-red-500 text-xs italic">
-                      {errors.website}
-                    </p>
-                  )}
                 </div>
                 <div className="mb-4">
                   <label
@@ -468,11 +472,10 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                       className="w-full form-select form-input bg-white  mt-1"
                       placeholder="Select gender"
                     >
-                      <option value="" disabled>
-                        Select gender
-                      </option>
+                      <option value="">Select gender</option>
+
                       {genderOptions.map((option) => (
-                        <option  key={option.value} value={option.value}>
+                        <option key={option.value} value={option.value}>
                           {option.label}
                         </option>
                       ))}
@@ -500,7 +503,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </div>
                 <div className="w-1/2 mt-5">
                   <label htmlFor="ethnicity" className="block font-bold">
-                  Ethnicity 
+                    Ethnicity
                   </label>
                   <Field
                     as="select"
@@ -509,7 +512,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     placeholder="Select an option"
                   >
                     <option value="">Select an option</option>
-                    { ethnicity_statusOptions.map((option) => (
+                    {ethnicity_statusOptions.map((option) => (
                       <option key={option.value} value={option.value}>
                         {option.label}
                       </option>
@@ -551,7 +554,11 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                 </p>
 
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
-                <IntroductionVideo setData={setData} data={data} setJobApplicationMsg={setJobApplicationMsg} />
+                <IntroductionVideo
+                  setData={setData}
+                  data={data}
+                  setJobApplicationMsg={setJobApplicationMsg}
+                />
                 <div className="border-t border-gray-400  mt-5 mb-5"></div>
                 <div className="flex mt-5">
                   <button
@@ -559,15 +566,15 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() => {
                       if (!values?.jobReferences?.length) {
-                        showError("At least 1 Job Refrence required")
+                        showError("At least 1 Job Refrence required");
                         return;
                       }
                       if (!values?.education_details?.length) {
-                        showError("At least 1 Education Detail required")
+                        showError("At least 1 Education Detail required");
                         return;
                       }
                       if (!values?.experience_details?.length) {
-                        showError("At least 1 experience Detail required")
+                        showError("At least 1 experience Detail required");
                         return;
                       }
                       let allGood = true;
@@ -576,7 +583,7 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                           allGood = false;
                         }
                       }
-                      
+
                       if (allGood) {
                         const formData = new FormData();
                         formData.append("first_name", values.first_name);
@@ -589,24 +596,27 @@ const JobForm = ({jobId, data,loading,error,fetchProfileData,setLoading,page,set
                         formData.append("linkedin", values.linkedin);
                         formData.append("website", values.website);
                         formData.append("github", values.github);
-                        formData.append("total_experience",values.total_experience);
+                        formData.append(
+                          "total_experience",
+                          values.total_experience
+                        );
                         formData.append("gender", values.gender);
-                        formData.append("veteran_status",values.veteran_status);
+                        formData.append(
+                          "veteran_status",
+                          values.veteran_status
+                        );
                         for (let i = 0; i < values.jobReferences.length; i++) {
                           for (const key in values.jobReferences[i]) {
                             formData.append(
                               `reference_details[${i}][${key}]`,
                               values.jobReferences[i][key]
                             );
-                            }
-                          
+                          }
                         }
                         formData.append("ethnicity", values.ethnicity);
                         postData(formData);
                       }
-                      
                     }}
-
                   >
                     {!!page ? "Update Profile" : "Submit Application"}
                   </button>
