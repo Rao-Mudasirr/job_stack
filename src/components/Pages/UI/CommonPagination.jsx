@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import Pagination from "react-js-pagination";
 
 export const CommonPagination = (props) => {
+  const tokenCheck = localStorage.getItem("token");
+
   const [currentPage, setCurrentPage] = useState(1);
   // total records per page to display
   const recordPerPage = props.postsPerPage;
@@ -11,10 +13,17 @@ export const CommonPagination = (props) => {
   // range of pages in paginator
   // const pageRange = 3;
   // handle change event
+
   const handlePageChange = async (pageNumber) => {
     try {
       const response = await axios.get(
-        `https://jobs.orcaloholding.co.uk/api/jobs?page=${pageNumber}`
+        `${props?.endPoint}?page=${pageNumber}`,
+        {
+          headers: {
+            Authorization: `Bearer ${tokenCheck}`,
+            "Content-Type": "application/json",
+          },
+        }
       );
       props.setData(response?.data?.data?.data);
       setCurrentPage(response?.data?.data?.meta?.current_page);
