@@ -211,46 +211,46 @@ export const MainQuiz = () => {
                   </div>
                 ))}
               </form>
-              <div className="mt-20 flex justify-between">
-                 
-                <button
-                  disabled={index === 0}
-                  onClick={prevQuestion}
-                  className={` ml-2 btn ${
-                    index === 0
-                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
-                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
-                  } rounded-full`}
-                >
-                  Previous {" "}
-                </button>
-                <button
-                  disabled={disabled >= jobTest?.length}
-                  onClick={nextQuestion}
-                  className={` ml-2 btn ${
-                    disabled >= jobTest?.length
-                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
-                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
-                  } rounded-full`}
-                >
-                  Next
-                </button>
-                {disabled >= jobTest?.length && (
-                  <button
-                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                    onClick={() => {
-                      endTestHandler();
-                      localStorage.removeItem("timer");
-                      localStorage.removeItem("questionIndex");
-                      localStorage.removeItem("disabledIndex");
-                    }}
-                  >
-                    End Test
-                  </button>
-                )}
-              </div>
             </>
           )}
+          <div className="mt-20 w-100 flex justify-between">
+            <button
+              disabled={index === 0}
+              onClick={prevQuestion}
+              className={` ml-2 btn w-32 ${
+                index === 0
+                  ? " bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Previous{" "}
+            </button>
+            {disabled >= jobTest?.length && (
+            <button
+              className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+              onClick={() => {
+                endTestHandler();
+                localStorage.removeItem("timer");
+                localStorage.removeItem("questionIndex");
+                localStorage.removeItem("disabledIndex");
+              }}
+            >
+              End Test
+            </button>
+          )}
+            <button
+              disabled={disabled >= jobTest?.length}
+              onClick={nextQuestion}
+              className={` ml-2 btn w-32 ${
+                disabled >= jobTest?.length
+                  ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Next
+            </button>
+          
+          </div>
         </div>
       </section>
     </div>
