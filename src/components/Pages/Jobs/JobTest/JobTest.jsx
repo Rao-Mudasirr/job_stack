@@ -33,7 +33,7 @@ function JobTest() {
       navigate("/quiz-card", {
         state: response?.data,
       });
-      setData(response?.data)
+      setData(response?.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -106,7 +106,6 @@ function JobTest() {
   useEffect(() => {
     if (data?.attempt?.status === "Started") {
       endTestHandler();
-      
     }
   }, [data]);
 
@@ -193,9 +192,9 @@ function JobTest() {
                                   />
                                 </dd>
                               </div>
-                               <div>
+                              <div>
                                 <dt className="text-lg font-medium text-gray-600">
-                                   Total Duration
+                                  Total Duration
                                 </dt>
                                 <dd className="text-sm text-gray-500">
                                   {jobQuiz.total_duration_min} min
