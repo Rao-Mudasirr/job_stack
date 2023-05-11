@@ -133,7 +133,15 @@ function App() {
           </Layout>
         }
       />
-        <Route exact path="/job-test" element={<Layout><JobTest /></Layout>} />
+      <Route
+        exact
+        path="/job-test"
+        element={
+          <Layout>
+            <JobTest />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedAuths />}>
         <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route
@@ -213,7 +221,11 @@ function App() {
         <Route
           exact
           path="/update-profile"
-          element={<Layout><JobApplication page="update-profile" /></Layout>}
+          element={
+            <Layout>
+              <JobApplication page="update-profile" />
+            </Layout>
+          }
         />
         <Route
           exact
