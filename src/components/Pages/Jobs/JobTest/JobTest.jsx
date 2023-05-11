@@ -33,7 +33,7 @@ function JobTest() {
       navigate("/quiz-card", {
         state: response?.data,
       });
-      setData(response?.data)
+      setData(response?.data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -106,7 +106,6 @@ function JobTest() {
   useEffect(() => {
     if (data?.attempt?.status === "Started") {
       endTestHandler();
-      
     }
   }, [data]);
 

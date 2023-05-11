@@ -7,6 +7,7 @@ import { replace } from "feather-icons";
 export const MainQuiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [jobTest, setJobTest] = useState(location?.state?.testData?.questions);
   const [index, setIndex] = useState(0);
   const [disabled, setDisabled] = useState(1);
@@ -32,6 +33,10 @@ export const MainQuiz = () => {
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionsId]: e.target.value,
+    }));
   };
   const isToken = localStorage.getItem("token");
   const isLastQuestion = index === jobTest.length - 1;
@@ -103,20 +108,17 @@ export const MainQuiz = () => {
       navigate("/my-jobs", (replace = true));
     }, 2000);
   };
-  // const prevQuestion = () => {
-  //   index !== 0 && setIndex(index - 1);
+  const prevQuestion = () => {
+    index !== 0 && setIndex(index - 1);
 
-  //   var optionsArray = JSON.parse(localStorage.getItem("optionArray"));
+    setDisabled(disabled - 1);
 
-  //   const filteredArray = optionsArray?.filter((item) => {
-  //     return item?.question_Id === questionId;
-  //   });
+    setIndex(index - 1);
 
-  //   setOption(filteredArray[0]?.options_Id);
-  //   console.log(filteredArray[0]?.options_Id, "filteredArray");
-  //   // console.log(options_Id, "optionIds");
-  //   // setOption("");
-  // };
+    localStorage.setItem("questionIndex", JSON.stringify(index - 1));
+
+    localStorage.setItem("disabledIndex", JSON.stringify(disabled - 1));
+  };
 
   const endTestHandler = async () => {
     try {
@@ -144,22 +146,41 @@ export const MainQuiz = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const getIndex = localStorage.getItem("questionIndex");
-  //   const getDisabledIndex = localStorage.getItem("disabledIndex");
-  //   const timers = localStorage.getItem("timer");
+  useEffect(() => {
+    const getIndex = localStorage.getItem("questionIndex");
+    const getDisabledIndex = localStorage.getItem("disabledIndex");
+    const timers = localStorage.getItem("timer");
 
-  //   setTimeLeft(timers);
-  //   setIndex(Number(getIndex));
-  //   setDisabled(Number(getDisabledIndex));
-  //   const handleVisibilityChange = () => {
-  //     if (document.hidden) {
-  //       /* end the test */
-  //       endTestHandler()
-  //     }
-  //   };
-  //   document.addEventListener("visibilitychange", handleVisibilityChange);
-  // }, []);
+    setTimeLeft(timers);
+    setIndex(Number(getIndex));
+    setDisabled(Number(getDisabledIndex));
+    
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = ''; // Required for Chrome and Firefox
+    };
+
+    const enableConfirmationMessage = () => {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    };
+
+    const disableConfirmationMessage = () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+
+    enableConfirmationMessage();
+
+    return () => {
+      disableConfirmationMessage();
+    };
+    // const handleVisibilityChange = () => {
+    //   if (document.hidden) {
+    //     /* end the test */
+    //     endTestHandler()
+    //   }
+    // };
+    // document.addEventListener("visibilitychange", handleVisibilityChange);
+  }, []);
 
   return (
     <div dir="ltr">
@@ -190,13 +211,14 @@ export const MainQuiz = () => {
                 {jobTest[index]?.options?.map((opt) => (
                   <div key={opt?.id} className="mt-2 flex items-center">
                     <input
+                      checked={selectedAnswers[jobTest[index]?.id] === opt?.id}
                       name="radio-group"
                       key={opt?.option}
                       id={opt?.option}
-                      value={opt?.id || option}
+                      value={opt?.id}
                       type="radio"
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
-                      className=" h-5 w-5  accent-emerald-800	"
+                      className=" h-5 w-5  accent-emerald-800 "
                       disabled={disabled >= jobTest?.length}
                     />
                     <label
@@ -208,45 +230,46 @@ export const MainQuiz = () => {
                   </div>
                 ))}
               </form>
-              <div className="mt-20 flex justify-between">
-                {/* <button
-    disabled={index >= jobTest?.length + 1}
-    onClick={prevQuestion}
-    className={`btn ${
-      index === 0 ? "bg-gray-600" : "bg-emerald-600"
-    } ${
-      index === 0 ? "hover:bg-gray-600" : "hover:bg-emerald-700"
-    } hover:border-emerald-700 text-white rounded-md`}
-  >
-    Previous
-  </button> */}
-                <button
-                  disabled={disabled >= jobTest?.length}
-                  onClick={nextQuestion}
-                  className={` ml-2 btn ${
-                    disabled >= jobTest?.length
-                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
-                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
-                  } rounded-full`}
-                >
-                  Next
-                </button>
-                {disabled >= jobTest?.length && (
-                  <button
-                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                    onClick={() => {
-                      endTestHandler();
-                      localStorage.removeItem("timer");
-                      localStorage.removeItem("questionIndex");
-                      localStorage.removeItem("disabledIndex");
-                    }}
-                  >
-                    End Test
-                  </button>
-                )}
-              </div>
             </>
           )}
+          <div className="mt-20 w-100 flex justify-between">
+            <button
+              disabled={index === 0}
+              onClick={prevQuestion}
+              className={` ml-2 btn w-32 ${
+                index === 0
+                  ? " bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Previous{" "}
+            </button>
+            {disabled >= jobTest?.length && (
+            <button
+              className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+              onClick={() => {
+                endTestHandler();
+                localStorage.removeItem("timer");
+                localStorage.removeItem("questionIndex");
+                localStorage.removeItem("disabledIndex");
+              }}
+            >
+              End Test
+            </button>
+          )}
+            <button
+              disabled={disabled >= jobTest?.length}
+              onClick={nextQuestion}
+              className={` ml-2 btn w-32 ${
+                disabled >= jobTest?.length
+                  ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Next
+            </button>
+          
+          </div>
         </div>
       </section>
     </div>
