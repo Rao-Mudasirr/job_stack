@@ -154,6 +154,25 @@ export const MainQuiz = () => {
     setTimeLeft(timers);
     setIndex(Number(getIndex));
     setDisabled(Number(getDisabledIndex));
+    
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = ''; // Required for Chrome and Firefox
+    };
+
+    const enableConfirmationMessage = () => {
+      window.addEventListener('beforeunload', handleBeforeUnload);
+    };
+
+    const disableConfirmationMessage = () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+
+    enableConfirmationMessage();
+
+    return () => {
+      disableConfirmationMessage();
+    };
     // const handleVisibilityChange = () => {
     //   if (document.hidden) {
     //     /* end the test */

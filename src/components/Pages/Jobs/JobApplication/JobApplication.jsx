@@ -101,9 +101,9 @@ const JobApplication = ({ page }) => {
   <Link to="/job-list" className="mt-[-100px] sm:ml-[-5px]  ">
     <img src="/assets/images/back_arrow_icon.png" alt="Back Arrow" className="w-5" />
   </Link>
-  <Link to="/job-list" className="text-emerald-600 cursor-pointer underline ml-1 mt-[-100px]">
+  <button onClick={() => navigate(-1)} className="text-emerald-600 cursor-pointer underline ml-1 mt-[-100px]">
     Back To Job
-  </Link>
+  </button>
 </div>):("")}   
 
 
