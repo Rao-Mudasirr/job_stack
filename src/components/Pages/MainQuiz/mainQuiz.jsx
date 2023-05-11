@@ -7,6 +7,7 @@ import { replace } from "feather-icons";
 export const MainQuiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [jobTest, setJobTest] = useState(location?.state?.testData?.questions);
   const [index, setIndex] = useState(0);
   const [disabled, setDisabled] = useState(1);
@@ -32,6 +33,10 @@ export const MainQuiz = () => {
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionsId]: e.target.value,
+    }));
   };
   const isToken = localStorage.getItem("token");
   const isLastQuestion = index === jobTest.length - 1;
@@ -103,20 +108,17 @@ export const MainQuiz = () => {
       navigate("/my-jobs", (replace = true));
     }, 2000);
   };
-  // const prevQuestion = () => {
-  //   index !== 0 && setIndex(index - 1);
+  const prevQuestion = () => {
+    index !== 0 && setIndex(index - 1);
 
-  //   var optionsArray = JSON.parse(localStorage.getItem("optionArray"));
+    setDisabled(disabled - 1);
 
-  //   const filteredArray = optionsArray?.filter((item) => {
-  //     return item?.question_Id === questionId;
-  //   });
+    setIndex(index - 1);
 
-  //   setOption(filteredArray[0]?.options_Id);
-  //   console.log(filteredArray[0]?.options_Id, "filteredArray");
-  //   // console.log(options_Id, "optionIds");
-  //   // setOption("");
-  // };
+    localStorage.setItem("questionIndex", JSON.stringify(index - 1));
+
+    localStorage.setItem("disabledIndex", JSON.stringify(disabled - 1));
+  };
 
   const endTestHandler = async () => {
     try {
@@ -190,13 +192,14 @@ export const MainQuiz = () => {
                 {jobTest[index]?.options?.map((opt) => (
                   <div key={opt?.id} className="mt-2 flex items-center">
                     <input
+                      checked={selectedAnswers[jobTest[index]?.id] === opt?.id}
                       name="radio-group"
                       key={opt?.option}
                       id={opt?.option}
-                      value={opt?.id || option}
+                      value={opt?.id}
                       type="radio"
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
-                      className=" h-5 w-5  accent-emerald-800	"
+                      className=" h-5 w-5  accent-emerald-800 "
                       disabled={disabled >= jobTest?.length}
                     />
                     <label
@@ -209,17 +212,18 @@ export const MainQuiz = () => {
                 ))}
               </form>
               <div className="mt-20 flex justify-between">
-                {/* <button
-    disabled={index >= jobTest?.length + 1}
-    onClick={prevQuestion}
-    className={`btn ${
-      index === 0 ? "bg-gray-600" : "bg-emerald-600"
-    } ${
-      index === 0 ? "hover:bg-gray-600" : "hover:bg-emerald-700"
-    } hover:border-emerald-700 text-white rounded-md`}
-  >
-    Previous
-  </button> */}
+                 
+                <button
+                  disabled={index === 0}
+                  onClick={prevQuestion}
+                  className={` ml-2 btn ${
+                    index === 0
+                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+                  } rounded-full`}
+                >
+                  Previous {" "}
+                </button>
                 <button
                   disabled={disabled >= jobTest?.length}
                   onClick={nextQuestion}
