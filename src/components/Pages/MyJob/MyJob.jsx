@@ -4,11 +4,17 @@ import moment from "moment";
 import axios from "axios";
 import { AppLoader } from "../UI/AppLoader/AppLoader";
 import { AppModal } from "../UI/AppModal/AppModal";
+import { CommonPagination } from "../UI/CommonPagination";
 
 export const MyJob = () => {
-  const [myJob, setMyJob] = useState(null);
+  const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [totalPost, setTotalPost] = useState();
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
+
   const tokenCheck = localStorage.getItem("token");
   const fetchMyJobs = async () => {
     setLoading(true); // Set loading to true before making the API call
@@ -22,8 +28,12 @@ export const MyJob = () => {
           },
         }
       );
-      setMyJob(response?.data?.data?.data);
-      //   console.log(response?.data?.data?.data);
+      setData(response?.data?.data?.data);
+      setTotalPost(response?.data?.data?.meta?.total);
+      setPostsPerPage(response?.data?.data?.meta?.per_page);
+      setFrom(response?.data?.data?.meta?.from);
+      setTo(response?.data?.data?.meta?.to);
+      console.log(response?.data?.data?.meta?.from);
       setLoading(false);
     } catch (error) {
       setError(error.message);
@@ -34,6 +44,8 @@ export const MyJob = () => {
   useEffect(() => {
     fetchMyJobs();
   }, []);
+
+  const currentPosts = data?.slice(from - 1, to);
 
   return (
     <div dir="ltr">
@@ -63,41 +75,50 @@ export const MyJob = () => {
         </div>
       </div>
       <div className=" sm:mx-16 md:mx-32 lg:mx-40">
-
-
         <div className=" overflow-auto my-6 ">
-
           <div className="font-sans min-w-[800px] bg-white rounded ">
-
             <table className=" w-full whitespace-nowrap  relative">
               <thead>
                 <tr>
-                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">Job Title</th>
-                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Type</th>
-                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Created At</th>
-                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Status</th>
-                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Location</th>
-                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Actions</th>
+                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">
+                    Job Title
+                  </th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    Type
+                  </th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    Created At
+                  </th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    Status
+                  </th>
+                  <th className="sticky top-0 py-3 px-2 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    Location
+                  </th>
+                  <th className="sticky top-0 py-3 px-2 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    Actions
+                  </th>
                 </tr>
-
               </thead>
               <tbody className="text-gray-600 text-sm font-light divide-y">
                 {!loading ? (
                   <>
-                    {!!myJob &&
-                      myJob?.map((item) => (
+                    {!!currentPosts &&
+                      currentPosts?.map((item) => (
                         <tr
                           key={item?.id}
                           className="border-b border-gray-200 hover:bg-gray-100"
                         >
                           <td className="py-3 px-2 text-left whitespace-nowrap relative overflow-hidden">
-                            {!!item?.job?.is_remote && (<span
-                              title="Remote Job 👨‍💻"
-                              className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
-                              style={{ left: '-20px' }}
-                            >
-                              <i className="uil uil-star"></i>
-                            </span>)}
+                            {!!item?.job?.is_remote && (
+                              <span
+                                title="Remote Job 👨‍💻"
+                                className="w-24 bg-yellow-400 text-white text-center absolute -rotate-45 "
+                                style={{ left: "-20px" }}
+                              >
+                                <i className="uil uil-star"></i>
+                              </span>
+                            )}
                             <div className="flex items-center z-10">
                               <div className="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md ">
                                 <img
@@ -119,11 +140,9 @@ export const MyJob = () => {
                                   {item?.job?.role?.name}
                                 </span>
                               </div>
-
                             </div>
                           </td>
                           <td className="py-3 px-2 text-center md:block flex justify-between md:mt-0 mt-4">
-
                             <span className="block bg-emerald-600/10 text-emerald-600 text-xs px-2.5 py-0.5 font-semibold rounded-full">
                               {item?.job?.type}
                             </span>
@@ -159,11 +178,14 @@ export const MyJob = () => {
 
                           <td className="py-3 px-2 text-center">
                             <div className="flex item-center justify-center">
-                              {item?.status === 'In Review' ? <button disabled={true}
-                                className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
-                              >
-                                Learning Material
-                              </button> :
+                              {item?.status === "In Review" ? (
+                                <button
+                                  disabled={true}
+                                  className={`btn rounded-md bg-gray-400/50 text-black/30 ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
+                                >
+                                  Learning Material
+                                </button>
+                              ) : (
                                 <Link
                                   state={item}
                                   to="/learning-material"
@@ -171,12 +193,13 @@ export const MyJob = () => {
                                   className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                 >
                                   Learning Material
-                                </Link>}
+                                </Link>
+                              )}
                             </div>
                           </td>
                         </tr>
                       ))}
-                    {!myJob && (
+                    {!data && (
                       <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                         No Data Found!
                       </span>
@@ -191,6 +214,14 @@ export const MyJob = () => {
             </table>
           </div>
         </div>
+      </div>
+      <div className="my-8">
+        <CommonPagination
+          postsPerPage={postsPerPage}
+          totalPosts={totalPost}
+          setData={setData}
+          endPoint={`https://jobs.orcaloholding.co.uk/api/my-jobs`}
+        />
       </div>
       <AppModal />
     </div>
