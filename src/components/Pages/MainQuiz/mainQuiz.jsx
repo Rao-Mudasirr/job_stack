@@ -114,7 +114,7 @@ export const MainQuiz = () => {
     setTimeLeft(timers);
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = "";
+      event.returnValue = ""; // Required for Chrome and Firefox
     };
     const enableConfirmationMessage = () => {
       window.addEventListener("beforeunload", handleBeforeUnload);
@@ -126,10 +126,13 @@ export const MainQuiz = () => {
     return () => {
       disableConfirmationMessage();
     };
+    // const handleVisibilityChange = () => {
+    //       if (document.hidden) {
+    //     /* end the test */
+    // endTestHandler() //   }
+    // }; // document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
-  console.log(disabled, "disabled");
-  console.log(index, "index");
-  console.log(jobTest?.length, "length");
+  
   return (
     <div dir="ltr">
       {" "}
