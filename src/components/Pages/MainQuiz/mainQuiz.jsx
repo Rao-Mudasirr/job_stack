@@ -4,6 +4,7 @@ import GlobalSnackBar from "../UI/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import QuizTimer from "../../QuizTimer/QuizTimer";
 import { replace } from "feather-icons";
+
 export const MainQuiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,13 +24,6 @@ export const MainQuiz = () => {
     type: "",
   });
 
-  // const handleVisibilityChange = () => {
-  //   if (document.hidden) {
-  //     console.log("end Test");
-  //   }
-  // };
-  // document.addEventListener("visibilitychange", handleVisibilityChange);
-
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
@@ -42,8 +36,7 @@ export const MainQuiz = () => {
   const isLastQuestion = index === jobTest.length - 1;
 
   const nextQuestion = async () => {
-    // Will move to next index only if option state is not empty
-    if (option !== "") {
+    if (selectedAnswers[jobTest[index]?.id]) {
       try {
         const response = await axios.post(
           "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
@@ -60,19 +53,26 @@ export const MainQuiz = () => {
           }
         );
         const { data } = response;
-        if (index < jobTest.length - 1) {
-          localStorage.setItem("questionIndex", JSON.stringify(index + 1));
-          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+        if (data?.status) {
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "success",
+          });
+          if (!isLastQuestion) {
+            setIndex(index + 1);
+            setDisabled(disabled + 1);
+          } else {
+            setIndex(index);
+            setDisabled(disabled + 1);
+          }
         } else {
-          localStorage.setItem("questionIndex", JSON.stringify(index));
-          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "error",
+          });
         }
-        setSnackbar({
-          title: data?.msg,
-          isToggle: true,
-          type: "success",
-        });
-        setDisabled(disabled + 1);
       } catch (error) {
         console.log(error);
         setSnackbar({
@@ -82,21 +82,13 @@ export const MainQuiz = () => {
         });
       }
 
-      // Move to the next question if not at the last question
-      if (!isLastQuestion) {
-        setIndex(index + 1);
-      }
-      setDisabled(disabled + 1);
-      setOption("");
-      setQuestionId("");
-    }
-    option === "" &&
+    } else {
       setSnackbar({
         title: "Please Select One Answer",
         isToggle: true,
         type: "error",
       });
-    // setOption("");
+    }
   };
 
   const handleTimeUp = () => {
@@ -109,15 +101,14 @@ export const MainQuiz = () => {
     }, 2000);
   };
   const prevQuestion = () => {
-    index !== 0 && setIndex(index - 1);
+    if (disabled > jobTest?.length) {
+      setIndex(index -1);
+      setDisabled(disabled - 2);
 
-    setDisabled(disabled - 1);
-
-    setIndex(index - 1);
-
-    localStorage.setItem("questionIndex", JSON.stringify(index - 1));
-
-    localStorage.setItem("disabledIndex", JSON.stringify(disabled - 1));
+    } else {
+      setIndex(index - 1);
+      setDisabled(disabled - 1);
+    }
   };
 
   const endTestHandler = async () => {
@@ -147,25 +138,20 @@ export const MainQuiz = () => {
   };
 
   useEffect(() => {
-    const getIndex = localStorage.getItem("questionIndex");
-    const getDisabledIndex = localStorage.getItem("disabledIndex");
     const timers = localStorage.getItem("timer");
 
     setTimeLeft(timers);
-    setIndex(Number(getIndex));
-    setDisabled(Number(getDisabledIndex));
-    
     const handleBeforeUnload = (event) => {
       event.preventDefault();
-      event.returnValue = ''; // Required for Chrome and Firefox
+      event.returnValue = ""; // Required for Chrome and Firefox
     };
 
     const enableConfirmationMessage = () => {
-      window.addEventListener('beforeunload', handleBeforeUnload);
+      window.addEventListener("beforeunload", handleBeforeUnload);
     };
 
     const disableConfirmationMessage = () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
 
     enableConfirmationMessage();
@@ -181,7 +167,10 @@ export const MainQuiz = () => {
     // };
     // document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
-
+  console.log(disabled, "disabled");
+  // console.log(!!jobTest.length, "!jobTest.length - 1");
+  console.log(index, "index");
+  console.log(jobTest?.length, "length");
   return (
     <div dir="ltr">
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
@@ -219,7 +208,7 @@ export const MainQuiz = () => {
                       type="radio"
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
                       className=" h-5 w-5  accent-emerald-800 "
-                      disabled={disabled >= jobTest?.length}
+                      disabled={disabled > jobTest?.length}
                     />
                     <label
                       htmlFor={opt?.option}
@@ -244,31 +233,30 @@ export const MainQuiz = () => {
             >
               Previous{" "}
             </button>
-            {disabled >= jobTest?.length && (
+            {disabled > jobTest?.length && (
+              <button
+                className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                onClick={() => {
+                  endTestHandler();
+                  localStorage.removeItem("timer");
+                  localStorage.removeItem("questionIndex");
+                  localStorage.removeItem("disabledIndex");
+                }}
+              >
+                End Test
+              </button>
+            )}
             <button
-              className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-              onClick={() => {
-                endTestHandler();
-                localStorage.removeItem("timer");
-                localStorage.removeItem("questionIndex");
-                localStorage.removeItem("disabledIndex");
-              }}
-            >
-              End Test
-            </button>
-          )}
-            <button
-              disabled={disabled >= jobTest?.length}
+              disabled={disabled > jobTest?.length}
               onClick={nextQuestion}
               className={` ml-2 btn w-32 ${
-                disabled >= jobTest?.length
+                disabled > jobTest?.length
                   ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
                   : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
               } rounded-full`}
             >
               Next
             </button>
-          
           </div>
         </div>
       </section>
