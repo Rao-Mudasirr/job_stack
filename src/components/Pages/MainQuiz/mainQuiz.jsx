@@ -51,7 +51,8 @@ export const MainQuiz = () => {
         );
         const { data } = response;
         if (data?.status) {
-          setSnackbar({ title: data?.msg, isToggle: true, type: "success" });
+          setOption(selectedAnswers[jobTest[index + 1]?.id] || ""); // Reset option value for the next question
+          setQuestionId(jobTest[index + 1]?.id); // Set the question ID for the next question
           if (!isLastQuestion) {
             setIndex(index + 1);
             setDisabled(disabled + 1);
@@ -84,6 +85,10 @@ export const MainQuiz = () => {
     }, 2000);
   };
   const prevQuestion = () => {
+    const prevIndex = index - 1;
+    const prevQuestionId = jobTest[prevIndex]?.id;
+    setOption(selectedAnswers[prevQuestionId] || ""); // Reset option value for the previous question
+    setQuestionId(prevQuestionId); // Set the question ID for the previous question
     if (disabled > jobTest?.length) {
       setIndex(index - 1);
       setDisabled(disabled - 2);
@@ -132,7 +137,7 @@ export const MainQuiz = () => {
     // endTestHandler() //   }
     // }; // document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
-  
+
   return (
     <div dir="ltr">
       {" "}
