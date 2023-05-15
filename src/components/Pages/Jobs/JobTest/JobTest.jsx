@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { replace } from "feather-icons";
 
 function JobTest() {
   const authToken = localStorage.getItem("token");
-  const location = useLocation();
   const { REACT_APP_SITE_URL } = process.env;
   const [jobQuiz, setjobQuiz] = useState();
   const [data, setData] = useState();
@@ -13,12 +13,42 @@ function JobTest() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
+  const {id} = useParams();
   const navigate = useNavigate();
+
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.post(
+        "https://jobs.orcaloholding.co.uk/api/test/end",
+        {
+          attempt_id: data?.attempt?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${isToken}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      navigate("/quiz-card", {
+        state: response?.data,
+      });
+      setData(response?.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      localStorage.removeItem("timer");
+      localStorage.removeItem("questionIndex");
+      localStorage.removeItem("disabledIndex");
+      // fetchJobTestData();
+    }
+  };
+
   const fetchJobTestData = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://jobs.orcaloholding.co.uk/api/my-jobs/${state?.id}/test`,
+        `https://jobs.orcaloholding.co.uk/api/my-jobs/${id}/test`,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -26,30 +56,13 @@ function JobTest() {
           },
         }
       );
-      if (response) {
-        setjobQuiz(response?.data?.data?.test);
-        setData(response?.data?.data);
-        localStorage.setItem(
-          "timer",
-          response?.data?.data?.test?.total_duration_min * 60
-        );
-      }
 
-      // Call attempt API
-      //   const attemptResponse = await axios.post(
-      //     `https://jobs.orcaloholding.co.uk/api/test/start`,
-      //     {
-      //         job_application_id:state?.id,
-      //       test_id: data?.test?.id,
-      //     },
-      //     {
-      //       headers: {
-      //         Authorization: `Bearer ${authToken}`,
-      //         "Content-Type": "application/json",
-      //       },
-      //     }
-      //   );
-      //   console.log(attemptResponse?.data?.data,'res');
+      setjobQuiz(response?.data?.data?.test);
+      setData(response?.data?.data);
+      localStorage.setItem(
+        "timer",
+        response?.data?.data?.test?.total_duration_min * 60
+      );
 
       setLoading(false);
     } catch (error) {
@@ -64,7 +77,7 @@ function JobTest() {
       const attemptResponse = await axios.post(
         `https://jobs.orcaloholding.co.uk/api/test/start`,
         {
-          job_application_id: state?.id,
+          job_application_id: id,
           test_id: data?.test?.id,
         },
         {
@@ -86,45 +99,15 @@ function JobTest() {
     }
   };
 
-  const endTestHandler = async () => {
-    try {
-      const response = await axios.post(
-        "https://jobs.orcaloholding.co.uk/api/test/end",
-        {
-          attempt_id: data?.attempt?.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${isToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      navigate(
-        "/quiz-card",
-        {
-          state: data,
-        },
-        (replace = true)
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useLayoutEffect(() => {
-    fetchJobTestData();
-  }, [data]);
   useEffect(() => {
-    console.log("Data Outer", data);
-
-    if (data?.attempt?.status === "Started") {
-      console.log("Data Inner", data);
-      // endTestHandler();
-      localStorage.removeItem("timer");
-      localStorage.removeItem("questionIndex");
-      localStorage.removeItem("disabledIndex");
-    }
+    fetchJobTestData();
   }, []);
+
+  useEffect(() => {
+    if (data?.attempt?.status === "Started") {
+      endTestHandler();
+    }
+  }, [data]);
 
   return (
     <div dir="ltr">

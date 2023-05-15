@@ -5,16 +5,26 @@ import axios from "axios";
 import moment from "moment";
 import { AppModal } from "../UI/AppModal/AppModal";
 import { AppLoader } from "../UI/AppLoader/AppLoader";
+import { CommonPagination } from "../UI/CommonPagination";
 
 export const JobList = (props) => {
-  const [jobDetails, setJobDetails] = useState();
+  const [data, setData] = useState(null);
+  // const [jobDetails, setJobDetails] = useState();
   const [loading, setLoading] = useState(false);
+  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [totalPost, setTotalPost] = useState();
+  const [from, setFrom] = useState();
+  const [to, setTo] = useState();
   const fetchJobDetails = () => {
     setLoading(true);
     axios
       .get("https://jobs.orcaloholding.co.uk/api/jobs")
       .then((response) => {
-        setJobDetails(response?.data?.data?.data);
+        setData(response?.data?.data?.data);
+        setTotalPost(response?.data?.data?.meta?.total);
+        setPostsPerPage(response?.data?.data?.meta?.per_page);
+        setFrom(response?.data?.data?.meta?.from);
+        setTo(response?.data?.data?.meta?.to);
         setLoading(false);
       })
       .catch((error) => {
@@ -25,6 +35,9 @@ export const JobList = (props) => {
   useEffect(() => {
     fetchJobDetails();
   }, []);
+
+  const currentPosts = data?.slice(from - 1, to);
+
   return (
     <div dir="ltr">
       <section className="relative table w-full py-36 bg-top bg-no-repeat bg-cover">
@@ -125,29 +138,34 @@ export const JobList = (props) => {
         </div> */}
         <div className="mt-20">
           <div className=" sm:mx-16 md:mx-32 lg:mx-40">
-
-
             <div className=" overflow-auto my-6 ">
-
               <div className="font-sans min-w-[800px]  bg-white rounded ">
-
                 <table className="w-full whitespace-nowrap  relative">
                   <thead>
                     <tr>
-                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">Job Title</th>
-                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Type</th>
-                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Created At</th>
-                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Location</th>
-                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">Actions</th>
+                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal z-50">
+                        Job Title
+                      </th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        Type
+                      </th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        Created At
+                      </th>
+                      <th className="sticky top-0 py-3 px-6 text-left bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        Location
+                      </th>
+                      <th className="sticky top-0 py-3 px-6 text-center bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        Actions
+                      </th>
                     </tr>
-
                   </thead>
 
                   <tbody className="text-gray-600 text-sm font-light">
                     {!loading ? (
                       <>
-                        {!!jobDetails &&
-                          jobDetails?.map((item) => (
+                        {!!currentPosts &&
+                          currentPosts?.map((item) => (
                             <tr
                               key={item?.id}
                               className="border-b border-gray-200 hover:bg-gray-100"
@@ -172,9 +190,9 @@ export const JobList = (props) => {
                                   </div>
                                   <div>
                                     <Link
-                                      to={`/jobDetails`}
-                                      state={item?.slug}
-                                      replace={true}
+                                      to={`/jobDetails/${item?.slug}`}
+                                      // state={item?.slug}
+                                      // replace={true}
                                       className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                     >
                                       {item?.title}
@@ -221,8 +239,8 @@ export const JobList = (props) => {
                                     to={
                                       localStorage.getItem("token")
                                         ? {
-                                          pathname: `/job-application`,
-                                        }
+                                            pathname: `/job-application/${item?.slug}`,
+                                          }
                                         : { pathname: "/login" }
                                     }
                                     state={item}
@@ -239,7 +257,7 @@ export const JobList = (props) => {
                               </td>
                             </tr>
                           ))}
-                        {!jobDetails && (
+                        {!data && (
                           <span className="h-24 flex items-center justify-center bg-white dark:bg-slate-900 shadow dark:shadow-gray-700 rounded-md">
                             No Data Found!
                           </span>
@@ -251,10 +269,17 @@ export const JobList = (props) => {
                       </span>
                     )}
                   </tbody>
-
                 </table>
               </div>
             </div>
+          </div>
+          <div className="my-8">
+            <CommonPagination
+              postsPerPage={postsPerPage}
+              totalPosts={totalPost}
+              setData={setData}
+              endPoint={`https://jobs.orcaloholding.co.uk/api/jobs`}
+            />
           </div>
         </div>
       </section>

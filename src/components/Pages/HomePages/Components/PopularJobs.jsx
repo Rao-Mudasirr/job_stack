@@ -8,7 +8,7 @@ const PopularJobs = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [postsPerPage, setPostsPerPage] = useState(1);
   const [totalPost, setTotalPost] = useState();
   const [from, setFrom] = useState();
   const [to, setTo] = useState();
@@ -75,6 +75,7 @@ const PopularJobs = () => {
                   title={item.title}
                   location={item.location}
                   isRemote={item?.is_remote}
+                  created_at={item?.created_at}
                 />
               </div>
             );
@@ -84,6 +85,7 @@ const PopularJobs = () => {
           postsPerPage={postsPerPage}
           totalPosts={totalPost}
           setData={setData}
+          endPoint={`https://jobs.orcaloholding.co.uk/api/jobs`}
         />
         <div className="grid md:grid-cols-12 grid-cols-1 mt-8">
           <div className="md:col-span-12 text-center">

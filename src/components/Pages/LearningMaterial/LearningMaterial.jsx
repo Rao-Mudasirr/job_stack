@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { AccordianItem } from "./AccordianItem/AccordianItem";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { AppLoader } from "../UI/AppLoader/AppLoader";
 
@@ -11,11 +11,12 @@ const LearningMaterial = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
+  const {id} = useParams();
   const fetchLearningMaterialData = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${REACT_APP_SITE_URL}/api/my-jobs/${state?.id}/learning-materials`,
+        `${REACT_APP_SITE_URL}/api/my-jobs/${id}/learning-materials`,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -70,8 +71,8 @@ const LearningMaterial = () => {
                 <div className="mb-6 mt-2 justify-end">
                   <Link
                     replace={true}
-                    state={state}
-                    to={`/job-test`}
+                    // state={state}
+                    to={`/job-test/${id}`}
                     className="btn bg-emerald-600 hover:bg-emerald-700 text-white rounded-md justify-end"
                   >
                     Attempt Test

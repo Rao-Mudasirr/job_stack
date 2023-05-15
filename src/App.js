@@ -126,14 +126,22 @@ function App() {
       />
       <Route
         exact
-        path="/jobDetails"
+        path="/jobDetails/:id"
         element={
           <Layout>
             <JobDetails />
           </Layout>
         }
       />
-        <Route exact path="/job-test" element={<Layout><JobTest /></Layout>} />
+      <Route
+        exact
+        path="/job-test/:id"
+        element={
+          <Layout>
+            <JobTest />
+          </Layout>
+        }
+      />
       <Route element={<ProtectedAuths />}>
         <Route exact path="/forget-password" element={<ForgetPassword />} />
         <Route
@@ -209,11 +217,15 @@ function App() {
           }
         />
 
-        <Route exact path="/job-application" element={<JobApplication />} />
+        <Route exact path="/job-application/:id" element={<JobApplication />} />
         <Route
           exact
           path="/update-profile"
-          element={<Layout><JobApplication page="update-profile" /></Layout>}
+          element={
+            <Layout>
+              <JobApplication page="update-profile" />
+            </Layout>
+          }
         />
         <Route
           exact
@@ -246,7 +258,7 @@ function App() {
         />
         <Route
           exact
-          path="/learning-material"
+          path="/learning-material/:id"
           element={
             <Layout>
               <LearningMaterial />

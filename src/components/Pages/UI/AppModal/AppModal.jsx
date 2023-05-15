@@ -9,7 +9,7 @@ export const AppModal = ({ children, open, setOpen }) => {
     }, [open]);
     return (
         <>
-            {open && <div onClick={() => setOpen(false)} modal-backdrop="" className="bg-gray-900 z-[1000] bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40"></div>}
+            {open && <div onClick={() => setOpen(false)} modal-backdrop="" className="bg-gray-900 z-[1000] bg-opacity-50 dark:bg-opacity-80 fixed inset-0"></div>}
             {open && <div onClick={() => setOpen(false)} id="hwy0doin-modal" tabIndex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-[1000] p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex" aria-modal="true" role='dialog'>
                 <div className="relative w-full max-w-md max-h-full" onClick={e => e.stopPropagation()}>
                     <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 px-6 py-6 lg:px-8">

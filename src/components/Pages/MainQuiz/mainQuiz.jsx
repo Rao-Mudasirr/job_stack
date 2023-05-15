@@ -4,9 +4,11 @@ import GlobalSnackBar from "../UI/SnackBar";
 import { useLocation, useNavigate } from "react-router-dom";
 import QuizTimer from "../../QuizTimer/QuizTimer";
 import { replace } from "feather-icons";
+
 export const MainQuiz = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [jobTest, setJobTest] = useState(location?.state?.testData?.questions);
   const [index, setIndex] = useState(0);
   const [disabled, setDisabled] = useState(1);
@@ -22,23 +24,22 @@ export const MainQuiz = () => {
     type: "",
   });
 
-  // const handleVisibilityChange = () => {
-  //   if (document.hidden) {
-  //     console.log("end Test");
-  //   }
-  // };
-  // document.addEventListener("visibilitychange", handleVisibilityChange);
+  const isToken = localStorage.getItem("token"); // token from local storage
+  const isLastQuestion = index === jobTest.length - 1; // isLastQuestion
 
+  /// Handle Change for Selecting Answers
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
+    setSelectedAnswers((prevAnswers) => ({
+      ...prevAnswers,
+      [questionsId]: e.target.value,
+    }));
   };
-  const isToken = localStorage.getItem("token");
-  const isLastQuestion = index === jobTest.length - 1;
 
+  // Next Handler TO submit Each Answer
   const nextQuestion = async () => {
-    // Will move to next index only if option state is not empty
-    if (option !== "") {
+    if (selectedAnswers[jobTest[index]?.id]) {
       try {
         const response = await axios.post(
           "https://jobs.orcaloholding.co.uk/api/test/submit-answer",
@@ -55,76 +56,62 @@ export const MainQuiz = () => {
           }
         );
         const { data } = response;
-        if (index < jobTest.length - 1) {
-          localStorage.setItem("questionIndex", JSON.stringify(index + 1));
-          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+        if (data?.status) {
+          setOption(selectedAnswers[jobTest[index + 1]?.id] || ""); // Reset option value for the next question
+          setQuestionId(jobTest[index + 1]?.id); // Set the question ID for the next question
+          if (!isLastQuestion) {
+            setIndex(index + 1);
+            setDisabled(disabled + 1);
+          } else {
+            setIndex(index);
+            setDisabled(disabled + 1);
+          }
         } else {
-          localStorage.setItem("questionIndex", JSON.stringify(index));
-          localStorage.setItem("disabledIndex", JSON.stringify(disabled + 1));
+          setSnackbar({ title: data?.msg, isToggle: true, type: "error" });
         }
-        setSnackbar({
-          title: data?.msg,
-          isToggle: true,
-          type: "success",
-        });
-        setDisabled(disabled + 1);
       } catch (error) {
         console.log(error);
-        setSnackbar({
-          title: error?.message,
-          isToggle: true,
-          type: "error",
-        });
+        setSnackbar({ title: error?.message, isToggle: true, type: "error" });
       }
-
-      // Move to the next question if not at the last question
-      if (!isLastQuestion) {
-        setIndex(index + 1);
-      }
-      setDisabled(disabled + 1);
-      setOption("");
-      setQuestionId("");
-    }
-    option === "" &&
+    } else {
       setSnackbar({
         title: "Please Select One Answer",
         isToggle: true,
         type: "error",
       });
-    // setOption("");
+    }
   };
 
+  // Time Up Handle calls only when times up
   const handleTimeUp = () => {
     setTimeUp(true);
     localStorage.removeItem("timer");
-    localStorage.removeItem("questionIndex");
-    localStorage.removeItem("disabledIndex");
     setTimeout(() => {
       navigate("/my-jobs", (replace = true));
     }, 2000);
   };
-  // const prevQuestion = () => {
-  //   index !== 0 && setIndex(index - 1);
 
-  //   var optionsArray = JSON.parse(localStorage.getItem("optionArray"));
+  // Previous Handler to go to Previous Question
+  const prevQuestion = () => {
+    const prevIndex = index - 1;
+    const prevQuestionId = jobTest[prevIndex]?.id;
+    setOption(selectedAnswers[prevQuestionId] || ""); // Reset option value for the previous question
+    setQuestionId(prevQuestionId); // Set the question ID for the previous question
+    if (disabled > jobTest?.length) {
+      setIndex(index - 1);
+      setDisabled(disabled - 2);
+    } else {
+      setIndex(index - 1);
+      setDisabled(disabled - 1);
+    }
+  };
 
-  //   const filteredArray = optionsArray?.filter((item) => {
-  //     return item?.question_Id === questionId;
-  //   });
-
-  //   setOption(filteredArray[0]?.options_Id);
-  //   console.log(filteredArray[0]?.options_Id, "filteredArray");
-  //   // console.log(options_Id, "optionIds");
-  //   // setOption("");
-  // };
-
+  // End Test Handler to End the Test
   const endTestHandler = async () => {
     try {
       const response = await axios.post(
         "https://jobs.orcaloholding.co.uk/api/test/end",
-        {
-          attempt_id: location?.state?.attemptData?.attempt?.id,
-        },
+        { attempt_id: location?.state?.attemptData?.attempt?.id },
         {
           headers: {
             Authorization: `Bearer ${isToken}`,
@@ -132,33 +119,34 @@ export const MainQuiz = () => {
           },
         }
       );
-      navigate(
-        "/quiz-card",
-        {
-          state: response?.data,
-        },
-        (replace = true)
-      );
+      navigate("/quiz-card", { state: response?.data }, (replace = true));
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    const getIndex = localStorage.getItem("questionIndex");
-    const getDisabledIndex = localStorage.getItem("disabledIndex");
     const timers = localStorage.getItem("timer");
-
     setTimeLeft(timers);
-    setIndex(Number(getIndex));
-    setDisabled(Number(getDisabledIndex));
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        /* end the test */
-        endTestHandler()
-      }
+    const handleBeforeUnload = (event) => {
+      event.preventDefault();
+      event.returnValue = ""; // Required for Chrome and Firefox
     };
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    const enableConfirmationMessage = () => {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    };
+    const disableConfirmationMessage = () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+    enableConfirmationMessage();
+    return () => {
+      disableConfirmationMessage();
+    };
+    // const handleVisibilityChange = () => {
+    //       if (document.hidden) {
+    //     /* end the test */
+    // endTestHandler() //   }
+    // }; // document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   return (
@@ -170,9 +158,9 @@ export const MainQuiz = () => {
             <div className="text-center">Time's up!</div>
           ) : (
             <>
-              <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>
+              <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>{" "}
               <div className="flex text-2xl font-bold justify-between align-center mb-10">
-                <h1>Total Question : {` ${jobTest?.length}`}</h1>
+                <h1>Total Question : {` ${jobTest?.length}`}</h1>{" "}
                 <QuizTimer
                   timeLeft={timeLeft}
                   setTimeLeft={setTimeLeft}
@@ -190,63 +178,59 @@ export const MainQuiz = () => {
                 {jobTest[index]?.options?.map((opt) => (
                   <div key={opt?.id} className="mt-2 flex items-center">
                     <input
+                      checked={selectedAnswers[jobTest[index]?.id] === opt?.id}
                       name="radio-group"
                       key={opt?.option}
                       id={opt?.option}
-                      value={opt?.id || option}
+                      value={opt?.id}
                       type="radio"
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
-                      className=" h-5 w-5  accent-emerald-800	"
-                      disabled={disabled >= jobTest?.length}
+                      className=" h-5 w-5  accent-emerald-800 "
+                      disabled={disabled > jobTest?.length}
                     />
-                    <label
-                      htmlFor={opt?.option}
-                      className="ml-2   text-gray-700"
-                    >
+                    <label htmlFor={opt?.option} className="ml-2 text-gray-700">
                       {opt?.option}
                     </label>
                   </div>
                 ))}
               </form>
-              <div className="mt-20 flex justify-between">
-                {/* <button
-    disabled={index >= jobTest?.length + 1}
-    onClick={prevQuestion}
-    className={`btn ${
-      index === 0 ? "bg-gray-600" : "bg-emerald-600"
-    } ${
-      index === 0 ? "hover:bg-gray-600" : "hover:bg-emerald-700"
-    } hover:border-emerald-700 text-white rounded-md`}
-  >
-    Previous
-  </button> */}
-                <button
-                  disabled={disabled >= jobTest?.length}
-                  onClick={nextQuestion}
-                  className={` ml-2 btn ${
-                    disabled >= jobTest?.length
-                      ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
-                      : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
-                  } rounded-full`}
-                >
-                  Next
-                </button>
-                {disabled >= jobTest?.length && (
-                  <button
-                    className="btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
-                    onClick={() => {
-                      endTestHandler();
-                      localStorage.removeItem("timer");
-                      localStorage.removeItem("questionIndex");
-                      localStorage.removeItem("disabledIndex");
-                    }}
-                  >
-                    End Test
-                  </button>
-                )}
-              </div>
             </>
           )}
+          <div className="mt-20 w-100 flex justify-between">
+            <button
+              disabled={index === 0}
+              onClick={prevQuestion}
+              className={` ml-2 btn w-32 ${
+                index === 0
+                  ? " bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Previous
+            </button>
+            {disabled > jobTest?.length && (
+              <button
+                className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
+                onClick={() => {
+                  endTestHandler();
+                  localStorage.removeItem("timer");
+                }}
+              >
+                End Test
+              </button>
+            )}
+            <button
+              disabled={disabled > jobTest?.length}
+              onClick={nextQuestion}
+              className={` ml-2 btn w-32 ${
+                disabled > jobTest?.length
+                  ? "bg-gray-600/5 border-gray-600 hover:border-gray-600 text-gray-600 hover:text-gray"
+                  : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
+              } rounded-full`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </section>
     </div>

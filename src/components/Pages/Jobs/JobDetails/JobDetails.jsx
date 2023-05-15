@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useMatches } from "react-router-dom";
-
+import { NavLink, useLocation, useParams } from "react-router-dom";
 
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-  const location = useLocation();
-  const navigate = useNavigate()
-
+  const { id } = useParams();
+  const {state} = useLocation();
   useEffect(() => {
-
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(
-          `https://jobs.orcaloholding.co.uk/api/jobs/${location?.state}`
+          `https://jobs.orcaloholding.co.uk/api/jobs/${id}`
         );
 
         setJobDetails([response?.data?.data]);
@@ -24,12 +20,7 @@ const JobDetails = () => {
       }
     };
     fetchJobDetails();
-    console.log(location);
-    if(    location?.pathname !== '/jobDetails') {
-      // eslint-disable-next-line no-undef
-      navigate('/job-list')
-    }
-  }, [location?.pathname]);
+  }, []);
 
   return (
     <div dir="ltr">
@@ -63,24 +54,26 @@ const JobDetails = () => {
                 </div>
                 <h5 className="text-lg font-semibold mt-6">Job Description:</h5>
                 <div
+                  className="[&>ul]:list-disc [&>ul]:my-2 [&>ul]:ml-8"
                   dangerouslySetInnerHTML={{ __html: details?.description }}
                 />
-
-                <div className="mt-5">
-                  <NavLink
-                    to={
-                      localStorage.getItem("token")
-                        ? {
-                          pathname: `/job-application`,
-                        }
-                        : { pathname: "/login" }
-                    }
-                    state={details}
-                    className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
-                  >
-                    Apply Now
-                  </NavLink>
-                </div>
+                {state !== "my-jobs" && (
+                  <div className="mt-5">
+                    <NavLink
+                      to={
+                        localStorage.getItem("token")
+                          ? {
+                              pathname: `/job-application/${details?.slug}`,
+                            }
+                          : { pathname: "/login" }
+                      }
+                      state={details}
+                      className="btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto"
+                    >
+                      Apply Now
+                    </NavLink>
+                  </div>
+                )}
               </div>
               <JobInformation
                 experience={details?.experience}
