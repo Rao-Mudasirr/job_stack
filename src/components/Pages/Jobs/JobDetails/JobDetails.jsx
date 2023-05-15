@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
 import JobInformation from "./components/JobInformation/JobInformation";
 import axios from "axios";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { useMatches } from "react-router-dom";
-
+import { NavLink, useParams } from "react-router-dom";
 
 const JobDetails = () => {
   const [jobDetails, setJobDetails] = useState();
-  const location = useLocation();
-  const navigate = useNavigate()
-
+  const { id } = useParams();
+  
   useEffect(() => {
-
     const fetchJobDetails = async () => {
       try {
         const response = await axios.get(
-          `https://jobs.orcaloholding.co.uk/api/jobs/${location?.state}`
+          `https://jobs.orcaloholding.co.uk/api/jobs/${id}`
         );
 
         setJobDetails([response?.data?.data]);
@@ -24,12 +20,7 @@ const JobDetails = () => {
       }
     };
     fetchJobDetails();
-    console.log(location);
-    if(    location?.pathname !== '/jobDetails') {
-      // eslint-disable-next-line no-undef
-      navigate('/job-list')
-    }
-  }, [location?.pathname]);
+  }, []);
 
   return (
     <div dir="ltr">
@@ -72,8 +63,8 @@ const JobDetails = () => {
                     to={
                       localStorage.getItem("token")
                         ? {
-                          pathname: `/job-application`,
-                        }
+                            pathname: `/job-application/${details?.slug}`,
+                          }
                         : { pathname: "/login" }
                     }
                     state={details}

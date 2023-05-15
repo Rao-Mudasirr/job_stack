@@ -126,7 +126,7 @@ function App() {
       />
       <Route
         exact
-        path="/jobDetails"
+        path="/jobDetails/:id"
         element={
           <Layout>
             <JobDetails />

@@ -32,7 +32,7 @@ const JobCard = (props) => {
               to={
                 localStorage.getItem("token")
                   ? {
-                      pathname: `/jobDetails`,
+                      pathname: `/jobDetails/${slug}`,
                     }
                   : { pathname: "/login" }
               }
@@ -41,7 +41,9 @@ const JobCard = (props) => {
             >
               {companyName}
             </NavLink>
-            <span className="block text-sm text-slate-400">{moment(created_at).fromNow()}</span>
+            <span className="block text-sm text-slate-400">
+              {moment(created_at).fromNow()}
+            </span>
           </div>
         </div>
 
@@ -55,11 +57,10 @@ const JobCard = (props) => {
           to={
             localStorage.getItem("token")
               ? {
-                  pathname: `/jobDetails`,
+                  pathname: `jobDetails/${slug}`,
                 }
               : { pathname: "/login" }
           }
-          state={slug}
           className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500"
         >
           {title}

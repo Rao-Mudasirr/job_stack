@@ -23,6 +23,11 @@ export const MainQuiz = () => {
     isToggle: false,
     type: "",
   });
+
+  const isToken = localStorage.getItem("token"); // token from local storage
+  const isLastQuestion = index === jobTest.length - 1; // isLastQuestion
+
+  /// Handle Change for Selecting Answers
   const handleChange = (e, questionsId) => {
     setOption(e.target.value);
     setQuestionId(questionsId);
@@ -31,8 +36,8 @@ export const MainQuiz = () => {
       [questionsId]: e.target.value,
     }));
   };
-  const isToken = localStorage.getItem("token");
-  const isLastQuestion = index === jobTest.length - 1;
+
+  // Next Handler TO submit Each Answer
   const nextQuestion = async () => {
     if (selectedAnswers[jobTest[index]?.id]) {
       try {
@@ -76,15 +81,17 @@ export const MainQuiz = () => {
       });
     }
   };
+
+  // Time Up Handle calls only when times up
   const handleTimeUp = () => {
     setTimeUp(true);
     localStorage.removeItem("timer");
-    localStorage.removeItem("questionIndex");
-    localStorage.removeItem("disabledIndex");
     setTimeout(() => {
       navigate("/my-jobs", (replace = true));
     }, 2000);
   };
+
+  // Previous Handler to go to Previous Question
   const prevQuestion = () => {
     const prevIndex = index - 1;
     const prevQuestionId = jobTest[prevIndex]?.id;
@@ -98,6 +105,8 @@ export const MainQuiz = () => {
       setDisabled(disabled - 1);
     }
   };
+
+  // End Test Handler to End the Test
   const endTestHandler = async () => {
     try {
       const response = await axios.post(
@@ -115,6 +124,7 @@ export const MainQuiz = () => {
       console.log(error);
     }
   };
+
   useEffect(() => {
     const timers = localStorage.getItem("timer");
     setTimeLeft(timers);
@@ -138,49 +148,35 @@ export const MainQuiz = () => {
     // endTestHandler() //   }
     // }; // document.addEventListener("visibilitychange", handleVisibilityChange);
   }, []);
-  console.log(disabled, "disabled");
-  // console.log(!!jobTest.length, "!jobTest.length - 1");
-  console.log(index, "index");
-  console.log(jobTest?.length, "length");
+
   return (
     <div dir="ltr">
-      {" "}
       <section className="bg-slate-50 dark:bg-slate-800 md:py-24 py-16">
-        {" "}
-        <GlobalSnackBar
-          isOpenSnack={snackbar}
-          setIsOpenSnack={setSnackbar}
-        />{" "}
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
         <div className="container mt-10 mx-auto rounded-lg border border-gray-100 p-4 sm:p-6 lg:p-8 bg-emerald-600/5 border-emerald-600/10">
-          {" "}
           {timeUp ? (
             <div className="text-center">Time's up!</div>
           ) : (
             <>
-              {" "}
               <span className="absolute inset-x-0 bottom-0 h-2 bg-gradient-to-r from-green-300 via-blue-500 to-emerald-600"></span>{" "}
               <div className="flex text-2xl font-bold justify-between align-center mb-10">
-                {" "}
                 <h1>Total Question : {` ${jobTest?.length}`}</h1>{" "}
                 <QuizTimer
                   timeLeft={timeLeft}
                   setTimeLeft={setTimeLeft}
                   onTimeUp={handleTimeUp}
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <div className="flex text-2xl font-bold mb-10">
-                {" "}
-                Q.{`${index + 1}`}{" "}
+                Q.{`${index + 1}`}
                 <h1
                   className="text-xl ml-3"
                   dangerouslySetInnerHTML={{ __html: jobTest[index]?.question }}
-                />{" "}
-              </div>{" "}
+                />
+              </div>
               <form>
-                {" "}
                 {jobTest[index]?.options?.map((opt) => (
                   <div key={opt?.id} className="mt-2 flex items-center">
-                    {" "}
                     <input
                       checked={selectedAnswers[jobTest[index]?.id] === opt?.id}
                       name="radio-group"
@@ -191,18 +187,16 @@ export const MainQuiz = () => {
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
                       className=" h-5 w-5  accent-emerald-800 "
                       disabled={disabled > jobTest?.length}
-                    />{" "}
+                    />
                     <label htmlFor={opt?.option} className="ml-2 text-gray-700">
-                      {" "}
-                      {opt?.option}{" "}
-                    </label>{" "}
+                      {opt?.option}
+                    </label>
                   </div>
-                ))}{" "}
-              </form>{" "}
+                ))}
+              </form>
             </>
-          )}{" "}
+          )}
           <div className="mt-20 w-100 flex justify-between">
-            {" "}
             <button
               disabled={index === 0}
               onClick={prevQuestion}
@@ -212,23 +206,19 @@ export const MainQuiz = () => {
                   : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
               } rounded-full`}
             >
-              {" "}
-              Previous{" "}
-            </button>{" "}
+              Previous
+            </button>
             {disabled > jobTest?.length && (
               <button
                 className="w-32 btn bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white rounded-full"
                 onClick={() => {
                   endTestHandler();
                   localStorage.removeItem("timer");
-                  localStorage.removeItem("questionIndex");
-                  localStorage.removeItem("disabledIndex");
                 }}
               >
-                {" "}
-                End Test{" "}
+                End Test
               </button>
-            )}{" "}
+            )}
             <button
               disabled={disabled > jobTest?.length}
               onClick={nextQuestion}
@@ -238,12 +228,11 @@ export const MainQuiz = () => {
                   : "bg-emerald-600/5 hover:bg-emerald-600 border-emerald-600 hover:border-emerald-600 text-emerald-600 hover:text-white"
               } rounded-full`}
             >
-              {" "}
-              Next{" "}
-            </button>{" "}
-          </div>{" "}
-        </div>{" "}
-      </section>{" "}
+              Next
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
