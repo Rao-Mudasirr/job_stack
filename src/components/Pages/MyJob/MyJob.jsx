@@ -129,9 +129,9 @@ export const MyJob = () => {
                               </div>
                               <div>
                                 <Link
-                                  to={`/jobDetails`}
-                                  state={item?.job?.slug}
-                                  replace={true}
+                                  to={`/jobDetails/${item?.job?.slug}`}
+                                  state={'my-jobs'}
+                                  // replace={true}
                                   className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                 >
                                   {item?.job?.title}
@@ -188,8 +188,8 @@ export const MyJob = () => {
                               ) : (
                                 <Link
                                   state={item}
-                                  to="/learning-material"
-                                  replace={true}
+                                  to={`/learning-material/${item?.id}`}
+                                  // replace={true}
                                   className={`btn rounded-md bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white ltr:md:ml-2 rtl:md:mr-2 w-full md:w-auto`}
                                 >
                                   Learning Material

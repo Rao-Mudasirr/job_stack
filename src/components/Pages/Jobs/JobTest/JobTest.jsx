@@ -1,12 +1,11 @@
 /* eslint-disable no-undef */
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { replace } from "feather-icons";
 
 function JobTest() {
   const authToken = localStorage.getItem("token");
-  const location = useLocation();
   const { REACT_APP_SITE_URL } = process.env;
   const [jobQuiz, setjobQuiz] = useState();
   const [data, setData] = useState();
@@ -14,6 +13,7 @@ function JobTest() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { state } = useLocation();
+  const {id} = useParams();
   const navigate = useNavigate();
 
   const endTestHandler = async () => {
@@ -48,7 +48,7 @@ function JobTest() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `https://jobs.orcaloholding.co.uk/api/my-jobs/${state?.id}/test`,
+        `https://jobs.orcaloholding.co.uk/api/my-jobs/${id}/test`,
         {
           headers: {
             Authorization: `Bearer ${authToken}`,
@@ -77,7 +77,7 @@ function JobTest() {
       const attemptResponse = await axios.post(
         `https://jobs.orcaloholding.co.uk/api/test/start`,
         {
-          job_application_id: state?.id,
+          job_application_id: id,
           test_id: data?.test?.id,
         },
         {

@@ -37,7 +37,7 @@ const VoluntaryDisability = () => {
         have self-identified in the past. For more information about this form
         or the equal employment obligations of federal contractors under Section
         503 of the Rehabilitation Act, visit the U.S. Department of Labor’s
-        Office of Federal Contract Compliance Programs (OFCCP) website at
+        Office of Federal Contract Compliance Programs (OFCCP) website at &nbsp;
         <span className="">
           <a href="www.dol.gov/ofccp" className="text-blue-400 hover:underline">
             www.dol.gov/ofccp.

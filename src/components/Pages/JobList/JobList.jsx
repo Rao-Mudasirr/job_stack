@@ -190,9 +190,9 @@ export const JobList = (props) => {
                                   </div>
                                   <div>
                                     <Link
-                                      to={`/jobDetails`}
-                                      state={item?.slug}
-                                      replace={true}
+                                      to={`/jobDetails/${item?.slug}`}
+                                      // state={item?.slug}
+                                      // replace={true}
                                       className="text-lg hover:text-emerald-600 font-semibold transition-all duration-500 ltr:ml-3 rtl:mr-3 min-w-[180px]"
                                     >
                                       {item?.title}
@@ -239,7 +239,7 @@ export const JobList = (props) => {
                                     to={
                                       localStorage.getItem("token")
                                         ? {
-                                            pathname: `/job-application`,
+                                            pathname: `/job-application/${item?.slug}`,
                                           }
                                         : { pathname: "/login" }
                                     }

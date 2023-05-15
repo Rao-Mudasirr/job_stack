@@ -135,7 +135,7 @@ function App() {
       />
       <Route
         exact
-        path="/job-test"
+        path="/job-test/:id"
         element={
           <Layout>
             <JobTest />
@@ -217,7 +217,7 @@ function App() {
           }
         />
 
-        <Route exact path="/job-application" element={<JobApplication />} />
+        <Route exact path="/job-application/:id" element={<JobApplication />} />
         <Route
           exact
           path="/update-profile"
@@ -258,7 +258,7 @@ function App() {
         />
         <Route
           exact
-          path="/learning-material"
+          path="/learning-material/:id"
           element={
             <Layout>
               <LearningMaterial />
