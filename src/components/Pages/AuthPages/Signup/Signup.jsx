@@ -114,18 +114,7 @@ const Signup = () => {
         <div className="container">
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
-              <div
-                className="p-6"
-                style={{
-                  overflow: "auto",
-                  height: "75vh",
-                  "&::-webkit-scrollbar": { width: 5, height: 6 },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "#1dc99c",
-                    borderRadius: 2,
-                  },
-                }}
-              >
+              <div className="p-6">
                 <Link to="/" replace={true}>
                   <img
                     src="assets/images/logo-dark.png"
@@ -138,9 +127,20 @@ const Signup = () => {
                     alt=""
                   />
                 </Link>
-                <h5 className="my-6 text-xl font-semibold">Signup</h5>
-
-                <form onSubmit={handleSubmit} className="text-left">
+                <h5 className="my-4 text-xl font-semibold">Signup</h5>
+                <form
+                  onSubmit={handleSubmit}
+                  className="text-left"
+                  style={{
+                    overflow: "auto",
+                    height: "65vh",
+                    "&::-webkit-scrollbar": { width: 5, height: 6 },
+                    "&::-webkit-scrollbar-thumb": {
+                      backgroundColor: "#1dc99c",
+                      borderRadius: 2,
+                    },
+                  }}
+                >
                   <div className="grid grid-cols-1">
                     <div className="mb-4 ltr:text-left rtl:text-right">
                       <label className="font-semibold" htmlFor="first_name">
