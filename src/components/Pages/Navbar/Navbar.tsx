@@ -4,10 +4,19 @@ import { Link, useLocation } from "react-router-dom";
 function jobMenuFunction(divToBeClickedOn, theDIvToBeShown) {
   divToBeClickedOn.classList.toggle("open");
   var isOpen = theDIvToBeShown;
-  if (isOpen.style.display === "none") {
-    isOpen.style.display = "block";
-  } else {
+  if (isOpen.style.display === "block") {
     isOpen.style.display = "none";
+  } else {
+    isOpen.style.display = "block";
+  }
+}
+function toggleFunction() {
+  document.getElementById("isToggle").classList.toggle("open");
+  var isOpen = document.getElementById("navigation");
+  if (isOpen.style.display === "block") {
+    isOpen.style.display = "none";
+  } else {
+    isOpen.style.display = "block";
   }
 }
 const Navbar = () => {
@@ -70,12 +79,7 @@ const Navbar = () => {
               <div
                 className="navbar-toggle"
                 id="isToggle"
-                onClick={() =>
-                  jobMenuFunction(
-                    document.getElementById("isToggle"),
-                    document.getElementById("navigation")
-                  )
-                }
+                onClick={() => toggleFunction()}
               >
                 <div className="lines">
                   <span></span>
@@ -130,20 +134,20 @@ const Navbar = () => {
                     : ""
                 }`}
               >
-                <Link to="" replace={true}>
-                  {" "}
-                  Jobs{" "}
-                </Link>
-                <span
-                  className="menu-arrow"
-                  id="jobMenu"
+                <Link
+                  to=""
+                  replace={true}
                   onClick={() =>
                     jobMenuFunction(
                       document.getElementById("jobMenu"),
                       document.getElementById("FurtherJobs")
                     )
                   }
-                ></span>
+                >
+                  {" "}
+                  Jobs{" "}
+                </Link>
+                <span className="menu-arrow" id="jobMenu"></span>
                 <ul className="submenu" id="FurtherJobs">
                   {/* <li>
                     <Link

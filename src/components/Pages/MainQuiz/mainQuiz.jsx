@@ -66,6 +66,8 @@ export const MainQuiz = () => {
             setIndex(index);
             setDisabled(disabled + 1);
           }
+          setSnackbar({ title: data?.msg, isToggle: true, type: "success" });
+
         } else {
           setSnackbar({ title: data?.msg, isToggle: true, type: "error" });
         }
@@ -185,7 +187,7 @@ export const MainQuiz = () => {
                       value={opt?.id}
                       type="radio"
                       onChange={(e) => handleChange(e, jobTest[index]?.id)}
-                      className=" h-5 w-5  accent-emerald-800 "
+                      className=" h-5 w-5 accent-emerald-800 "
                       disabled={disabled > jobTest?.length}
                     />
                     <label htmlFor={opt?.option} className="ml-2 text-gray-700">
