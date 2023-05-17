@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState, useRef } from 'react';
+import GlobalSnackBar from "../../../../UI/SnackBar";
 
 function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
   const { REACT_APP_SITE_URL } = process.env;
@@ -10,6 +11,11 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
 
   async function startRecording() {
     try {
@@ -24,7 +30,12 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
 
       setIsRecording(true);
     } catch (error) {
-      console.log(error);
+      setSnackbar({
+        title: error?.message,
+        isToggle: true,
+        type: "error",
+      });
+      console.log("error in video: ", error.message);
     }
   }
 
@@ -101,6 +112,7 @@ function IntroductionVideo({ data, setData, setJobApplicationMsg }) {
   };
   return (
     <div className="flex flex-col items-center py-10 bg-white rounded-lg shadow-lg">
+      <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
       <div className="relative mb-10">
         <video ref={videoRef} className="w-full rounded-lg shadow-lg" autoPlay muted />
         {isRecording && (
