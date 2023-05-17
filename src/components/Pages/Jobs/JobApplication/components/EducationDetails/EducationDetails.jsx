@@ -65,7 +65,7 @@ const EducationDetails = ({ educationDetails,setJobApplicationMsg,setFieldValue 
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   {
-                    ['School Name', 'Degree', 'Discipline', 'CGPA', 'Document', 'Action'].map((item) => <th key={item} scope="col" className="px-6 py-3">
+                    ['School Name', 'Degree', 'Discipline', 'CGPA', 'Document', 'Action'].map((item,index) => <th key={item} scope="col" className={`px-6 py-3 ${index === 5 || index === 4 ? 'text-center' : ''}`}>
                       {item}
                     </th>)
                   }
