@@ -127,8 +127,8 @@ const JobApplication = ({ page }) => {
                     />
                   </div>
                 ) : (
-                  <div class="relative inline-flex shadow-lg items-center justify-center w-[50px] h-[50px] overflow-hidden bg-emerald-600 hover:bg-emerald-700 rounded-full dark:bg-gray-600">
-                    <span class="font-medium text-white dark:text-gray-900 uppercase">
+                  <div className="relative inline-flex shadow-lg items-center justify-center w-[50px] h-[50px] overflow-hidden bg-emerald-600 hover:bg-emerald-700 rounded-full dark:bg-gray-600">
+                    <span className="font-medium text-white dark:text-gray-900 uppercase">
                       {loading ? (
                         <AppLoader />
                       ) : (

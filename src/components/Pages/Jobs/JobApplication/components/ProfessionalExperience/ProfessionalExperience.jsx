@@ -117,13 +117,13 @@ const ProfessionalExperience = ({ professionalExperience, setJobApplicationMsg, 
               <InputWrapper error={errors.start_date} touched={touched.start_date} label="Start Date" labelName="start_date">
                 <Field type="date" id={`start_date`} max={`${moment(new Date()).format("YYYY-MM-DD")}`} name={`start_date`} className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.start_date && touched.start_date && "border-red-500"}`} />
               </InputWrapper>
-              <div class="mb-[0.125rem] flex items-center">
+              <div className="mb-[0.125rem] flex items-center">
                 <Field
-                  class="w-4 h-4 ease-soft cursor-pointer mr-2 accent-emerald-600"
+                  className="w-4 h-4 ease-soft cursor-pointer mr-2 accent-emerald-600"
                   type="checkbox"
                   id={`currentlyWorking`} name={`currentlyWorking`} />
                 <label
-                  class="inline-block pl-[0.15rem] hover:cursor-pointer"
+                  className="inline-block pl-[0.15rem] hover:cursor-pointer"
                   htmlFor="currentlyWorking">
                   Currently Working Here?
                 </label>
