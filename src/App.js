@@ -70,7 +70,7 @@ function App() {
       localStorage.setItem("token", response?.data?.data?.token);
     } catch (error) {
       console.log({ error });
-      if (error?.response?.status == 500) {
+      if (error?.response?.status === 500) {
         localStorage.clear();
         navigate("/");
       }
