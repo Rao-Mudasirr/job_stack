@@ -207,6 +207,7 @@ const JobForm = ({
                       Email <span className="text-red-500"> *</span>
                     </label>
                     <Field
+                      disabled={true}
                       id="email"
                       name="email"
                       type="email"
