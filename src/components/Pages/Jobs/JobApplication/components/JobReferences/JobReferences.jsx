@@ -5,9 +5,9 @@ import { InputWrapper } from "../InputWrapper/InputWrapper";
 import { initialValuesJobReferences } from "../../constants/constants";
 import { validationSchemaJobReferences } from "../../constants/validation-schema";
 
-const JobReferences = ({ jobReferences,setFieldValue }) => {
+const JobReferences = ({ jobReferences, setFieldValue }) => {
   const [showModal, setShowModal] = useState(false);
-  
+
   return (
     <>
       <div className="mb-8">
@@ -27,7 +27,7 @@ const JobReferences = ({ jobReferences,setFieldValue }) => {
           </div>
         </div>
         {
-           <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
+          <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-4">
             <table className="w-full text-sm text-left">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -40,23 +40,23 @@ const JobReferences = ({ jobReferences,setFieldValue }) => {
               </thead>
               <tbody>
                 {
-                 !!jobReferences?.length ? jobReferences?.map((item,mainIndex) => <tr key={mainIndex} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                  !!jobReferences?.length ? jobReferences?.map((item, mainIndex) => <tr key={mainIndex} className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
                     {
                       [item?.name, item?.company, item?.position, item?.email, item?.id].map((item, index) =>
                         <td key={index} className="px-6 py-4">
                           {
-                            index === 4 ? <div className="flex ml-6"><i className="uil uil-trash-alt cursor-pointer hover:text-red-600" onClick={() => setFieldValue('jobReferences', jobReferences.filter((item,id) => id !== mainIndex))}></i></div> : item
+                            index === 4 ? <div className="flex ml-6"><i className="uil uil-trash-alt cursor-pointer hover:text-red-600" onClick={() => setFieldValue('jobReferences', jobReferences.filter((item, id) => id !== mainIndex))}></i></div> : item
                           }
                         </td>)
                     }
-                  </tr>) : <tr  className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
-                  {
-                    ["","No ", "Data ", "Found",""].map((item, index) =>
-                      <td key={index} className={`px-6 py-4 ${index === 1 ? "text-center" : ''}`}>
-                        {item}
-                      </td>)
-                  }
-                </tr>
+                  </tr>) : <tr className="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    {
+                      ["", "No ", "Data ", "Found", ""].map((item, index) =>
+                        <td key={index} className={`px-6 py-4 ${index === 1 ? "text-center" : ''}`}>
+                          {item}
+                        </td>)
+                    }
+                  </tr>
                 }
               </tbody>
             </table>
@@ -94,7 +94,7 @@ const JobReferences = ({ jobReferences,setFieldValue }) => {
                     }
                   }
                   if (allGood) {
-                    setFieldValue('jobReferences',jobReferences?.length ? [...jobReferences,values] : [values]);
+                    setFieldValue('jobReferences', jobReferences?.length ? [...jobReferences, values] : [values]);
                     setShowModal(false)
                   }
                 }} className="py-2 bg-emerald-600 hover:bg-emerald-700 px-5 border-emerald-600 hover:border-emerald-700 text-white rounded-md  " >

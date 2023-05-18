@@ -7,7 +7,7 @@ const getExtension = (filename) => {
     return filename?.split('.').pop()
 }
 
-export const PreviewModal = ({ imgUrl,className }) => {
+export const PreviewModal = ({ imgUrl, className }) => {
     const [openPreview, setOpenPreview] = useState(false);
     const [iframeTimeoutId, setIframeTimeoutId] = useState();
     const [loaded, setLoaded] = useState(false);
@@ -26,7 +26,7 @@ export const PreviewModal = ({ imgUrl,className }) => {
 
     useEffect(() => {
         setIframeTimeoutId(intervalId)
-    }, [updateIframeSrc,openPreview])
+    }, [updateIframeSrc, openPreview])
     const iframeLoaded = () => {
         clearInterval(iframeTimeoutId);
         setLoaded(true)
