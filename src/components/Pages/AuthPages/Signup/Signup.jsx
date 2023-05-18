@@ -72,7 +72,7 @@ const Signup = () => {
       switch ((status, data?.status)) {
         case true:
           setSnackbar({
-            title: "Successfully registered!",
+            title: data?.msg,
             isToggle: true,
             type: "success",
           });
