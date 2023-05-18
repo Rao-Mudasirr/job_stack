@@ -2,13 +2,21 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppLoader } from "../../UI/AppLoader/AppLoader";
+import GlobalSnackBar from "../../UI/SnackBar";
 import "../Signup.css";
 import { forgetPasswordSchemas } from "./schemas/forgetPasswordSchemas";
 
 const ForgetPassword = () => {
   let date = new Date().getFullYear();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
 
   const initialValues = {
     email: "",
@@ -21,12 +29,13 @@ const ForgetPassword = () => {
       onSubmit: (values, action) => {
         postData(values);
         // console.log(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
 
   const postData = async (values) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         "https://jobs.orcaloholding.co.uk/api/forget-password",
         values
@@ -34,10 +43,24 @@ const ForgetPassword = () => {
       const { data, status } = response;
       switch ((status, data?.status)) {
         case true:
-          navigate("/login");
-
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "success",
+          });
+          setIsLoading(false);
+          setTimeout(() => {
+            navigate("/reset-forget-password");
+          }, 3000);
+          break;
         default:
           setErrorMessage(data?.msg);
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "error",
+          });
+          setIsLoading(false);
           break;
       }
     } catch (error) {
@@ -49,6 +72,7 @@ const ForgetPassword = () => {
     <div>
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
         <div className="container">
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
@@ -98,9 +122,9 @@ const ForgetPassword = () => {
                       <div className="mb-4">
                         <button
                           type="submit"
-                          className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                          className="flex justify-center py-2 center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                         >
-                          Send
+                          Send {isLoading && <AppLoader />}
                         </button>
                       </div>
 

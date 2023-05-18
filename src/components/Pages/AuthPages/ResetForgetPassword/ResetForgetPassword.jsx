@@ -2,6 +2,8 @@ import axios from "axios";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppLoader } from "../../UI/AppLoader/AppLoader";
+import GlobalSnackBar from "../../UI/SnackBar";
 import "../Signup.css";
 import { ResetForgetPasswordSchema } from "./schemas/ResetForgetPasswordSchema";
 
@@ -11,6 +13,12 @@ const ResetForgetPassword = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [comfirmShowPassword, setComfirmShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState({
+    title: "",
+    isToggle: false,
+    type: "",
+  });
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -20,8 +28,7 @@ const ResetForgetPassword = () => {
   };
 
   const initialValues = {
-    first_name: "",
-    last_name: "",
+    reset_code: "",
     email: "",
     password: "",
     password_confirmation: "",
@@ -32,26 +39,39 @@ const ResetForgetPassword = () => {
       initialValues,
       validationSchema: ResetForgetPasswordSchema,
       onSubmit: (values, action) => {
-        // console.log(values);
         postData(values);
-        action.resetForm();
+        // action.resetForm();
       },
     });
 
   const postData = async (values) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
-        "https://jobs.orcaloholding.co.uk/api/signup",
+        "https://jobs.orcaloholding.co.uk/api/reset-forget-password",
         values
       );
       const { data, status } = response;
-      // console.log(data);
       switch ((status, data?.status)) {
         case true:
-          navigate("/login");
-
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "success",
+          });
+          setIsLoading(false);
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+          break;
         default:
           setErrorMessage(data?.msg);
+          setSnackbar({
+            title: data?.msg,
+            isToggle: true,
+            type: "error",
+          });
+          setIsLoading(false);
           break;
       }
     } catch (error) {
@@ -62,6 +82,7 @@ const ResetForgetPassword = () => {
     <div>
       <section className="h-screen flex items-center justify-center relative overflow-hidden bg-no-repeat bg-center bg-cover bg-cover-auth">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black"></div>
+        <GlobalSnackBar isOpenSnack={snackbar} setIsOpenSnack={setSnackbar} />
         <div className="container">
           <div className="grid lg:grid-cols-1 md:grid-cols-2 grid-cols-1">
             <div className="relative overflow-hidden bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-800 rounded-md">
@@ -101,6 +122,25 @@ const ResetForgetPassword = () => {
                         />
                         {errors.email && touched.email ? (
                           <p className="form-error">{errors.email}</p>
+                        ) : null}
+                      </div>
+                      <div className="mb-4 ltr:text-left rtl:text-right">
+                        <label className="font-semibold" htmlFor="reset_code">
+                          Reset Code:
+                        </label>
+                        <input
+                          type="text"
+                          autoComplete="off"
+                          name="reset_code"
+                          id="reset_code"
+                          className="form-input mt-3 rounded-md"
+                          placeholder="reset code"
+                          value={values.reset_code}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                        />
+                        {errors.reset_code && touched.reset_code ? (
+                          <p className="form-error">{errors.reset_code}</p>
                         ) : null}
                       </div>
 
@@ -176,9 +216,9 @@ const ResetForgetPassword = () => {
                       <div className="mb-4">
                         <button
                           type="submit"
-                          className="btn bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
+                          className="flex justify-center py-2 center bg-emerald-600 hover:bg-emerald-700 border-emerald-600 hover:border-emerald-700 text-white rounded-md w-full"
                         >
-                          Send
+                          Send {isLoading && <AppLoader />}
                         </button>
                       </div>
 
