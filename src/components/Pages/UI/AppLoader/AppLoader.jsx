@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const AppLoader = ({color = "currentColor"}) => {
+export const AppLoader = ({ color = "currentColor" }) => {
     return (
         <>
             <span role="status">

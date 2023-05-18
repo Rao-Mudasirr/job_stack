@@ -1,4 +1,4 @@
-export const InputWrapper = ({ error, touched,label,labelName,children }) => {
+export const InputWrapper = ({ error, touched, label, labelName, children }) => {
     return (
         <>
             <div className="my-4 w-full">
