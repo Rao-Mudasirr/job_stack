@@ -11,7 +11,7 @@ const JobApplication = ({ page }) => {
   const { REACT_APP_SITE_URL } = process.env;
   const tokenCheck = localStorage.getItem("token") === null ? "false" : "true";
   const authToken = localStorage.getItem("token");
-  const {id} = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const [jobDetails, setJobDetails] = useState();
   const [loadingJobDetails, setLoadingJobDetails] = useState(false);
@@ -95,16 +95,16 @@ const JobApplication = ({ page }) => {
   return (
     <>
       {" "}
-     
+
       <div className="container mx-auto my-32">
-  {!page?( <div className="flex items-center ">
-  <Link to="/job-list" className="mt-[-100px] sm:ml-[-5px]  ">
-    <img src="/assets/images/back_arrow_icon.png" alt="Back Arrow" className="w-5" />
-  </Link>
-  <button onClick={() => navigate(-1)} className="text-emerald-600 cursor-pointer underline ml-1 mt-[-100px]">
-    Back To Job
-  </button>
-</div>):("")}   
+        {!page ? (<div className="flex items-center ">
+          <Link to="/job-list" className="mt-[-100px] sm:ml-[-5px]  ">
+            <img src="/assets/images/back_arrow_icon.png" alt="Back Arrow" className="w-5" />
+          </Link>
+          <button onClick={() => navigate(-1)} className="text-emerald-600 cursor-pointer underline ml-1 mt-[-100px]">
+            Back To Job
+          </button>
+        </div>) : ("")}
 
 
         <GlobalSnackBar
@@ -132,8 +132,7 @@ const JobApplication = ({ page }) => {
                       {loading ? (
                         <AppLoader />
                       ) : (
-                        `${data?.user?.first_name[0] ?? ""}${
-                          data?.user?.last_name[0] ?? ""
+                        `${data?.user?.first_name[0] ?? ""}${data?.user?.last_name[0] ?? ""
                         }`
                       )}
                     </span>

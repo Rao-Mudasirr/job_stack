@@ -38,7 +38,7 @@ const GlobalSnackBar = ({ isOpenSnack, setIsOpenSnack }) => {
         padding: "6px 16px",
         borderRadius: "8px",
         fontSize: "14px",
-        fontWeight:700,
+        fontWeight: 700,
         borderLeft: 8,
         color: color,
         top: "20px",
