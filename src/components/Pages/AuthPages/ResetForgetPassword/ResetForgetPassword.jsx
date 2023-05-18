@@ -134,7 +134,7 @@ const ResetForgetPassword = () => {
                           name="reset_code"
                           id="reset_code"
                           className="form-input mt-3 rounded-md"
-                          placeholder="reset code"
+                          placeholder="Reset code"
                           value={values.reset_code}
                           onChange={handleChange}
                           onBlur={handleBlur}
