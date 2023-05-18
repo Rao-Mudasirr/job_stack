@@ -296,7 +296,7 @@ const JobForm = ({
                     {
                       values?.resume && <div className="flex mt-8">
                         <div className="view">
-                          {typeof values?.resume === 'string' && <PreviewModal imgUrl={values?.resume} />}
+                          {typeof values?.resume === 'string' && <PreviewModal className="ml-6" imgUrl={values?.resume} />}
                         </div>
                         <div className="delete">
                           <div className="flex ml-6"><i className="uil uil-trash-alt cursor-pointer text-xl hover:text-red-600" onClick={() => setFieldValue('resume', '')}></i></div>
@@ -359,7 +359,7 @@ const JobForm = ({
                     {
                       values?.cover_letter && <div className="flex mt-8">
                         <div className="view">
-                          {typeof values?.cover_letter === 'string' && <PreviewModal imgUrl={values?.cover_letter} />}
+                          {typeof values?.cover_letter === 'string' && <PreviewModal className="ml-6" imgUrl={values?.cover_letter} />}
                         </div>
                         <div className="delete">
                           <div className="flex ml-6"><i className="uil uil-trash-alt cursor-pointer text-xl hover:text-red-600" onClick={() => setFieldValue('cover_letter', '')}></i></div>

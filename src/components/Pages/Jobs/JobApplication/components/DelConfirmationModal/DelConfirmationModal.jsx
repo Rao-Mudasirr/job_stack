@@ -31,7 +31,7 @@ export const DelConfirmationModal = ({ deletionId, apiRoute, setFieldValue, dele
     }
     return (
         <>
-            <div className="flex ml-6"><i className="uil uil-trash-alt cursor-pointer hover:text-red-600" onClick={() => setOpenDel(true)}></i></div>
+            <div className="flex justify-center"><i className="uil uil-trash-alt cursor-pointer hover:text-red-600" onClick={() => setOpenDel(true)}></i></div>
             <AppModal open={openDel} setOpen={setOpenDel} >
                 <div className="p-6 text-center">
                     <svg aria-hidden="true" className="mx-auto mb-4  w-14 h-14 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

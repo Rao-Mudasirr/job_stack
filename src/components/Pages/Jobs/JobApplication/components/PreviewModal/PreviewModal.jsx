@@ -7,7 +7,7 @@ const getExtension = (filename) => {
     return filename?.split('.').pop()
 }
 
-export const PreviewModal = ({ imgUrl }) => {
+export const PreviewModal = ({ imgUrl,className }) => {
     const [openPreview, setOpenPreview] = useState(false);
     const [iframeTimeoutId, setIframeTimeoutId] = useState();
     const [loaded, setLoaded] = useState(false);
@@ -33,7 +33,7 @@ export const PreviewModal = ({ imgUrl }) => {
     }
     return (
         <>
-            <div className="flex ml-6"><i className="uil uil-eye cursor-pointer hover:text-emerald-600" onClick={() => setOpenPreview(true)}></i></div>
+            <div className={`flex justify-center ${className}`}><i className="uil uil-eye cursor-pointer hover:text-emerald-600" onClick={() => setOpenPreview(true)}></i></div>
             <AppModal open={openPreview} setLoaded={setLoaded} setOpen={setOpenPreview} >
                 {iFrameDocs.includes(getExtension(imgUrl)?.toLowerCase()) ?
                     <div>

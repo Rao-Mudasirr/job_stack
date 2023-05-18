@@ -67,7 +67,7 @@ const ProfessionalExperience = ({ professionalExperience, setJobApplicationMsg, 
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   {
-                    ['Company Name', 'Job Title', 'Start Date', 'End Date', 'Experience Letter', 'Action'].map((item) => <th key={item} scope="col" className="px-6 py-3">
+                    ['Company Name', 'Job Title', 'Start Date', 'End Date', 'Experience Letter', 'Action'].map((item,index) => <th key={item} scope="col" className={`px-6 py-3 ${index === 5 || index === 4 ? 'text-center' : ''}`}>
                       {item}
                     </th>)
                   }
